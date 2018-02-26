@@ -58,10 +58,10 @@ $ gdisk /dev/sda
 ```
 Create a partition table that looks as the following example
 ```
-#Number  Start (sector)    End (sector)  Size       Code  Name
-#   1            2048         1050623   512.0 MiB   EF00  EFI System
-#   2         1050624         5244927   2.0 GiB     8300  Linux filesystem
-#   3         5244928       976773133   463.3 GiB   8E00  Linux LVM
+Number  Start (sector)    End (sector)  Size       Code  Name
+   1            2048         1050623   512.0 MiB   EF00  EFI System
+   2         1050624         5244927   2.0 GiB     8300  Linux filesystem
+   3         5244928       976773133   463.3 GiB   8E00  Linux LVM
 ```
 Make filesystem for the EFI partition
 ```bash
@@ -122,6 +122,7 @@ sda              8:0    0 931.5G  0 disk
 Install system and some needed components
 ```bash
 $ pacstrap /mnt base base-devel grub-efi-x86_64 vim git efibootmgr dialog wpa_supplicant plymouth
+``` 
 Generate fstab using UUIDs
 ```bash
 $ genfstab -pU /mnt >> /mnt/etc/fstab
