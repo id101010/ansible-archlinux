@@ -1,0 +1,88 @@
+################################
+#                         _    #
+#                        | |   #
+#  _   _ _ ____  ____   _| |_  #
+# | | | | '__\ \/ /\ \ / / __| #
+# | |_| | |   >  <  \ V /| |_  #
+#  \__,_|_|  /_/\_\  \_/  \__| #
+#                              #
+################################
+
+# Real transparency             -> needs composite manager
+URxvt*depth:                    32
+URxvt*background:               rgba:0000/0000/0000/CFFF
+ARxvt.transparent:              true
+URxvt.tintColor:                white
+URxvt.shading:                  20
+
+URxvt*tintColor:                Black
+URxvt*saveLines:                9000000
+
+# Font                          For Powerlinefonts: https://github.com/powerline/fonts (Arch linux -> AUR)
+URxvt*font:                     xft:Roboto Mono for Powerline:pixelsize=15:antialias=true:hinting=false
+URxvt*boldFont:                 xft:Roboto Mono for Powerline :bold:pixelsize=14:antialias=true:hinting=true
+URxvt*tabbed.font:              xft:Roboto Mono for Powerline :pixelsize=14:antialias=true:hinting=true
+
+# Misc configurations
+URxvt*colorUL:                  #4682B4
+URxvt*tabbed.scrollBar:         false
+URxvt*tabbed.tabbar-fg:         3
+URxvt*tabbed.tabbar-bg:         0
+URxvt*tabbed.tab-fg:            0
+URxvt*tabbed.tab-bg:            1
+URxvt*tabbed.secondaryScroll:   true
+URxvt*inheritPixmap:            true 
+
+#Graphic
+Xft*dpi:                        96
+Xft*antialias:                  true
+Xft*hinting:                    full
+
+# Scroll behavior, don't scroll with output
+URxvt*scrollBar:                false
+URxvt*secondaryScroll:          true
+URxvt*scrollTtyOutput:          false
+URxvt*scrollWithBuffer:         true
+URxvt*scrollTtyKeypress:        true
+
+# Clickable urls
+URxvt*perl-ext-common:          default,matcher
+URxvt*url-launcher:             /usr/bin/xdg-open
+URxvt*matcher.button:           1
+
+! special
+*.foreground:   #c5c8c6
+*.background:   #1d1f21
+*.cursorColor:  #c5c8c6
+
+! black
+*.color0:       #282a2e
+*.color8:       #373b41
+
+! red
+*.color1:       #a54242
+*.color9:       #cc6666
+
+! green
+*.color2:       #8c9440
+*.color10:      #b5bd68
+
+! yellow
+*.color3:       #de935f
+*.color11:      #f0c674
+
+! blue
+*.color4:       #5f819d
+*.color12:      #81a2be
+
+! magenta
+*.color5:       #85678f
+*.color13:      #b294bb
+
+! cyan
+*.color6:       #5e8d87
+*.color14:      #8abeb7
+
+! white
+*.color7:       #707880
+*.color15:      #c5c8c6

@@ -1,0 +1,57 @@
+---
+
+# Setup pacman
+- name: Pacman mirrorlist setup
+  copy: src=mirrorlist dest=/etc/pacman.d/
+  become: true
+
+- name: Pacman config setup
+  copy: src=pacman.conf dest=/etc/
+  become: true
+
+- name: Update pacman packages
+  command: /usr/bin/pacman -Syy --noconfirm
+  become: true
+
+- name: Perform full upgrade
+  command: /usr/bin/pacman -Su --noconfirm
+  become: true
+
+# Install basic packages
+- name: Install basic packages
+  pacman: name{{ item }} state=present
+  with_items:
+      - zsh
+      - htop
+      - ntp
+      - openssh
+      - rsync
+      - curl
+      - nmap
+      - ntp
+      - ufw
+  become: true
+
+# Install aur packages
+- name: Install aur packages
+  aur: name={{ item }}
+  with_items:
+    - pacaur
+    - puppet-lint
+    - oh-my-zsh-git
+
+# Enable services
+- name: Enable network time
+  service: name=ntpd state=started enabled=yes
+  become: true
+
+- name: Enable cronie server 
+  service: name=chronie state=startet enabled=yes
+  become: true
+
+# Run all other tasks
+- import_task: fonts.yml
+- import_task: network.yml
+- import_task: vim.yml
+- import_task: terminal.yml
+- import_task: i3.yml

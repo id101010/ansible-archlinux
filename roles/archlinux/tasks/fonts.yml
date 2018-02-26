@@ -1,0 +1,10 @@
+---
+
+- name: install fonts
+  pacman: name={{ item }} state=present
+  with_items:
+    - ttf-dejavu
+    - ttf-liberation
+    - ttf-droid
+    - powerline-fonts
+  become: true

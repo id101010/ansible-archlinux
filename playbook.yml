@@ -1,0 +1,12 @@
+---
+
+- name: Install base arch linux desktop environment
+  hosts: localhost
+  connection: local
+  roles:
+    - archlinux
+
+  vars_prompt:
+      - name: "Archlinux Username"
+        prompt: "Enter your username"
+        private: no

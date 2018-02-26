@@ -1,0 +1,64 @@
+general {
+    colors = true
+    interval = 1
+    output_format = i3bar
+    color_good = "#4ff243"
+    color_degraded = "#8c7f22"
+    color_bad = "#9b0e0e"
+}
+
+order += "disk /"
+order += "disk /media/Data1"
+order += "disk /media/Data2"
+order += "wireless wlp40s0"
+order += "ethernet enp35s0"
+order += "load"
+order += "volume master"
+order += "tztime local"
+
+wireless wlp40s0 {
+    format_up = " WiFi: %ip %quality %essid %bitrate "
+    format_down = " WiFi: (/) "
+}
+
+ethernet enp35s0 {
+    format_up = " LAN: %ip %speed "
+    format_down = " LAN: (/) "
+}
+
+battery 0 {
+    format = " Power: %status %percentage %remaining left "
+    path = "/sys/class/power_supply/BAT0/uevent"
+    low_threshold = 20
+}
+
+tztime local {
+    format = " Date: %y.%m.%d  Time: %H:%M:%S "
+}
+
+cpu_usage {
+    format = " CPU: %usage "
+}
+
+load {
+    format = " Load: [%1min, %5min, %15min] "
+}
+
+disk "/" {
+    format = " root: %free "
+}
+
+disk "/media/Data1" {
+    format = " /data1: %free "
+}
+
+disk "/media/Data2" {
+    format = " /data2: %free "
+}
+
+volume master {
+    format = " Vol: %volume "
+    device = "default"
+    mixer = "Master"
+    mixer_idx = 0
+}
