@@ -32,10 +32,6 @@
       - ntp
       - ufw
 
-- name: Change shell to zsh
-  user: name={{ archlinux_user }} shell=/bin/zsh
-  become: true
-
 ## Install aur packages
 #- name: Install aur packages
 #  aur: name={{ item }}
@@ -54,6 +50,7 @@
   become: true
 
 # Run all other tasks
+- import_tasks: shell.yml
 - import_tasks: fonts.yml
 - import_tasks: network.yml
 - import_tasks: vim.yml

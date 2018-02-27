@@ -1,0 +1,16 @@
+---
+
+- name: Install ZSH with completion and syntax
+  pacman: name={{ item }} state=present
+  with_items:
+      - zsh
+      - zsh-completions
+      - zsh-syntax-highlighting
+
+- name: Change shell to ZSH
+  user: name={{ archlinux_user }} shell=/bin/zsh
+  become: true
+
+- name: Apply ZSH configuration
+  copy: src=zshrc dest=/home/{{ archlinux_username }}/.zshrc owner={{ archlinux_username}} group=users
+  become: true

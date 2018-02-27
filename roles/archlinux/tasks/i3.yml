@@ -11,13 +11,13 @@
       - feh
 
 - name: Create i3wm configuration directory
-  file: name=/home/{{ archlinux_username }}/.i3 state=directory owner={{ archlinux_username }} group=users
+  file: name=/home/{{ archlinux_username }}/.i3/ state=directory owner={{ archlinux_username }} group=users
   become: true
 
 - name: Configure i3wm
-  template: src=i3config dest=/home/{{ archlinux_username }}/.i3/config owner={{ archlinux_username }} group=users
+  copy: src=i3config dest=/home/{{ archlinux_username }}/.i3/config owner={{ archlinux_username }} group=users
   become: true
 
 - name: Configure i3status
-  template: src=i3/i3status dest=/home/{{ archlinux_username }}/.i3/i3status owner={{ archlinux_username }} group=users
+  copy: src=i3status dest=/home/{{ archlinux_username }}/.i3/i3status owner={{ archlinux_username }} group=users
   become: true
