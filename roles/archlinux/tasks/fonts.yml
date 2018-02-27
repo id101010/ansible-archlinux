@@ -6,4 +6,13 @@
     - ttf-dejavu
     - ttf-liberation
     - ttf-droid
-    - powerline-fonts
+    - fontconfig
+    - xorg-font-utils
+ 
+- name: Install aur fonts using pacaur
+  aur: name={{ item }}
+  with_items:
+    - powerline-fonts-git
+    - oh-my-zsh-git
+  become: yes
+  become_user: "{{ archlinux_user }}"

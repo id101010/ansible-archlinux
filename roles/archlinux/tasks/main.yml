@@ -21,6 +21,7 @@
 - name: Install basic packages
   pacman: name={{ item }} state=present
   with_items:
+      - base-devel
       - cronie
       - zsh
       - htop
@@ -34,16 +35,10 @@
 
 # Install AUR packages
 - name: Install pacaur as aur helper
-  aur: name=pacaur
-  become: yes
-  become_user: "{{ archlinux_user }}"
-
-- name: Install other aur packages using pacaur
-  aur: name={{ item }} user=pacaur
+  aur: name={{ item }} skip_pgp=true
   with_items:
-    - puppet-lint
-    - powerline-fonts-git
-    - oh-my-zsh-git
+    - cower
+    - pacaur
   become: yes
   become_user: "{{ archlinux_user }}"
 
