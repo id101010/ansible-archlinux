@@ -8,7 +8,7 @@
       - zsh-syntax-highlighting
 
 - name: Change shell to ZSH
-  user: name={{ archlinux_user }} shell=/bin/zsh
+  user: name={{ archlinux_username }} shell=/bin/zsh
   become: true
 
 - name: Apply ZSH configuration

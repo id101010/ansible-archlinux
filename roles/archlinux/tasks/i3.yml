@@ -21,3 +21,7 @@
 - name: Configure i3status
   copy: src=i3status dest=/home/{{ archlinux_username }}/.i3/i3status owner={{ archlinux_username }} group=users
   become: true
+
+- name: Configure xinitrc
+  copy: src=xinitrc dest=/home/{{ archlinux_username }}/.xinitrc owner={{ archlinux_username }} group=users
+  become: true
