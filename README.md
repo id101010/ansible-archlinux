@@ -1,6 +1,7 @@
 # Automated ArchLinux
 
-Ansible automated installation for a fully encrypted arch linux desktop system
+With this project I try to automate my personal Arch Linux installation using
+Ansible. The goal is a fully encrypted arch linux desktop system.
 
 ## System Overview
 * Full Disk Encryption including /boot
@@ -10,11 +11,12 @@ Ansible automated installation for a fully encrypted arch linux desktop system
 * zsh
 * rxvt-unicode
 
-## Base system
+## Install Base System
 
-Follow the instructions provided in [INSTALL.MD](https://github.com/id101010/ansible-archlinux/blob/master/INSTALL.md) to setup a fully encrypted base system with encrypted /boot partition.
+You can eighter install your own minimal system or you follow the instructions provided in [INSTALL.MD](https://github.com/id101010/ansible-archlinux/blob/master/INSTALL.md) to setup a fully encrypted base system with encrypted /boot partition. The Ansible playbook does not depend on this specific installation method.
 
 ## Install Software
+
 First install ansible
 ```
 $ sudo pacman -S ansible
