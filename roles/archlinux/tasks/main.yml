@@ -32,13 +32,20 @@
       - ntp
       - ufw
 
-# Install aur packages
-- name: Install aur packages
-  aur: name={{ item }}
+# Install AUR packages
+- name: Install pacaur as aur helper
+  aur: name=pacaur
+  become: yes
+  become_user: "{{ archlinux_user }}"
+
+- name: Install other aur packages using pacaur
+  aur: name={{ item }} user=pacaur
   with_items:
     - puppet-lint
     - powerline-fonts-git
     - oh-my-zsh-git
+  become: yes
+  become_user: "{{ archlinux_user }}"
 
 # Enable services
 - name: Enable network time
