@@ -32,6 +32,7 @@
       - nmap
       - ntp
       - ufw
+  become: true
 
 # Install AUR packages
 - name: Install pacaur as aur helper
@@ -58,3 +59,4 @@
 - import_tasks: vim.yml
 - import_tasks: terminal.yml
 - import_tasks: i3.yml
+- import_tasks: dunst.yml

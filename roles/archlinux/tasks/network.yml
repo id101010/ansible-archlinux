@@ -8,6 +8,7 @@
       - wpa_supplicant
       - networkmanager
       - network-manager-applet
+  become: true
 
 - name: Enable network manager service
   service: name=NetworkManager state=started enabled=yes

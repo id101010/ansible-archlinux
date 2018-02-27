@@ -1,17 +1,17 @@
 ---
 
 - name: Install i3 windowmanager and components
-  pacman: name={{ item }}
+  pacman: name={{ item }} state=present
   with_items:
       - xorg
       - xorg-xinit
       - i3-wm
       - i3lock
       - i3status
-      - compton
-      - dunst
       - dmenu
       - feh
+      - dunst
+   become: true
 
 # Compton does not work with xsetroot
 - name: Install hsetroot from aur

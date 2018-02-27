@@ -6,6 +6,7 @@
       - zsh
       - zsh-completions
       - zsh-syntax-highlighting
+  become: true
 
 - name: Change shell to ZSH
   user: name={{ archlinux_username }} shell=/bin/zsh
