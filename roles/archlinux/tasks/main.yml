@@ -32,13 +32,13 @@
       - ntp
       - ufw
 
-## Install aur packages
-#- name: Install aur packages
-#  aur: name={{ item }}
-#  with_items:
-#    - pacaur
-#    - puppet-lint
-#    - oh-my-zsh-git
+# Install aur packages
+- name: Install aur packages
+  aur: name={{ item }}
+  with_items:
+    - puppet-lint
+    - powerline-fonts-git
+    - oh-my-zsh-git
 
 # Enable services
 - name: Enable network time
