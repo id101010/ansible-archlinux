@@ -1,6 +1,5 @@
 #######################################
-#  _____  ____                        #
-# |_   _||___ \                       #
+#  _____  ____                        # # |_   _||___ \                       #
 #   | |    __) |__      __ _ __ ___   #
 #   | |   |__ < \ \ /\ / /| '_ ` _ \  #
 #  _| |_  ___) | \ V  V / | | | | | | #
@@ -210,13 +209,6 @@ set $WHITE          #fdf6e3
 
 client.background       #ffffff
 
-# Darkbrown colorscheme
-# name                  #border     #background  #text        #indicator   #child_border
-#client.focused          $DARKBROWN  $LIGHTBROWN  $DARKBROWN   $LIGHTBROWN  $DARKBROWN
-#client.unfocused        $DARKBROWN  $DARKBROWN   $LIGHTBROWN  $LIGHTBROWN  $DARKBROWN
-#client.focused_inactive $DARKBROWN  $DARKBROWN   $LIGHTBROWN  $LIGHTBROWN  $DARKBROWN
-#client.urgent           $DARKBROWN  $DARKBROWN   $LIGHTBROWN  $LIGHTBROWN  $DARKBROWN
-
 # Solarized colorscheme
 # name                  #border      #background   #text         #indicator   #child_border
 client.focused          $FOREGROUND  $MAGENTA      $GREEN        $GREEN       $MAGENTA
@@ -232,21 +224,8 @@ bar {
     position                top
     font                    $font
     i3bar_command           /usr/bin/i3bar
-    status_command          i3status -c ~/.i3/i3status.conf
+    status_command          i3status -c ~/.i3/i3status
     separator_symbol        ""
-
-# Darkbrown colorscheme
-#    colors {
-#        statusline  $LIGHTBROWN
-#        background  $DARKGREY
-#        separator   $DARKRED
-#
-#        # name             #border      #bg         #text
-#        focused_workspace  $LIGHTBROWN  $DARKBROWN  $LIGHTBROWN
-#        active_workspace   $DARKBROWN   $DARKBROWN  $LIGHTBROWN
-#        inactive_workspace $DARKBROWN   $DARKBROWN  $LIGHTBROWN
-#        urgent_workspace   $DARKBROWN   $DARKBROWN  $LIGHTBROWN
-#  }
 
     # Solarized colorscheme
     colors {
@@ -309,5 +288,6 @@ exec --no-startup-id nm-applet
 exec --no-startup-id dunst -conf ~/.dunstrc
 
 # wallpapers
+#exec --no-startup-id feh --bg-fill ~/.wallpapers/puzzle2.png
 #exec --no-startup-id ~/.i3/util/wallpapers.sh
-exec --no-startup-id feh --bg-fill ~/.wallpapers/puzzle2.png
+exec --no-startup-id xsetroot -solid "#1c5b98"

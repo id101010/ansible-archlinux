@@ -1,13 +1,16 @@
 ---
 
-- name: Install i3 windowmanager
+- name: Install i3 windowmanager and components
   pacman: name={{ item }}
   with_items:
       - xorg
       - xorg-xinit
+      - xorg-xsetroot
       - i3-wm
       - i3lock
       - i3status
+      - compton
+      - dunst
       - dmenu
       - feh
 

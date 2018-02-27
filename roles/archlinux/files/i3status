@@ -8,8 +8,6 @@ general {
 }
 
 order += "disk /"
-order += "disk /media/Data1"
-order += "disk /media/Data2"
 order += "wireless wlp40s0"
 order += "ethernet enp35s0"
 order += "load"
@@ -26,12 +24,6 @@ ethernet enp35s0 {
     format_down = " LAN: (/) "
 }
 
-battery 0 {
-    format = " Power: %status %percentage %remaining left "
-    path = "/sys/class/power_supply/BAT0/uevent"
-    low_threshold = 20
-}
-
 tztime local {
     format = " Date: %y.%m.%d  Time: %H:%M:%S "
 }
@@ -46,14 +38,6 @@ load {
 
 disk "/" {
     format = " root: %free "
-}
-
-disk "/media/Data1" {
-    format = " /data1: %free "
-}
-
-disk "/media/Data2" {
-    format = " /data2: %free "
 }
 
 volume master {
