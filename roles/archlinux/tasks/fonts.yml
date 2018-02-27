@@ -7,4 +7,3 @@
     - ttf-liberation
     - ttf-droid
     - powerline-fonts
-  become: true
