@@ -31,5 +31,5 @@
   become: true
 
 - name: Copy i3dmenu wrapper script
-  copy: src=i3dmenu-wrapper.sh dest=/home/{{ archlinux_username }}/.i3/util owner={{ archlinux_username }} group=users
+  copy: src=i3dmenu-wrapper.sh dest=/home/{{ archlinux_username }}/.i3/util owner={{ archlinux_username }} group=users mode="0755"
   become: true
