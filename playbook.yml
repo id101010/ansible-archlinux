@@ -9,6 +9,6 @@
     - archlinux
 
   vars_prompt:
-      - name: "Archlinux Username"
+      - name: "archlinux_username"
         prompt: "Enter your username"
         private: no
