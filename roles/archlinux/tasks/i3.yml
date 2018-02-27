@@ -5,7 +5,6 @@
   with_items:
       - xorg
       - xorg-xinit
-      - xorg-xsetroot
       - i3-wm
       - i3lock
       - i3status
@@ -13,6 +12,12 @@
       - dunst
       - dmenu
       - feh
+
+# Compton does not work with xsetroot
+- name: Install hsetroot from aur
+  aur: name=hsetroot
+  become: yes
+  become_user: "{{ archlinux_username }}"
 
 - name: Create i3wm configuration directory and util subdirectory
   file: name=/home/{{ archlinux_username }}/.i3/util state=directory owner={{ archlinux_username }} group=users

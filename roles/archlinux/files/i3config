@@ -1,5 +1,6 @@
 #######################################
-#  _____  ____                        # # |_   _||___ \                       #
+#  _____  ____                        #
+# |_   _||___ \                       #
 #   | |    __) |__      __ _ __ ___   #
 #   | |   |__ < \ \ /\ / /| '_ ` _ \  #
 #  _| |_  ___) | \ V  V / | | | | | | #
@@ -268,26 +269,17 @@ for_window [class="Firefox"]        border none
 
 # composite manager
 exec --no-startup-id compton -cCGfb -m1 -D3 --xrender-sync --xrender-sync-fence
-
 # terminal daemon
 exec --no-startup-id urxvtd -q -f -o
-
 # less eye pain
 exec --no-startup-id redshift-gtk
-
 # no beep!
 exec --no-startup-id xset b off
-
 # Nextcloud Sync
 exec --no-startup-id nextcloud
-
 # nm-applet
 exec --no-startup-id nm-applet
-
 # dunst for notifications and volnoti daemon
 exec --no-startup-id dunst -conf ~/.dunstrc
-
 # wallpapers
-#exec --no-startup-id feh --bg-fill ~/.wallpapers/puzzle2.png
-#exec --no-startup-id ~/.i3/util/wallpapers.sh
-exec --no-startup-id xsetroot -solid "#1c5b98"
+exec --no-startup-id hsetroot -solid "#1c5b98"
