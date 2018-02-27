@@ -3,6 +3,8 @@
 - name: Install base arch linux desktop environment
   hosts: localhost
   connection: local
+  become: true
+
   roles:
     - archlinux
 

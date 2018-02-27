@@ -31,13 +31,13 @@
       - ntp
       - ufw
 
-# Install aur packages
-- name: Install aur packages
-  aur: name={{ item }}
-  with_items:
-    - pacaur
-    - puppet-lint
-    - oh-my-zsh-git
+## Install aur packages
+#- name: Install aur packages
+#  aur: name={{ item }}
+#  with_items:
+#    - pacaur
+#    - puppet-lint
+#    - oh-my-zsh-git
 
 # Enable services
 - name: Enable network time
@@ -45,7 +45,7 @@
   become: true
 
 - name: Enable cronie server 
-  service: name=chronie state=startet enabled=yes
+  service: name=chronie state=started enabled=yes
   become: true
 
 # Run all other tasks
