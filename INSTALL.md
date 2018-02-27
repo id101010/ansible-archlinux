@@ -48,7 +48,7 @@ $ timedatectl set-ntp true
 ```
 Check if it worked
 ```bash
-timedatectl status
+$ timedatectl status
 ```
 
 ## 2. Create disk layout
