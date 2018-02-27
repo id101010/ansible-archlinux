@@ -11,7 +11,7 @@
       - dmenu
       - feh
       - dunst
-   become: true
+  become: true
 
 # Compton does not work with xsetroot
 - name: Install hsetroot from aur
