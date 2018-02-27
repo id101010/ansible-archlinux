@@ -54,8 +54,8 @@
   become: true
 
 # Run all other tasks
-#- import_task: fonts.yml
-#- import_task: network.yml
-#- import_task: vim.yml
-#- import_task: terminal.yml
-#- import_task: i3.yml
+- import_tasks: fonts.yml
+- import_tasks: network.yml
+- import_tasks: vim.yml
+- import_tasks: terminal.yml
+- import_tasks: i3.yml
