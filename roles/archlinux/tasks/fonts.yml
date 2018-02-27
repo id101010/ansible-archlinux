@@ -15,4 +15,4 @@
     - powerline-fonts-git
     - oh-my-zsh-git
   become: yes
-  become_user: "{{ archlinux_user }}"
+  become_user: "{{ archlinux_username }}"
