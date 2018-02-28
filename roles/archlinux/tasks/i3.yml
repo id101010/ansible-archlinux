@@ -1,18 +1,23 @@
 ---
 
 - name: Install i3 windowmanager and components
-  pacman: name={{ item }}
+  pacman: name={{ item }} state=present
   with_items:
       - xorg
       - xorg-xinit
-      - xorg-xsetroot
       - i3-wm
       - i3lock
       - i3status
-      - compton
-      - dunst
       - dmenu
       - feh
+      - dunst
+  become: true
+
+# Compton does not work with xsetroot
+- name: Install hsetroot from aur
+  aur: name=hsetroot
+  become: yes
+  become_user: "{{ archlinux_username }}"
 
 - name: Create i3wm configuration directory and util subdirectory
   file: name=/home/{{ archlinux_username }}/.i3/util state=directory owner={{ archlinux_username }} group=users
@@ -31,5 +36,5 @@
   become: true
 
 - name: Copy i3dmenu wrapper script
-  copy: src=i3dmenu-wrapper.sh dest=/home/{{ archlinux_username }}/.i3/util owner={{ archlinux_username }} group=users
+  copy: src=i3dmenu-wrapper.sh dest=/home/{{ archlinux_username }}/.i3/util owner={{ archlinux_username }} group=users mode="0755"
   become: true
