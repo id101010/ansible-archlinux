@@ -27,3 +27,20 @@ then run the provided playbook
 $ ansible-playbook --ask-become-pass playbook.yml
 ```
 Lean back and watch the installation
+
+## Testing
+
+Assuming you've already installed vagrant you can set up a vritual machine with
+just these steps
+
+``` bash
+$ mkdir Vagrant && cd Vagrant
+$ vagrant init archlinux/archlinux
+$ vagrant up
+$ vagrant ssh
+
+$ git clone https://github.com/id101010/ansible-archlinux.git
+$ ansible-playbook --ask-become-pass playbook.yml
+```
+
+Now reboot the machine and start a graphical session using virtualbox.
