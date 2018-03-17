@@ -12,6 +12,10 @@
   user: name={{ archlinux_username }} shell=/bin/zsh
   become: true
 
-- name: Apply ZSH configuration
+- name: Apply ZSH configuration for user root
+  copy: src=zshrc dest=/root/.zshrc owner=root group=root
+  become: true
+
+- name: Apply ZSH configuration for user {{ archlinux_username }}
   copy: src=zshrc dest=/home/{{ archlinux_username }}/.zshrc owner={{ archlinux_username}} group=users
   become: true
