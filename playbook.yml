@@ -5,7 +5,12 @@
   connection: local
 
   roles:
-    - archlinux
+    - base
+    - network
+    - shell
+    - editor
+    - terminal
+    - windowmanager
 
   vars_prompt:
       - name: "archlinux_username"
