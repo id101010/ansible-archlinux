@@ -14,11 +14,10 @@ The ansible playbooks in this project automates my personal Arch Linux installat
 
 You can eighter install your own minimal system or you follow the instructions provided in the two installation guides.
 
-* [INSTALL\_EFI.MD](https://github.com/id101010/ansible-archlinux/blob/master/INSTALL_EFI.md) to setup a fully encrypted base system using LVM, encrypted /boot partition and EFI Support.
-* [INSTALL\_LEGACY.MD](https://github.com/id101010/ansible-archlinux/blob/master/INSTALL_LEGACY.md) to setup an encrypted base system using LVM and legacy boot mode.
+* [INSTALL\_EFI](https://github.com/id101010/ansible-archlinux/blob/master/INSTALL_EFI.md) to setup a fully encrypted base system using LVM, encrypted /boot partition and EFI Support.
+* [INSTALL\_LEGACY](https://github.com/id101010/ansible-archlinux/blob/master/INSTALL_LEGACY.md) to setup an encrypted base system using LVM, syslinux in legacy boot mode.
 
-The Ansible playbook does not depend on any specific installation method.
-However the Legacy install is slightly easier and more beginner friendly.
+The Ansible playbook does not depend on any specific installation method. However the Legacy install is slightly easier and more beginner friendly.
 
 ## Needed Software to run Ansible
 
