@@ -18,6 +18,7 @@ You can eighter install your own minimal system or you follow the instructions p
 * [INSTALL\_LEGACY.MD](https://github.com/id101010/ansible-archlinux/blob/master/INSTALL_LEGACY.md) to setup an encrypted base system using LVM and legacy boot mode.
 
 The Ansible playbook does not depend on any specific installation method.
+However the Legacy install is slightly easier and more beginner friendly.
 
 ## Needed Software to run Ansible
 
