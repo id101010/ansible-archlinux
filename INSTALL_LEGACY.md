@@ -228,7 +228,7 @@ $ mkinitcpio -p linux
 If you own a Intel processor I recommend that you install the microcode updates. While microcode can be updated through the BIOS, the Linux kernel is also able to apply these updates during boot. 
 These updates provide bug fixes that can be critical to the stability of your system. You need to install the package first and then create a second initrd entry in the bootloader config.
 ```bash
-pacman -S intel-ucode
+$ pacman -S intel-ucode
 ``` 
 
 Edit the /boot/syslinux/syslinux.cfg config file. There must be no spaces between the intel-ucode and initramfs-linux initrd files. 
