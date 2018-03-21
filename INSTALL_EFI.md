@@ -149,7 +149,8 @@ $ passwd
 ```
 Change mkinitcpio.conf to support lvm, encryption and plymouth
 ```bash
-$ sed -i "s/HOOKS=.*/HOOKS=(base udev autodetect modconf keyboard plymouth block keymap plymouth-encrypt lvm2 $ resume filesystems keyboard fsck shutdown)/g" /etc/mkinitcpio.conf
+$ sed -i "s/MODULES=.*/MODULES=(i915 ext4)/g" /etc/mkinitcpio.conf
+$ sed -i "s/HOOKS=.*/HOOKS=(base udev autodetect modconf keyboard plymouth block keymap plymouth-encrypt lvm2 resume filesystems keyboard fsck shutdown)/g" /etc/mkinitcpio.conf
 ```
 Regenerate initrd image
 ```bash
@@ -204,4 +205,3 @@ $ umount -R /mnt
 $ swapoff -a
 $ shutdown now
 ```
-After a successful reboot you sould consider removing the unnecessary LUKS keys using cryptsetup LuksRemoveKey

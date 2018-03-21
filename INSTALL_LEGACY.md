@@ -33,23 +33,28 @@ $ wget https://mirror.puzzle.ch/archlinux/iso/latest/archlinux-$(date +%Y.%m.%d)
 $ wget https://mirror.puzzle.ch/archlinux/iso/latest/md5sums.txt
 $ wget https://mirror.puzzle.ch/archlinux/iso/latest/sha1sums.txt
 ```
+
 Check if the iso is valid
 ```bash
 $ md5sum --check md5sums.txt
 $ sha1sum --check sha1sums.txt
 ```
+
 Create bootable usb flash drive, make sure /dev/sdX corresponds to the usb drive
 ```bash
 $ dd if=archlinux.iso of=/dev/sdX bs=1M status=progress && sync
 ```
+
 Boot and immediately check the internet connection
 ```bash
 $ ping google.com
 ```
+
 Enable network time synchronization
 ```bash
 $ timedatectl set-ntp true
 ```
+
 Check if it worked
 ```bash
 $ timedatectl status
@@ -144,10 +149,10 @@ $ syslinux-install_update -i -a -m -c /mnt
 ```
 
 Edit the syslinux configuration to support your cryptlvm. To do this you need
-to change the APPEND lines for Arch and Archfallback. To make sure your system
+to change the APPEND lines for the Arch and Archfallback targets. To make sure your system
 has the right keyboard layout append a location and language entry to the
 kernel line. The example below uses the Swiss QWERTY layout. If you use an
-english QERTZ layout you can omit these entries. The Quiet and Splash options
+english QWERTZ layout you can omit these entries. The Quiet and Splash options
 are used for plymouth. This will give you a nice looking input field for the LUKS passphrase.
 
 ```bash
@@ -212,6 +217,7 @@ Change mkinitcpio.conf to support ext3, lvm, encryption and plymouth.
 You need to add the followin:
 * MODULES: i915 ext4
 * HOOKS: plymouth plymouth-encrypt lvm2 resume
+
 Eighter edit `/etc/mkinitcpio.conf` by hand or use the following sed commands.
 ```bash
 $ sed -i "s/MODULES=.*/MODULES=(i915 ext4)/g" /etc/mkinitcpio.conf
