@@ -9,12 +9,15 @@
   copy: src=pacman.conf dest=/etc/
   become: true
 
-- name: Update pacman packages
-  command: /usr/bin/pacman -Syy --noconfirm
+- name: Update pacman package cache
+  pacman:
+    update_cache: yes
   become: true
 
-- name: Perform full upgrade
-  command: /usr/bin/pacman -Su --noconfirm
+- name: Perform full system upgrade
+  pacman:
+    update_cache: yes
+    upgrade: yes
   become: true
 
 # Install basic packages
@@ -48,15 +51,6 @@
   service: name=ntpd state=started enabled=yes
   become: true
 
-- name: Enable cronie server 
+- name: Enable cronie server
   service: name=cronie state=started enabled=yes
   become: true
-
-# Run all other tasks
-- import_tasks: shell.yml
-- import_tasks: fonts.yml
-- import_tasks: network.yml
-- import_tasks: vim.yml
-- import_tasks: terminal.yml
-- import_tasks: i3.yml
-- import_tasks: dunst.yml

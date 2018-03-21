@@ -9,7 +9,7 @@
     - fontconfig
     - xorg-font-utils
   become: true
- 
+
 - name: Install aur fonts using pacaur
   aur: name={{ item }}
   with_items:
