@@ -27,6 +27,8 @@
 
 Get the latest iso and checksums from a mirror near you. The recommended mirror
 below is maintained by me and located in a datacenter based in Switzerland.
+Since new isos are not built on a daily basis, you may need to choose the
+newest iso yourself. 
 
 ```bash
 $ wget https://mirror.puzzle.ch/archlinux/iso/latest/archlinux-$(date +%Y.%m.%d)-x86_64.iso archlinux.iso
@@ -198,15 +200,15 @@ Configure locales. Omit the swiss german line if you don't need it.
 $ echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 $ echo "de_CH.UTF-8 UTF-8" >> /etc/locale.gen
 $ locale-gen
-$ echo LANG=en_US.UTF-8 >> /etc/locale.conf
+$ echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 ```
 
 Set a hostname, keymap and nice console font
 ```bash
-echo myhostname >> /etc/hostname
-echo KEYMAP=de_CH-latin1 >> /etc/vconsole.conf # Change to your locale
-echo FONT=lat9w-16 >> /etc/vconsole.conf
-echo FONT_MAP=8859-1_to_uni >> /etc/vconsole.conf
+echo "myhostname" >> /etc/hostname
+echo "KEYMAP=de_CH-latin1" >> /etc/vconsole.conf # Change to your locale
+echo "FONT=lat9w-16" >> /etc/vconsole.conf
+echo "FONT_MAP=8859-1_to_uni" >> /etc/vconsole.conf
 ```
 
 Change mkinitcpio.conf to support ext3, lvm, encryption and plymouth.
