@@ -1,7 +1,8 @@
-# Arch installation guide covering the following topics: 
+# Arch installation guide covering the following topics 
 * Full disk encryption using dm-crypt/LUKS
-* LVM
+* LVM on LUKS
 * Lightweight Sysliux Bootloader
+* Minimal system configuration including intel-ucode updates
 
 ## Table of contents
 1. Create bootable install medium
