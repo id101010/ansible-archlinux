@@ -11,17 +11,17 @@
 
 ### Disk partition layout:
 ```
-+----------------+ +-------------------------------------------------+
-| Boot partition | | Logical volume 1       | Logical volume 2       |
-|                | |                        |                        |
-| /boot          | | [SWAP]                 | /                      |
-|                | |                        |                        |
-|                | | /dev/mapper/vg0-swap   | /dev/mapper/vg0-root   |
-| (may be on     | |_ _ _ _ _ __ _ _ _ _ _ _|__ _ _ _ _ _ _ _ _ _ _ _|
-| other device)  | |                                                 |
-|                | |             LUKS encrypted partition            |
-| /dev/sda1      | |                    /dev/sda2                    |
-+----------------+ +-------------------------------------------------+
++----------------+-------------------------------------------------+
+| Boot partition | Logical volume 1       | Logical volume 2       |
+|                |                        |                        |
+| /boot          | [SWAP]                 | /                      |
+|                |                        |                        |
+|                | /dev/mapper/vg0-swap   | /dev/mapper/vg0-root   |
+| (may be on     |_ _ _ _ _ __ _ _ _ _ _ _|__ _ _ _ _ _ _ _ _ _ _ _|
+| other device)  |                                                 |
+|                |             LUKS encrypted partition            |
+| /dev/sda1      |                    /dev/sda2                    |
++----------------+-------------------------------------------------+
 ```
 ## 1. Create a bootable install medium
 
