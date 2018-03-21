@@ -9,11 +9,11 @@
   become: true
 
 - name: Configure urxvt
-  copy: src=Xdefaults dest=/home/{{ archlinux_username }}/.Xdefaults owner={{ archlinux_username }} group=users
+  copy: src=Xdefaults dest=/home/{{ archlinux_username }}/.Xdefaults owner={{ archlinux_username }} group={{ archlinux_username }}
   become: true
   become_user: "{{ archlinux_username }}"
 
 - name: Configure tmux
-  copy: src=tmux dest=/home/{{ archlinux_username }}/.tmux.conf owner={{ archlinux_username }} group=users
+  copy: src=tmux dest=/home/{{ archlinux_username }}/.tmux.conf owner={{ archlinux_username }} group={{ archlinux_username }}
   become: true
   become_user: "{{ archlinux_username }}"
