@@ -1,0 +1,7 @@
+---
+
+- name: Start ufw
+  service: name=ufw state=started enabled=yes
+
+- name: Reload ufw
+  service: name=ufw state=reloaded
