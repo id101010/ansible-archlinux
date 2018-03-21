@@ -67,7 +67,7 @@ Make filesystem for the EFI partition
 ```bash
 $ mkfs.fat -F32 /dev/sda1
 ```
-Create crypted /boot container and format it. For convenience we'll just set a temporary passphrase, nevertheless it should be a good one
+Create crypted /boot container and format it. For convenience we will set a temporary passphrase, nevertheless it should be a good one
 ```bash
 $ cryptsetup luksFormat --type luks2 -c aes-xts-plain64 -s 512 /dev/sda2
 $ cryptsetup luksFormat /dev/sda2
@@ -121,7 +121,7 @@ sda              8:0    0 931.5G  0 disk
 
 Install system and some needed components
 ```bash
-$ pacstrap /mnt base base-devel grub-efi-x86_64 vim git efibootmgr dialog wpa_supplicant plymouth
+$ pacstrap /mnt base base-devel grub-efi-x86_64 vim git efibootmgr plymouth
 ``` 
 Generate fstab using UUIDs
 ```bash
@@ -158,13 +158,13 @@ $ mkinitcpio -p linux
 ```
 
 ## 4. Install and configure bootloader
-Change grub config
+Change your grub config
 ```bash
 $ echo "GRUB_ENABLE_CRYPTODISK=y" >> /etc/default/grub
-$ sed -i "s#^GRUB_CMDLINE_LINUX=.*#GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=$(blkid /dev/sda3 -s UUID -o value):lvm $ resume=/dev/mapper/vg0-swap quiet splash\"#g" /etc/default/grub
+$ sed -i "s#^GRUB_CMDLINE_LINUX=.*#GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=$(blkid /dev/sda3 -s UUID -o value):lvm resume=/dev/mapper/vg0-swap quiet splash\"#g" /etc/default/grub
 $ grub-mkconfig -o /boot/grub/grub.cfg
 ```
-Install grub
+Install grub on your disk
 ```bash
 $ grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=ArchLinux
 ```

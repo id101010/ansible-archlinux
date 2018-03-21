@@ -80,14 +80,14 @@ Device     Boot   Start        End   Sectors  Size Id Type
 /dev/sda2       2099200 1000215215 998116016  476G 83 Linux
 ```
 
-First create a filesystem for the /boot partition. Syslinux needs the 64 Option
+Now create a filesystem on the /boot partition. Syslinux needs the 64bit Option
 to be disabled. Make sure to do this using the right option otherwise your
 bootloader won't load.
 ```bash
 mkfs.ext4 -L boot -O '^64bit' /dev/sda1
 ```
 
-Create crypted LVM with /root and swap. Make sure to set a safe passphrase.
+Create an encrypted LVM containing /root and swap. Make sure to use a safe passphrase.
 ```bash
 $ cryptsetup luksFormat --type luks2 -c aes-xts-plain64 -s 512 /dev/sda2
 $ cryptsetup open /dev/sda2 cryptlvm
@@ -154,6 +154,8 @@ has the right keyboard layout append a location and language entry to the
 kernel line. The example below uses the Swiss QWERTY layout. If you use an
 english QWERTZ layout you can omit these entries. The Quiet and Splash options
 are used for plymouth. This will give you a nice looking input field for the LUKS passphrase.
+The Resume statement is used for hibernation. If you don't want this you can
+omit it as well
 
 ```bash
 ...
@@ -161,13 +163,13 @@ are used for plymouth. This will give you a nice looking input field for the LUK
 LABEL arch
     MENU LABEL Arch Linux
     LINUX ../vmlinuz-linux
-    APPEND cryptdevice=/dev/sda2:vg0 root=/dev/mapper/vg0-root rw lang=en locale=de_CH.UTF-8 quiet splash
+    APPEND cryptdevice=/dev/sda2:vg0 root=/dev/mapper/vg0-root resume=/dev/mapper/vg0-swap rw lang=en locale=de_CH.UTF-8 quiet splash
     INITRD ../initramfs-linux.img
 
 LABEL archfallback
     MENU LABEL Arch Linux Fallback
     LINUX ../vmlinuz-linux
-    APPEND cryptdevice=/dev/sda2:vg0 root=/dev/mapper/vg0-root rw lang=en locale=de_CH.UTF-8 quiet splash
+    APPEND cryptdevice=/dev/sda2:vg0 root=/dev/mapper/vg0-root resume=/dev/mapper/vg0-swap rw lang=en locale=de_CH.UTF-8 quiet splash
     INITRD ../initramfs-linux-fallback.img
 
 ...
