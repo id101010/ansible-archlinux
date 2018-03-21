@@ -1,11 +1,10 @@
 # Automated ArchLinux
 
-With this project I try to automate my personal Arch Linux installation using
-Ansible. The goal is a fully encrypted arch linux desktop system.
+The ansible playbooks in this project automates my personal Arch Linux installation. The goal is a fully encrypted arch linux desktop system.
 
-## System Overview
-* Full Disk Encryption including /boot
-* EFI
+## System Parts Overview
+* Full Disk Encryption including /boot (using Grub and EFI Boot)
+* EFI / Legacy
 * LVM
 * i3 window manager
 * zsh
@@ -13,9 +12,14 @@ Ansible. The goal is a fully encrypted arch linux desktop system.
 
 ## Install Base System
 
-You can eighter install your own minimal system or you follow the instructions provided in [INSTALL.MD](https://github.com/id101010/ansible-archlinux/blob/master/INSTALL.md) to setup a fully encrypted base system with encrypted /boot partition. The Ansible playbook does not depend on this specific installation method.
+You can eighter install your own minimal system or you follow the instructions provided in the two installation guides.
 
-## Install Software
+* [INSTALL\_EFI.MD](https://github.com/id101010/ansible-archlinux/blob/master/INSTALL_EFI.md) to setup a fully encrypted base system using LVM, encrypted /boot partition and EFI Support.
+* [INSTALL\_LEGACY.MD](https://github.com/id101010/ansible-archlinux/blob/master/INSTALL_LEGACY.md) to setup an encrypted base system using LVM and legacy boot mode.
+
+The Ansible playbook does not depend on a specific installation method.
+
+## Needed Software to run Ansible
 
 First install ansible
 ```
@@ -26,12 +30,11 @@ then run the provided playbook
 ```
 $ ansible-playbook --ask-become-pass playbook.yml
 ```
-Lean back and watch the installation
+Lean back and watch the installation.
 
 ## Testing
 
-Assuming you've already installed vagrant you can set up a vritual machine with
-just these steps
+Assuming you've already installed vagrant you can set up a vritual machine with just these steps
 
 ``` bash
 $ mkdir Vagrant && cd Vagrant
