@@ -1,12 +1,12 @@
 ---
 
 - name: start ufw
-  service: 
+  systemd: 
     name: ufw 
     state: started 
-    enabled: yes
+    enabled: True
 
 - name: reload ufw
-  service: 
+  systemd: 
     name: ufw 
     state: reloaded
