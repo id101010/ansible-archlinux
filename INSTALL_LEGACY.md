@@ -106,17 +106,17 @@ $ mount /dev/mapper/vg0-root /mnt
 $ mount /dev/sda1 /mnt/boot
 ```
 
-activate the swap partition
+Activate the swap partition
 ```bash
 $ swapon /dev/mapper/vg0-swap
 ```
 
-Check the filesystems
+Check the filesystem
 ```bash
 $ lsblk
 ```
 
-If the output looks like this everything is ok
+If the output looks like this everything went right
 ```
 NAME            MAJ:MIN RM  SIZE RO TYPE  MOUNTPOINT
 sda               8:0    0  477G  0 disk
@@ -173,12 +173,7 @@ LABEL archfallback
 ...
 ```
 
-Now enable your swap partition
-```bash
-$ swapon -L swap
-```
-
-Generate fstab using UUIDs
+Generate fstab using UUIDs as representation
 ```bash
 $ genfstab -pU /mnt >> /mnt/etc/fstab
 ```
