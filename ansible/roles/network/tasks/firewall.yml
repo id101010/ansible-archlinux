@@ -3,12 +3,10 @@
 - name: Set logging
 - ufw:
     logging: on
-  notify:
-    - name: reload ufw
+  notify: reload ufw
 
 - name: Allow openssh
 - ufw:
     rule: allow
     name: OpenSSH
-  notify:
-    - name: reload ufw
+  notify: reload ufw
