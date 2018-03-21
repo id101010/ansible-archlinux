@@ -138,12 +138,12 @@ $ echo "Server = http://mirror.puzzle.ch/archlinux/$repo/os/$arch" >
 /etc/pacman.d/mirrorlist
 ```
 
-Install the base system, bootloader and some components
+Install the base system, bootloader and some additional components
 ```bash
 $ pacstrap /mnt base base-devel syslinux vim git plymouth
 ```
 
-Install the bootloader
+Install the syslinux bootloader
 ```bash
 $ syslinux-install_update -i -a -m -c /mnt
 ```
@@ -204,14 +204,13 @@ $ echo LANG=en_US.UTF-8 >> /etc/locale.conf
 Set a hostname, keymap and nice console font
 ```bash
 echo myhostname >> /etc/hostname
-echo KEYMAP=de_CH-latin1 >> /etc/vconsole.conf # Omit this if you don't need
-swiss german
+echo KEYMAP=de_CH-latin1 >> /etc/vconsole.conf # Change to your locale
 echo FONT=lat9w-16 >> /etc/vconsole.conf
 echo FONT_MAP=8859-1_to_uni >> /etc/vconsole.conf
 ```
 
 Change mkinitcpio.conf to support ext3, lvm, encryption and plymouth.
-You need to add the followin:
+You need to add the following:
 * MODULES: i915 ext4
 * HOOKS: plymouth plymouth-encrypt lvm2 resume
 
