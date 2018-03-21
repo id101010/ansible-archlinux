@@ -18,6 +18,7 @@
   pacman:
     update_cache: yes
     upgrade: yes
+  notify: rkhunter prophunt
   become: true
 
 # Install basic packages
@@ -34,7 +35,7 @@
       - curl
       - nmap
       - ntp
-      - ufw
+      - rkhunter
   become: true
 
 # Install AUR packages

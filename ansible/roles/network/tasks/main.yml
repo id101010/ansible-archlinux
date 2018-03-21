@@ -1,11 +1,10 @@
 ---
 
 # Install firewall
-- name: Install ufw firewalld
+- name: Install ufw
   pacman: name=ufw state=present
   become: true
-  notify:
-      - name: Start ufw
+  notify: start ufw
 
 - import_tasks: network.yml
 - import_tasks: firewall.yml
