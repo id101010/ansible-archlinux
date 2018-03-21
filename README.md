@@ -2,8 +2,8 @@
 
 The ansible playbooks in this project automates my personal Arch Linux installation. The goal is a fully encrypted arch linux desktop system.
 
-## System Parts Overview
-* Full Disk Encryption including /boot (using Grub and EFI Boot)
+## System Overview
+* Full Disk Encryption (including /boot if Grub/EFI are used)
 * EFI / Legacy
 * LVM
 * i3 window manager
@@ -17,7 +17,7 @@ You can eighter install your own minimal system or you follow the instructions p
 * [INSTALL\_EFI.MD](https://github.com/id101010/ansible-archlinux/blob/master/INSTALL_EFI.md) to setup a fully encrypted base system using LVM, encrypted /boot partition and EFI Support.
 * [INSTALL\_LEGACY.MD](https://github.com/id101010/ansible-archlinux/blob/master/INSTALL_LEGACY.md) to setup an encrypted base system using LVM and legacy boot mode.
 
-The Ansible playbook does not depend on a specific installation method.
+The Ansible playbook does not depend on any specific installation method.
 
 ## Needed Software to run Ansible
 
