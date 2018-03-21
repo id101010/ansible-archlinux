@@ -34,7 +34,6 @@
       - curl
       - nmap
       - ntp
-      - ufw
   become: true
 
 # Install AUR packages
