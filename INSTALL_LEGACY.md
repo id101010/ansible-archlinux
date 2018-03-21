@@ -237,7 +237,7 @@ $ useradd -m -g users -G wheel $YOUR_USER_NAME
 $ passwd $YOUR_USER_NAME
 ```
 
-Uncomment string "%wheel ALL=(ALL) ALL" to allow users of the group wheel to do sudo stuff
+Uncomment string `%wheel ALL=(ALL) ALL` to allow users of the group wheel to do sudo stuff
 ```bash
 $ vim /etc/sudoers
 ```
