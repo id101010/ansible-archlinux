@@ -1,7 +1,7 @@
 ---
 
 # Install firewall
-- name: Install ufw firewalld
+- name: Install ufw
   pacman: name=ufw state=present
   become: true
   notify: start ufw

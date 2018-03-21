@@ -1,12 +1,15 @@
 ---
 
 - name: Set logging
-- ufw:
+  ufw:
     logging: on
   notify: reload ufw
+  become: true
 
 - name: Allow openssh
-- ufw:
+  ufw:
     rule: allow
-    name: OpenSSH
+    port: 22
+    proto: tcp
   notify: reload ufw
+  become: true
