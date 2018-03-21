@@ -5,6 +5,6 @@
   become: true
 
 - name: configure .vimrc
-  copy: src=vimrc dest=/home/{{ archlinux_username }}/.vimrc owner={{ archlinux_username }} group=users
+  copy: src=vimrc dest=/home/{{ archlinux_username }}/.vimrc owner={{ archlinux_username }} group={{ ansible_username }}
   become: true
   become_user: "{{ archlinux_username }}"
