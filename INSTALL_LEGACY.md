@@ -148,14 +148,14 @@ Install the syslinux bootloader
 $ syslinux-install_update -i -a -m -c /mnt
 ```
 
-Edit the syslinux configuration to support your cryptlvm. To do this you need
+Edit the /boot/syslinux/syslinux.cfg configuration to support your cryptlvm. To do this you need
 to change the APPEND lines for the Arch and Archfallback targets. To make sure your system
 has the right keyboard layout append a location and language entry to the
 kernel line. The example below uses the Swiss QWERTY layout. If you use an
 english QWERTZ layout you can omit these entries. The Quiet and Splash options
 are used for plymouth. This will give you a nice looking input field for the LUKS passphrase.
 The Resume statement is used for hibernation. If you don't want this you can
-omit it as well
+omit it as well.
 
 ```bash
 ...
@@ -223,6 +223,22 @@ $ sed -i "s/HOOKS=.*/HOOKS=(base udev autodetect modconf keyboard plymouth block
 Regenerate the initrd image
 ```bash
 $ mkinitcpio -p linux
+```
+
+If you own a Intel processor I recommend that you install the microcode updates. While microcode can be updated through the BIOS, the Linux kernel is also able to apply these updates during boot. 
+These updates provide bug fixes that can be critical to the stability of your system. You need to install the package first and then create a second initrd entry in the bootloader config.
+```bash
+pacman -S intel-ucode
+``` 
+
+Edit the /boot/syslinux/syslinux.cfg config file. There must be no spaces between the intel-ucode and initramfs-linux initrd files. 
+The period signs also do not signify any shorthand or missing code; the INITRD line must be exactly as illustrated below.
+```bash
+LABEL arch
+    MENU LABEL Arch Linux
+    LINUX ../vmlinuz-linux
+    INITRD ../intel-ucode.img,../initramfs-linux.img
+    APPEND <your kernel parameters>
 ```
 
 Set root password
