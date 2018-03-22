@@ -18,25 +18,17 @@
   pacman:
     update_cache: yes
     upgrade: yes
-  notify: rkhunter prophunt
   become: true
+  notify: 
+    - rkhunter prophunt
 
-# Install basic packages
-- name: Install basic packages
+# Install base packages
+- name: Install base packages
   pacman: name={{ item }} state=present
-  with_items:
-      - base-devel
-      - cronie
-      - zsh
-      - htop
-      - ntp
-      - openssh
-      - rsync
-      - curl
-      - nmap
-      - ntp
-      - rkhunter
+    with_items: "{{ base_packages }}"
   become: true
+  notify:
+      - rkhunter propupd
 
 # Install AUR packages
 - name: Install pacaur as aur helper

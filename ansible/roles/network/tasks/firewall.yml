@@ -1,15 +1,19 @@
 ---
 
-- name: Set logging
-  ufw:
-    logging: on
-  notify: reload ufw
+# Install all needed components
+- name: Install iptables
+  pacman:
+      name: iptables
+      state: present
   become: true
+  notify: 
+    - rkhunter prophunt
 
-- name: Allow openssh
-  ufw:
-    rule: allow
-    port: 22
-    proto: tcp
-  notify: reload ufw
-  become: true
+# Configure firewall
+- name: Apply firewall config
+  template: src=iptables.rules.j2 dest=/etc/iptables/iptables.rules
+  notify:
+    - restart iptables
+
+- name: Enable and start iptables
+  service: name=iptables.service enabled=yes state=started

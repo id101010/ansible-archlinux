@@ -1,0 +1,43 @@
+ssh:
+    port: 22
+    user_key: /root/id_rsa
+    enable_sshd: False
+
+base_packages:
+    - base-devel
+    - cronie
+    - openssh
+    - rkhunter
+    - ntp
+    - zsh
+    - htop
+    - nmap
+    - curl
+    - tmux
+    - git
+    - rsync
+    - glances
+    - coreutils
+    - moreutils
+    - dateutils
+    - reflector
+    - bc
+    - ranger
+    - strace
+    - lsof
+    - sysstat
+    - arch-wiki-lite
+    - arch-wiki-docs
+    - python-keyring
+    - python-secretstorage
+    - fabric
+    - tig
+    - ruby
+    - pv
+    - minicom
+    - jq
+    - python-docs
+    - python2-docs
+    - screen
+    - units
+    - python-pipenv
