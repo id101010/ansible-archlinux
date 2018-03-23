@@ -7,7 +7,7 @@
       state: present
   become: true
   notify: 
-    - rkhunter prophunt
+    - rkhunter propupdate
 
 # Configure firewall
 - name: Apply firewall config

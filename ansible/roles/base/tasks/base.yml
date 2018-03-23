@@ -20,7 +20,7 @@
     upgrade: yes
   become: true
   notify: 
-    - rkhunter prophunt
+    - rkhunter propupdate
 
 # Install base packages
 - name: Install base packages
@@ -28,7 +28,7 @@
   with_items: "{{ base_packages }}"
   become: true
   notify:
-      - rkhunter propupd
+      - rkhunter propupdate
 
 # Install AUR packages
 - name: Install pacaur as aur helper
