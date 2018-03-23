@@ -1,7 +1,7 @@
 ssh:
     port: 22
     user_key: /root/id_rsa
-    enable_sshd: False
+    enable_sshd: true
 
 base_packages:
     - base-devel

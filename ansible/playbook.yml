@@ -5,8 +5,8 @@
   connection: local
 
   roles:
-    - base
     - network
+    - base
     - shell
     - editor
     - terminal
