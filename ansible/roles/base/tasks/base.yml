@@ -25,7 +25,7 @@
 # Install base packages
 - name: Install base packages
   pacman: name={{ item }} state=present
-    with_items: "{{ base_packages }}"
+  with_items: "{{ base_packages }}"
   become: true
   notify:
       - rkhunter propupd
