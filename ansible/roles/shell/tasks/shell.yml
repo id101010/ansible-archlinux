@@ -23,6 +23,6 @@
 - name: Configure oh-my-zsh Agnoster theme folder view
   lineinfile:
       path: "/usr/share/oh-my-zsh/themes/agnoster.zsh-theme"
-      regexp: "'^%~'"
+      regexp: "'%~'"
       line: "prompt_segment blue black '%2~'"
   become: true
