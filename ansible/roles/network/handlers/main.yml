@@ -1,12 +1,4 @@
 ---
 
-- name: start ufw
-  systemd: 
-    name: ufw 
-    state: started 
-    enabled: True
-
-- name: reload ufw
-  systemd: 
-    name: ufw 
-    state: reloaded
+- name: restart iptables
+  service: name=iptables.service state=restarted

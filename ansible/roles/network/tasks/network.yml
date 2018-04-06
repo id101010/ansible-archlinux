@@ -8,6 +8,8 @@
       - networkmanager
       - network-manager-applet
   become: true
+  notify:
+      - rkhunter propupdate
 
 - name: Enable network manager service
   service: name=NetworkManager state=started enabled=yes

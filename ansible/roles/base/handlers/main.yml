@@ -1,4 +1,4 @@
 ---
 
-- name: rkhunter prophunt
+- name: rkhunter propupdate
   command: rkhunter --propupd
