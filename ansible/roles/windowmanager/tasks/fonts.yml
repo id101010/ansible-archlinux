@@ -10,9 +10,7 @@
     - xorg-font-utils
 
 - name: Install aur fonts using pacaur
-  aur: name={{ item }}
+  aur: name={{ item }} user={{ user.name }}
   with_items:
     - powerline-fonts-git
     - oh-my-zsh-git
-  become: yes
-  become_user: "{{ user.name }}"

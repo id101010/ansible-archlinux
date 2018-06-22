@@ -1,5 +1,11 @@
 ---
 
+- name: Install oh-my-zsh-git and optional dependencies from AUR
+  aur: name={{ item }} user={{ user.name }}
+  with_items:
+      - oh-my-zsh-git
+      - oh-my-zsh-powerline-theme-git
+
 - name: Install ZSH with completion and syntax
   pacman: name={{ item }} state=present
   with_items:
