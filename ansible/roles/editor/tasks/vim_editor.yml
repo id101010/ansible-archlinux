@@ -2,9 +2,8 @@
 
 - name: install vim
   pacman: name=vim state=present
-  become: true
 
 - name: configure .vimrc
-  copy: src=vimrc dest=/home/{{ archlinux_username }}/.vimrc owner={{ archlinux_username }} group={{ archlinux_username }}
+  copy: src=vimrc dest=/home/{{ user.name }}/.vimrc owner={{ user.name }} group={{ user.group }}
   become: true
-  become_user: "{{ archlinux_username }}"
+  become_user: "{{ user.name }}"

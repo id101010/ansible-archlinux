@@ -1,3 +1,8 @@
+user:
+    name: vagrant
+    group: vagrant
+    shell: /bin/zsh
+
 ssh:
     port: 22
     user_key: /root/id_rsa

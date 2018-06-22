@@ -1,7 +1,7 @@
 ---
 
 - name: Install base arch linux desktop environment
-  hosts: localhost
+  hosts: all
   connection: local
 
   roles:
@@ -11,8 +11,4 @@
     - editor
     - terminal
     - windowmanager
-
-  vars_prompt:
-      - name: "archlinux_username"
-        prompt: "Enter your username"
-        private: no
+  become: true

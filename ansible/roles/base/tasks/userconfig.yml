@@ -1,0 +1,22 @@
+---
+
+- name: ensure group {{ user.group}} exists
+  group:
+    name: "{{ user.group }}"
+    state: present
+  when: user.name is defined
+
+- name: ensure the user {{ user.name }} exists
+  user:
+    name: "{{ user.name }}"
+    shell: /bin/bash
+    groups:
+        - "{{ user.group }}"
+        - wheel
+        - network
+        - lock
+        - uucp
+    append: yes
+    system: no
+    createhome: yes
+    home: /home/{{ user.name }}
