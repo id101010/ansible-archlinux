@@ -1,6 +1,6 @@
 ---
 
-- name: ensure group {{ user.group}} exists
+- name: ensure group {{ user.group }} exists
   group:
     name: "{{ user.group }}"
     state: present
@@ -9,7 +9,7 @@
 - name: ensure the user {{ user.name }} exists
   user:
     name: "{{ user.name }}"
-    shell: /bin/bash
+    shell: "{{ user.shell }}"
     groups:
         - "{{ user.group }}"
         - wheel
@@ -20,3 +20,4 @@
     system: no
     createhome: yes
     home: /home/{{ user.name }}
+  when: user.name is defined
