@@ -32,5 +32,17 @@
       line: "prompt_segment blue black '%2~'"
   when: omzinstall.changed
 
-- name: Ensure the last working dir folder is present
-  file: path=/home/{{ user.name }}/.cache/oh-my-zsh/last-working-dir owner={{ user.name }} group={{ user.group }}
+- name: Ensure the cache folder with oh-my-zsh subfolder is present
+  file:
+    path: /home/{{ user.name }}/.cache/oh-my-zsh
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"
+    state: directory
+    mode: 0755
+
+- name: Ensure the last working dir file for oh-my-zsh is present
+  file:
+    path: /home/{{ user.name }}/.cache/oh-my-zsh/last-working-dir
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"
+    state: touch
