@@ -23,6 +23,16 @@
 # THE SOFTWARE.
 
 import os
+import pwd
+import platform
+
+
+def cower_in_path(module):
+    """
+    Determine if cower is available.
+    """
+    rc, stdout, stderr = module.run_command('which cower', check_rc=False)
+    return rc == 0
 
 
 def pacman_in_path(module):
@@ -58,12 +68,17 @@ def check_packages(module, pkgs):
         module.exit_json(changed=False, msg='all packages are already installed')
 
 
-def download_packages(module, pkgs, dir):
+def download_packages(module, pkgs, dir, user):
     """
     Download the specified packages.
     """
-    cmds = ['curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/%s.tar.gz',
-            'tar xzf %s.tar.gz']
+    # Use cower, if available.
+    if cower_in_path(module):
+        cmds = ['sudo -u %s cower -dqf %s', ]
+    # Otherwise, fall back to cURL
+    else:
+        cmds = ['sudo -u %s curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/%s.tar.gz',
+                'sudo -u %s tar xzf %s.tar.gz']
     for pkg in pkgs:
         # If the package is already installed, skip the download.
         if package_installed(module, pkg):
@@ -72,31 +87,48 @@ def download_packages(module, pkgs, dir):
         os.chdir(dir)
         # Attempt to install the package.
         for cmd in cmds:
-            rc, stdout, stderr = module.run_command(cmd % pkg, check_rc=False)
+            rc, stdout, stderr = module.run_command(cmd % (user, pkg), check_rc=False)
             if rc != 0:
                 module.fail_json(msg='failed to download package %s, because: %s' % (pkg,stderr))
 
 
-def install_packages(module, pkgs, dir):
+def install_packages(module, pkgs, dir, user, virtual):
     """
     Install the specified packages via makepkg.
     """
     num_installed = 0
-    cmd = 'makepkg -csri --noconfirm --needed --noprogressbar'
+
+    if platform.machine().startswith('arm') or platform.machine().startswith('aarch64'):
+        makepkg_args = '-Acsrf'
+    else:
+        makepkg_args = '-csrf'
+    cmd = 'sudo -u %s PKGEXT=".pkg.tar" makepkg %s --noconfirm --needed --noprogressbar' % (user, makepkg_args)
     if module.params['skip_pgp']:
         cmd += ' --skippgpcheck'
     for pkg in pkgs:
         # If the package is already installed, skip the install.
         if package_installed(module, pkg):
             continue
+        
         # Change into the package directory.
-        print(os.path.join(dir,pkg))
-        os.chdir(os.path.join(dir, pkg))
-        # Attempt to install the directory
+        # Check if the package is a virtual package
+        if virtual:
+            os.chdir(os.path.join(dir, virtual))
+        else:
+            os.chdir(os.path.join(dir, pkg))
+        
+        # Attempt to build the directory.
         rc, stdout, stderr = module.run_command(cmd, check_rc=False)
         if rc != 0:
+            module.fail_json(msg='failed to build package %s, because: %s' % (pkg,stderr))
+
+        # If the package was succesfully built, install it.
+        rc, stdout, stderr = module.run_command('pacman -U --noconfirm *.pkg.tar*', check_rc=False, use_unsafe_shell=True)
+        if rc != 0:
             module.fail_json(msg='failed to install package %s, because: %s' % (pkg,stderr))
-        num_installed += 1
+        else:
+            num_installed += 1
+
     # Exit with the number of packages succesfully installed.
     if num_installed > 0:
         module.exit_json(changed=True, msg='installed %s package(s)' % num_installed)
@@ -108,8 +140,10 @@ def main():
     module = AnsibleModule(
         argument_spec = dict(
             name = dict(required=True),
+            user = dict(required=True),
             dir  = dict(),
             skip_pgp = dict(default=False, type='bool'),
+            virtual = dict(),
         ),
         supports_check_mode = True
     )
@@ -123,10 +157,26 @@ def main():
     # Get all the requested package names.
     pkgs = p['name'].split(',')
 
+    # Fail if the specified user does not exist.
+    try:
+        pwd.getpwnam(p['user'])
+    except KeyError:
+        module.fail_json(msg="user %s does not exist" % p['user'])
+    else:
+        user = p['user']
+
     # If no directory was given, assume the packages should be downloaded to
-    # ~/aur.
+    # ~user/aur.
     if not p['dir']:
-        dir = '/tmp'
+        home = os.path.expanduser('~%s' % user)
+        if not os.path.exists(home):
+            module.fail_json(msg="%s's home directory %s does not exist" % (user, home))
+
+        dir = os.path.join(home, 'aur')
+        if not os.path.exists(dir):
+            os.makedirs(dir)
+            uid = pwd.getpwnam(user).pw_uid
+            os.chown(dir, uid, -1)
     else:
         dir = os.path.expanduser(p['dir'])
 
@@ -137,8 +187,14 @@ def main():
     if module.check_mode:
         check_packages(module, pkgs)
 
-    download_packages(module, pkgs, dir)
-    install_packages(module, pkgs, dir)
+    download_packages(module, pkgs, dir, user)
+    # Check if the package is virtual
+    if p['virtual']:
+        virtual = p['virtual']
+    else:
+        virtual = False
+
+    install_packages(module, pkgs, dir, user, virtual)
 
 
 from ansible.module_utils.basic import *

@@ -14,9 +14,7 @@
 
 # Compton does not work with xsetroot
 - name: Install hsetroot from aur
-  aur: name=hsetroot
-  become: yes
-  become_user: "{{ user.name }}"
+  aur: name=hsetroot user={{ user.name }}
 
 - name: Create i3wm configuration directory and util subdirectory
   file: name=/home/{{ user.name }}/.i3/util state=directory owner={{ user.name }} group={{ user.group }}

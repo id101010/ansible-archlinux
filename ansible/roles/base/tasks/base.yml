@@ -27,12 +27,10 @@
 
 # Install AUR packages
 - name: Install pacaur as aur helper
-  aur: name={{ item }} skip_pgp=true
+  aur: name={{ item }} user={{ user.name }} skip_pgp=true
   with_items:
     - cower
     - pacaur
-  become: yes
-  become_user: "{{ user.name }}"
 
 # Enable services
 - name: Enable network time
