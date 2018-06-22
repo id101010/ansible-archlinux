@@ -11,7 +11,7 @@ Vagrant.configure("2") do |config|
 
     # Configure the vagrant provisioner to use a local ansible connection
     config.vm.provision "ansible_local" do |ansible|
-        #ansible.verbose = "v"
+        ansible.verbose = "v"
         ansible.limit = "all"
         #ansible.inventory_path = "/vagrant/inventory/hosts"
         ansible.playbook = "/vagrant/playbook.yml"
