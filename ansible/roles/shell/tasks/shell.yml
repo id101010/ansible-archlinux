@@ -5,6 +5,7 @@
   with_items:
       - oh-my-zsh-git
       - oh-my-zsh-powerline-theme-git
+  register: omzinstall
 
 - name: Install ZSH with completion and syntax
   pacman: name={{ item }} state=present
@@ -12,9 +13,11 @@
       - zsh
       - zsh-completions
       - zsh-syntax-highlighting
+  register: zshinstall
 
 - name: Change shell to ZSH
   user: name={{ user.name }} shell={{ user.shell }}
+  when: zshinstall.changed
 
 - name: Apply ZSH configuration for user root as well
   copy: src=zshrc dest=/root/.zshrc owner=root group=root
@@ -27,4 +30,4 @@
       path: "/usr/share/oh-my-zsh/themes/agnoster.zsh-theme"
       regexp: "'%~'"
       line: "prompt_segment blue black '%2~'"
-  become: true
+  when: omzinstall.changed
