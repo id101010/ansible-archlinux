@@ -8,7 +8,6 @@
     - ttf-droid
     - fontconfig
     - xorg-font-utils
-  become: true
 
 - name: Install aur fonts using pacaur
   aur: name={{ item }}
@@ -16,4 +15,4 @@
     - powerline-fonts-git
     - oh-my-zsh-git
   become: yes
-  become_user: "{{ archlinux_username }}"
+  become_user: "{{ user.name }}"

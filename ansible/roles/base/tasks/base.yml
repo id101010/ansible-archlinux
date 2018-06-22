@@ -3,30 +3,25 @@
 # Setup pacman
 - name: Pacman mirrorlist setup
   copy: src=mirrorlist dest=/etc/pacman.d/
-  become: true
 
 - name: Pacman config setup
   copy: src=pacman.conf dest=/etc/
-  become: true
 
 - name: Update pacman package cache
   pacman:
     update_cache: yes
-  become: true
 
 - name: Perform full system upgrade
   pacman:
     update_cache: yes
     upgrade: yes
-  become: true
-  notify: 
+  notify:
     - rkhunter propupdate
 
 # Install base packages
 - name: Install base packages
   pacman: name={{ item }} state=present
   with_items: "{{ base_packages }}"
-  become: true
   notify:
       - rkhunter propupdate
 
@@ -37,13 +32,11 @@
     - cower
     - pacaur
   become: yes
-  become_user: "{{ archlinux_username }}"
+  become_user: "{{ user.name }}"
 
 # Enable services
 - name: Enable network time
   service: name=ntpd state=started enabled=yes
-  become: true
 
 - name: Enable cronie server
   service: name=cronie state=started enabled=yes
-  become: true

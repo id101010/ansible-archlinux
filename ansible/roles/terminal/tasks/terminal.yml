@@ -2,18 +2,16 @@
 
 - name: Install urxvt
   pacman: name=rxvt-unicode state=present
-  become: true
 
 - name: Install tmux
   pacman: name=tmux state=present
-  become: true
 
 - name: Configure urxvt
-  copy: src=Xdefaults dest=/home/{{ archlinux_username }}/.Xdefaults owner={{ archlinux_username }} group={{ archlinux_username }}
+  copy: src=Xdefaults dest=/home/{{ user.name }}/.Xdefaults owner={{ user.name }} group={{ user.group }}
   become: true
-  become_user: "{{ archlinux_username }}"
+  become_user: "{{ user.name }}"
 
 - name: Configure tmux
-  copy: src=tmux dest=/home/{{ archlinux_username }}/.tmux.conf owner={{ archlinux_username }} group={{ archlinux_username }}
+  copy: src=tmux dest=/home/{{ user.name }}/.tmux.conf owner={{ user.name }} group={{ user.group }}
   become: true
-  become_user: "{{ archlinux_username }}"
+  become_user: "{{ user.name }}"

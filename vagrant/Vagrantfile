@@ -1,0 +1,19 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+    # Pull official archlinux box
+    config.vm.box = "archlinux/archlinux"
+
+    # Enable synced folders to sync the playbook to the virtual machine using rsync
+    config.vm.synced_folder "../ansible", "/vagrant", type: "rsync", rsync__auto: "true"
+
+    # Configure the vagrant provisioner to use a local ansible connection
+    config.vm.provision "ansible_local" do |ansible|
+        ansible.verbose = "v"
+        ansible.limit = "all"
+        #ansible.inventory_path = "/vagrant/inventory/hosts"
+        ansible.playbook = "/vagrant/playbook.yml"
+    end
+end

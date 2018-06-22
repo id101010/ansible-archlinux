@@ -6,19 +6,15 @@
       - zsh
       - zsh-completions
       - zsh-syntax-highlighting
-  become: true
 
 - name: Change shell to ZSH
-  user: name={{ archlinux_username }} shell=/bin/zsh
-  become: true
+  user: name={{ user.name }} shell={{ user.shell }}
 
-- name: Apply ZSH configuration for user root
+- name: Apply ZSH configuration for user root as well
   copy: src=zshrc dest=/root/.zshrc owner=root group=root
-  become: true
 
-- name: Apply ZSH configuration for user {{ archlinux_username }}
-  copy: src=zshrc dest=/home/{{ archlinux_username }}/.zshrc owner={{ archlinux_username}} group=users
-  become: true
+- name: Apply ZSH configuration for user {{ user.name }}
+  copy: src=zshrc dest=/home/{{ user.name }}/.zshrc owner={{ user.name }} group={{ user.group }}
 
 - name: Configure oh-my-zsh Agnoster theme folder view
   lineinfile:

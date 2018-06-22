@@ -2,8 +2,6 @@
 
 - name: Install dunst notification server
   pacman: name=dunst state=present
-  become: true
 
 - name: Configure dunst server
-  copy: src=dunstrc dest=/home/{{ archlinux_username }}/.dunstrc owner={{ archlinux_username }} group=users
-  become: true
+  copy: src=dunstrc dest=/home/{{ user.name }}/.dunstrc owner={{ user.name }} group={{ user.group }}
