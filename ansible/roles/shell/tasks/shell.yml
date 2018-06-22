@@ -15,3 +15,10 @@
 
 - name: Apply ZSH configuration for user {{ user.name }}
   copy: src=zshrc dest=/home/{{ user.name }}/.zshrc owner={{ user.name }} group={{ user.group }}
+
+- name: Configure oh-my-zsh Agnoster theme folder view
+  lineinfile:
+      path: "/usr/share/oh-my-zsh/themes/agnoster.zsh-theme"
+      regexp: "'%~'"
+      line: "prompt_segment blue black '%2~'"
+  become: true
