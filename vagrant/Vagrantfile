@@ -16,4 +16,13 @@ Vagrant.configure("2") do |config|
         #ansible.inventory_path = "/vagrant/inventory/hosts"
         ansible.playbook = "/vagrant/playbook.yml"
     end
+
+    # Add an optical drive to install guest additions
+    config.vm.provider "virtualbox" do |vb|
+        vb.customize ["storageattach", :id,
+                      "--storagectl", "IDE Controller",
+                      "--port", "0", "--device", "1",
+                      "--type", "dvddrive",
+                      "--medium", "emptydrive"]
+    end
 end
