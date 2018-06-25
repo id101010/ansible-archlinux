@@ -11,4 +11,4 @@
       - rkhunter propupdate
 
 - name: Enable network manager service
-  service: name=NetworkManager state=startet enabled=yes
+  service: name=NetworkManager state=started enabled=yes
