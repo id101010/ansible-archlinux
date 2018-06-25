@@ -3,8 +3,5 @@
 - name: restart iptables
   service: name=iptables.service state=restarted
 
-- name: Enable and start iptables
-  service: name=iptables.service enabled=yes state=started
-
-- name: Enable network manager service
-  service: name=NetworkManager state=started enabled=yes
+- name: restart neworkmanager
+  service: name=networkmanager.service state=restarted
