@@ -55,14 +55,11 @@ bindym XF86WebCam               exec /bin/cheese
 # lenovo Key wifi-menu
 bindsym XF86Launch1             exec urxvt -e sh -c "sudo wifi-menu wlp3s0"
 
-# jauth two factor authenticator
-bindsym $mod+F1                 exec /opt/JAuth/authenticator.sh google
-bindsym $mod+F2                 exec /opt/JAuth/authenticator.sh facebook
-bindsym $mod+F3                 exec /opt/JAuth/authenticator.sh dropbox
-bindsym $mod+F4                 exec --no-startup-id "gnome-screenshot -w"
+# screenshot
+bindsym $mod+F4                 exec --no-startup-id "scrot '%Y-%m-%d_$wx$h_scrot.png' -e 'mv $f ~/'"
 
 # start dmenu-launcher
-bindsym $mod+d                  exec ~/.i3/util/i3dmenu-wrapper.sh
+bindsym $mod+d                  exec rofi -show drun -theme solarized_alternate -font "mono 10"
 
 # lock i3 with i3lock
 bindsym $mod+Shift+x            exec i3lock-fancy
@@ -272,7 +269,7 @@ exec --no-startup-id compton -cCGfb -m1 -D3 --xrender-sync --xrender-sync-fence
 # terminal daemon
 exec --no-startup-id urxvtd -q -f -o
 # less eye pain
-exec --no-startup-id redshift-gtk
+exec --no-startup-id redshift
 # no beep!
 exec --no-startup-id xset b off
 # Nextcloud Sync
