@@ -22,7 +22,7 @@
 - name: Install base packages
   pacman: name={{ item }} state=present
   with_items: "{{ base_packages }}"
-  notify:
+   notify:
       - rkhunter propupdate
 
 # Install AUR packages
