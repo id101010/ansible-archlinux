@@ -1,6 +1,6 @@
 ---
 
-- name: Install base arch linux desktop environment
+- name: Install local arch linux desktop environment
   hosts: all
   connection: local
 
