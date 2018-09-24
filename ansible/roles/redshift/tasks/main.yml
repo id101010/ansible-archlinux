@@ -30,3 +30,8 @@
       allowed=true
       system=false
       users=
+  notify:
+    - restart geoclue
+
+- name: Enable geoclue service
+  service: name=geoclue state=started enabled=yes
