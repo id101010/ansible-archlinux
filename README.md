@@ -5,10 +5,13 @@ This ansible playbook automates my personal Arch Linux installation. The goal is
 ## System Overview
 * Full Disk Encryption (including /boot if Grub/EFI is used)
 * LVM on LUKS
-* Plymouth
-* i3 window manager
-* zsh with oh-my-zsh theme
+* Plymouth support
+
+## Configurations
+* highly customized i3 window manager
+* zsh presetup oh-my-zsh theme and custom settings
 * rxvt-unicode true color terminal
+* tmux with vim bindings
 
 ## Install Base System
 
