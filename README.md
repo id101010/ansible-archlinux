@@ -34,7 +34,7 @@ then download and run the provided playbook
 ```
 $ git clone https://github.com/id101010/ansible-archlinux.git
 $ cd ansible-archlinux/ansible
-$ ansible-playbook --ask-become-pass playbook.yml
+$ ansible-playbook --ask-become-pass -i inventory/hosts playbook.yml [--tags $LIMIT_TO_TAG]
 ```
 Lean back and watch the installation.
 
