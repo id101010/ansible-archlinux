@@ -9,10 +9,10 @@ All dotfiles are kept in an independent repository. They are managed with [rcm](
 * Plymouth support
 
 ## Configurations
-* highly customized i3 window manager
-* zsh presetup oh-my-zsh theme and custom settings
-* rxvt-unicode true color terminal
-* tmux with vim bindings
+* Highly customized i3 window manager
+* Zsh presetup oh-my-zsh theme and custom settings
+* Rxvt-unicode true color terminal
+* Tmux with vim bindings
 
 ## Install base system
 
