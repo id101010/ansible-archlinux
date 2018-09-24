@@ -1,0 +1,32 @@
+---
+
+- name: Install RedShift and dependencies
+  pacman: name={{ item }} state=present
+  with_items:
+    - librsvg
+    - python-gobject
+    - python-xdg
+    - redshift
+
+- name: Jail RedShift
+  file: src=/usr/bin/firejail
+        dest=/usr/local/bin/redshift
+        state=link
+  tags:
+    - firejail
+
+- name: Jail RedShift GTK
+  file: src=/usr/bin/firejail
+        dest=/usr/local/bin/redshift-gtk
+        state=link
+  tags:
+    - firejail
+
+- name: Allow RedShift to access geoclue
+  blockinfile:
+    dest: /etc/geoclue/geoclue.conf
+    block: |
+      [redshift]
+      allowed=true
+      system=false
+      users=

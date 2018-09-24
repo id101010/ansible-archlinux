@@ -8,8 +8,12 @@
     - { role: network, tags: ['network'] }
     - { role: base, tags: ['base'] }
     - { role: dotfiles, tags: ['dotfiles'] }
+    - { role: firejail, tags: ['firejail'] }
     - { role: shell, tags: ['shell'] }
     - { role: editor, tags: ['editor'] }
     - { role: terminal, tags: ['terminal'] }
     - { role: windowmanager, tags: ['windowmanager'] }
+    - { role: browsers, tags: ['browsers'] }
+    - { role: calibre, tags: ['calibre'] }
+    - { role: redshift, tags: ['redshift'] }
   become: true
