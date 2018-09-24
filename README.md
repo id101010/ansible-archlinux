@@ -1,9 +1,9 @@
 # Automated ArchLinux
 
 This ansible playbook automates my personal Arch Linux installation. The goal is a fully encrypted desktop system. 
-All dotfiles are kept in an independent repository. They are managed with [rcm](https://robots.thoughtbot.com/rcm-for-rc-files-in-dotfiles-repos) and will only get installed if you define the `dotfiles` variable is defined.
+All dotfiles are kept in an independent repository. They are managed with [rcm](https://robots.thoughtbot.com/rcm-for-rc-files-in-dotfiles-repos) and will only get installed if the `dotfiles` variable is defined.
 
-## System Overview
+## System overview
 * Full Disk Encryption (including /boot if Grub/EFI is used)
 * LVM on LUKS
 * Plymouth support
@@ -14,7 +14,7 @@ All dotfiles are kept in an independent repository. They are managed with [rcm](
 * rxvt-unicode true color terminal
 * tmux with vim bindings
 
-## Install Base System
+## Install base system
 
 You can eighter install your own minimal system or you follow the instructions provided in the two installation guides.
 
@@ -23,7 +23,7 @@ You can eighter install your own minimal system or you follow the instructions p
 
 The Ansible playbook does not depend on any specific installation method. However the Legacy install is slightly easier and more beginner friendly.
 
-## Needed Software to run Ansible
+## How to run the ansible playbooks
 
 First install ansible
 ```
