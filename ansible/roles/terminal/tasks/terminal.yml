@@ -5,13 +5,3 @@
 
 - name: Install tmux
   pacman: name=tmux state=present
-
-- name: Configure urxvt
-  copy: src=Xdefaults dest=/home/{{ user.name }}/.Xdefaults owner={{ user.name }} group={{ user.group }}
-  become: true
-  become_user: "{{ user.name }}"
-
-- name: Configure tmux
-  copy: src=tmux dest=/home/{{ user.name }}/.tmux.conf owner={{ user.name }} group={{ user.group }}
-  become: true
-  become_user: "{{ user.name }}"
