@@ -16,6 +16,12 @@
   tags:
     - firejail
 
+- name: Place new application.desktop file for the jailed firefox
+  copy: src=firefox.desktop 
+        dest=/usr/share/applications/
+  tags:
+    - firejail
+
 - name: Verify firefox firejail local profile exists
   file: path=/etc/firejail/firefox.local state=touch
   tags:
