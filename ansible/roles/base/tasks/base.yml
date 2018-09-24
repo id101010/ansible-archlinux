@@ -23,7 +23,7 @@
   pacman: name={{ item }} state=present
   with_items: "{{ base_packages }}"
   notify:
-      - rkhunter propupdate
+    - rkhunter propupdate
 
 # Install AUR packages
 - name: Install pacaur as aur helper

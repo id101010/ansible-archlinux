@@ -7,6 +7,11 @@ ssh:
     port: 22
     enable_sshd: true
 
+dotfiles:
+    url: https://github.com/id101010/LinuxDotFiles.git
+    destination: .dotfiles
+    rcup_flags: -fx README.md
+
 base_packages:
     - base-devel
     - cronie
@@ -26,7 +31,4 @@ base_packages:
     - strace
     - lsof
     - sysstat
-    - arch-wiki-lite
     - tig
-    - pv
-    - minicom

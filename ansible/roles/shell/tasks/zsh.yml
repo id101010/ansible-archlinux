@@ -19,13 +19,7 @@
   user: name={{ user.name }} shell={{ user.shell }}
   when: zshinstall.changed
 
-- name: Apply ZSH configuration for user root as well
-  copy: src=zshrc dest=/root/.zshrc owner=root group=root
-
-- name: Apply ZSH configuration for user {{ user.name }}
-  copy: src=zshrc dest=/home/{{ user.name }}/.zshrc owner={{ user.name }} group={{ user.group }}
-
-- name: Configure oh-my-zsh Agnoster theme folder view
+- name: Customize oh-my-zsh Agnoster theme folder view
   lineinfile:
       path: "/usr/share/oh-my-zsh/themes/agnoster.zsh-theme"
       regexp: "'%~'"

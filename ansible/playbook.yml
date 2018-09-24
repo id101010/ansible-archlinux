@@ -1,14 +1,15 @@
 ---
 
-- name: Install base arch linux desktop environment
+- name: Install local arch linux desktop environment
   hosts: all
   connection: local
 
   roles:
-    - network
-    - base
-    - shell
-    - editor
-    - terminal
-    - windowmanager
+    - { role: network, tags: ['network'] }
+    - { role: base, tags: ['base'] }
+    - { role: dotfiles, tags: ['dotfiles'] }
+    - { role: shell, tags: ['shell'] }
+    - { role: editor, tags: ['editor'] }
+    - { role: terminal, tags: ['terminal'] }
+    - { role: windowmanager, tags: ['windowmanager'] }
   become: true

@@ -11,6 +11,7 @@
       - dmenu
       - feh
       - dunst
+      - rofi
 
 # Compton does not work with xsetroot
 - name: Install hsetroot from aur
@@ -18,15 +19,3 @@
 
 - name: Create i3wm configuration directory and util subdirectory
   file: name=/home/{{ user.name }}/.i3/util state=directory owner={{ user.name }} group={{ user.group }}
-
-- name: Configure i3wm
-  copy: src=i3config dest=/home/{{ user.name }}/.i3/config owner={{ user.name }} group={{ user.group }}
-
-- name: Configure i3status
-  copy: src=i3status dest=/home/{{ user.name }}/.i3/i3status owner={{ user.name }} group={{ user.group }}
-
-- name: Configure xinitrc
-  copy: src=xinitrc dest=/home/{{ user.name }}/.xinitrc owner={{ user.name }} group={{ user.group }}
-
-- name: Copy i3dmenu wrapper script
-  copy: src=i3dmenu-wrapper.sh dest=/home/{{ user.name }}/.i3/util owner={{ user.name }} group={{ user.group }} mode="0755"
