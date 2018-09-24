@@ -17,7 +17,7 @@
     - firejail
 
 - name: Place new application.desktop file for the jailed firefox
-  copy: src=firefox.desktop 
+  copy: src=firefox.desktop
         dest=/usr/share/applications/
   tags:
     - firejail
