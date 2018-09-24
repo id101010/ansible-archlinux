@@ -8,7 +8,7 @@ ssh:
     enable_sshd: true
 
 dotfiles:
-    url: git@github.com:id101010/LinuxDotFiles.git
+    url: https://github.com/id101010/LinuxDotFiles.git
     destination: .dotfiles
     rcup_flags: -fx README.md
 
