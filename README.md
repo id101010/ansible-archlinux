@@ -8,13 +8,16 @@ All dotfiles are kept in an independent repository. They are managed using [rcm]
 * LVM on LUKS partitioning scheme
 * Plymouth support for a nice boot screen
 
-## Configurations
+## Special configuration
 * Highly customized i3 window manager
 * Zsh with oh-my-zsh theme and custom settings
 * Rxvt-unicode true color terminal
 * Tmux with vim bindings
+
+## Security features
 * Sensitive and internet facing applications are sandboxed using firejail
 * Restrictive iptables rules
+* Use of linux-hardened
 
 ## Install base system
 
