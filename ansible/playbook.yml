@@ -18,4 +18,5 @@
     - { role: redshift, tags: ['redshift'] }
     - { role: keepass, tags: ['keepass'] }
     - { role: spotify, tags: ['spotify'] }
+    - { role: nextcloud, tags: ['nextcloud'] }
   become: true
