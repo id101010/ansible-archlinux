@@ -3,6 +3,10 @@ user:
     group: vagrant
     shell: /bin/zsh
 
+system:
+    locale: de_CH.UTF-8
+    timezone: Europe/Zurich
+
 ssh:
     port: 22
     enable_sshd: true

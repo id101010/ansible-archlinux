@@ -22,6 +22,12 @@
   tags:
     - firejail
 
+- name: Enable geoclue service
+  service: name=geoclue state=started enabled=yes
+
+- name: Enable avahi daemon
+  service: name=avahi-daemon state=started enabled=yes
+
 - name: Allow RedShift to access geoclue
   blockinfile:
     dest: /etc/geoclue/geoclue.conf
@@ -29,9 +35,6 @@
       [redshift]
       allowed=true
       system=false
-      users=
+      users={{ user.name }}
   notify:
     - restart geoclue
-
-- name: Enable geoclue service
-  service: name=geoclue state=started enabled=yes
