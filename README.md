@@ -1,27 +1,28 @@
 # Automated ArchLinux
 
-This ansible playbook automates my personal Arch Linux installation. The goal is a fully encrypted desktop system. 
-All dotfiles are kept in an independent repository. They are managed with [rcm](https://robots.thoughtbot.com/rcm-for-rc-files-in-dotfiles-repos) and will only get installed if the `dotfiles` variable is defined.
+This ansible playbook automates my personal Arch Linux installation. The goal is a fully encrypted and secure desktop system. 
+All dotfiles are kept in an independent repository. They are managed using [rcm](https://robots.thoughtbot.com/rcm-for-rc-files-in-dotfiles-repos) and will only get installed if the `dotfiles` variable is defined.
 
 ## System overview
 * Full Disk Encryption (including /boot if Grub/EFI is used)
-* LVM on LUKS
-* Plymouth support
+* LVM on LUKS partitioning scheme
+* Plymouth support for a nice boot screen
 
 ## Configurations
 * Highly customized i3 window manager
-* Zsh presetup oh-my-zsh theme and custom settings
+* Zsh with oh-my-zsh theme and custom settings
 * Rxvt-unicode true color terminal
 * Tmux with vim bindings
+* Sensitive applications are sandboxed using firejail
 
 ## Install base system
 
 You can eighter install your own minimal system or you follow the instructions provided in the two installation guides.
 
-* [INSTALL\_LEGACY](https://github.com/id101010/ansible-archlinux/blob/master/doc/INSTALL_LEGACY.md) to setup an encrypted base system using LVM, syslinux in legacy boot mode.
-* [INSTALL\_EFI](https://github.com/id101010/ansible-archlinux/blob/master/doc/INSTALL_EFI.md) to setup a fully encrypted base system using LVM, encrypted /boot partition and EFI Support.
+* [INSTALL\_LEGACY](https://github.com/id101010/ansible-archlinux/blob/master/doc/INSTALL_LEGACY.md) to setup an encrypted base system with LVM, syslinux in legacy boot mode.
+* [INSTALL\_EFI](https://github.com/id101010/ansible-archlinux/blob/master/doc/INSTALL_EFI.md) to setup a fully encrypted base system with LVM, encrypted /boot partition and EFI support.
 
-The Ansible playbook does not depend on any specific installation method. However the Legacy install is slightly easier and more beginner friendly.
+The Ansible playbook does not depend on any specific installation method. However the Legacy install is slightly easier and more "user friendly".
 
 ## How to run the ansible playbooks
 
@@ -34,7 +35,7 @@ then download and run the provided playbook
 ```
 $ git clone https://github.com/id101010/ansible-archlinux.git
 $ cd ansible-archlinux/ansible
-$ ansible-playbook --ask-become-pass playbook.yml
+$ ansible-playbook --ask-become-pass -i inventory/hosts playbook.yml [--tags $LIMIT_TO_TAG]
 ```
 Lean back and watch the installation.
 
