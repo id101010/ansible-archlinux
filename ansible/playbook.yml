@@ -16,4 +16,5 @@
     - { role: browsers, tags: ['browsers'] }
     - { role: calibre, tags: ['calibre'] }
     - { role: redshift, tags: ['redshift'] }
+    - { role: keepass, tags: ['keepass'] }
   become: true
