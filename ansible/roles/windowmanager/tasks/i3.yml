@@ -13,6 +13,9 @@
       - dunst
       - rofi
 
+- name: Install i3lock fancy
+  aur: name=i3lock-fancy-dualmonitors-git user={{ user.name }}
+
 # Compton does not work with xsetroot
 - name: Install hsetroot from aur
   aur: name=hsetroot user={{ user.name }}
