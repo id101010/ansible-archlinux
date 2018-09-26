@@ -17,4 +17,5 @@
     - { role: calibre, tags: ['calibre'] }
     - { role: redshift, tags: ['redshift'] }
     - { role: keepass, tags: ['keepass'] }
+    - { role: spotify, tags: ['spotify'] }
   become: true
