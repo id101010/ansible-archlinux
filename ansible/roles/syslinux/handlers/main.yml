@@ -1,0 +1,5 @@
+---
+
+- name: Rebuild syslinux on kernel changes
+  command: syslinux-install_update -u
+  when: bootloader == "syslinux"

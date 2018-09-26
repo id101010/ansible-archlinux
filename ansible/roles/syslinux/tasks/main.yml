@@ -1,0 +1,5 @@
+---
+
+- name: Install syslinux and tools
+  pacman: name=syslinux state=present
+  when: bootloader == "syslinux"

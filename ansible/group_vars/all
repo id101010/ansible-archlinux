@@ -7,6 +7,8 @@ system:
     locale: de_CH.UTF-8
     timezone: Europe/Zurich
 
+bootloader: grub
+
 ssh:
     port: 22
     enable_sshd: true

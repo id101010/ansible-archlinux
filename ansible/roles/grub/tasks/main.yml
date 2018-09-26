@@ -1,0 +1,5 @@
+---
+
+- name: Install grub bootloader and tools
+  pacman: name=grub state=present
+  when: bootloader == "grub"

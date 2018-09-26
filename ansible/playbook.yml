@@ -1,12 +1,15 @@
 ---
 
-- name: Install local arch linux desktop environment
+- name: Install secure arch linux environment
   hosts: all
   connection: local
 
   roles:
     - { role: network, tags: ['network'] }
     - { role: base, tags: ['base'] }
+    - { role: grub, tags: ['grub'], when: "bootloader == 'grub'"}
+    - { role: syslinux, tags: ['syslinux'], when: "bootloader == 'syslinux'"}
+    - { role: linuxhardened, tags: ['linuxhardened'] }
     - { role: dotfiles, tags: ['dotfiles'] }
     - { role: firejail, tags: ['firejail'] }
     - { role: shell, tags: ['shell'] }
