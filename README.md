@@ -13,7 +13,8 @@ All dotfiles are kept in an independent repository. They are managed using [rcm]
 * Zsh with oh-my-zsh theme and custom settings
 * Rxvt-unicode true color terminal
 * Tmux with vim bindings
-* Sensitive applications are sandboxed using firejail
+* Sensitive and internet facing applications are sandboxed using firejail
+* Restrictive iptables rules
 
 ## Install base system
 
