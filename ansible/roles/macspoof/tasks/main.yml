@@ -10,4 +10,6 @@
 
 - name: Enable macspoof for all interfaces
   service: name=macspoof@{{ item }}.service state=started enabled=yes
-  with_items: "{{ ansible_interfaces }}"
+  with_items:
+    - "{{ ansible_interfaces }}"
+  when: item != 'lo'
