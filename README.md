@@ -17,7 +17,8 @@ All dotfiles are kept in an independent repository. They are managed using [rcm]
 ## Security features
 * Sensitive and internet facing applications are sandboxed using firejail
 * Restrictive iptables rules
-* Use of linux-hardened
+* Use the of linux-hardened kernel
+* Automatic mac address spoofer
 
 ## Install base system
 
