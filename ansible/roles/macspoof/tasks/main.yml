@@ -1,0 +1,15 @@
+---
+
+- name: Install macchanger
+  pacman: name=macchanger state=present
+  notify:
+    - rkhunter propupdate
+
+- name: Create systemd unit for macchanger
+  copy: src=macspoof@.service dest=/etc/systemd/system/
+
+- name: Enable macspoof for all interfaces
+  service: name=macspoof@{{ item }}.service state=started enabled=yes
+  with_items:
+    - "{{ ansible_interfaces }}"
+  when: item != 'lo'

@@ -5,10 +5,11 @@
   with_items:
       - ethtool
       - wpa_supplicant
-      - networkmanager
-      - network-manager-applet
+      - netctl
+      - dhcpcd
+      - nmap
   notify:
       - rkhunter propupdate
 
-- name: Enable network manager service
-  service: name=NetworkManager state=started enabled=yes
+- name: Enable dhcp service
+  service: name=dhcpcd state=started enabled=yes
