@@ -6,6 +6,8 @@ user:
 system:
     locale: de_CH.UTF-8
     timezone: Europe/Zurich
+    # "intel" or "amd"
+    microcode_name: intel
 
 bootloader: grub
 

@@ -22,4 +22,5 @@
     - { role: keepass, tags: ['keepass'] }
     - { role: spotify, tags: ['spotify'] }
     - { role: nextcloud, tags: ['nextcloud'] }
+    - { role: macspoof, tags: ['macspoof'] }
   become: true
