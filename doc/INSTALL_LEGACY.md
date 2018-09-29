@@ -124,11 +124,11 @@ If the output looks like this you're good to go.
 ```
 NAME            MAJ:MIN RM  SIZE RO TYPE  MOUNTPOINT
 sda               8:0    0  477G  0 disk
-├─sda1            8:1    0    1G  0 part  /boot
+├─sda1            8:1    0    1G  0 part  /mnt/boot
 └─sda2            8:2    0  476G  0 part
   └─main        254:0    0  476G  0 crypt
     ├─vg0-swap  254:1    0   16G  0 lvm   [SWAP]
-    └─vg0-root  254:2    0  440G  0 lvm   /
+    └─vg0-root  254:2    0  440G  0 lvm   /mnt
 ```
 
 ## 3. Install base system and bootloader
@@ -139,14 +139,14 @@ provided mirrorlist or use the following suggestion.
 
 ```bash
 $ rm /etc/pacman.d/mirrorlist
-$ echo "Server = http://mirror.puzzle.ch/archlinux/$repo/os/$arch" >
+$ echo 'Server = http://mirror.puzzle.ch/archlinux/$repo/os/$arch' >
 /etc/pacman.d/mirrorlist
 ```
 
 Install the base system, bootloader and some additional components using
 pacstrap.
 ```bash
-$ pacstrap /mnt base base-devel syslinux vim git plymouth
+$ pacstrap /mnt base base-devel syslinux vim git
 ```
 
 Install the syslinux bootloader.
@@ -154,7 +154,7 @@ Install the syslinux bootloader.
 $ syslinux-install_update -i -a -m -c /mnt
 ```
 
-Edit the `/boot/syslinux/syslinux.cfg` bootloader configuration to support your cryptlvm. 
+Edit the `/mnt/boot/syslinux/syslinux.cfg` bootloader configuration to support your cryptlvm. 
 To do this you need to change the `APPEND` lines for the Arch and Archfallback targets. 
 To make sure your system has the right keyboard layout when entering the LUKS key, append a location and language entry to the
 kernel line. The example below uses the Swiss QWERTY layout. If you use an english QWERTZ layout you can omit these entries. The `quiet` and `splash` options
