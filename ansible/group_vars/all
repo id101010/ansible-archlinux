@@ -25,7 +25,6 @@ base_packages:
     - cronie
     - openssh
     - rkhunter
-    - ntp
     - zsh
     - htop
     - nmap
