@@ -221,7 +221,7 @@ You need to add the following:
 Eighter edit `/etc/mkinitcpio.conf` by hand or use the following sed commands.
 ```bash
 $ sed -i "s/MODULES=.*/MODULES=(i915 ext4)/g" /etc/mkinitcpio.conf
-$ sed -i "s/HOOKS=.*/HOOKS=(base udev autodetect modconf keyboard plymouth block keymap plymouth-encrypt lvm2 resume filesystems keyboard fsck shutdown)/g" /etc/mkinitcpio.conf
+$ sed -i "s/HOOKS=.*/HOOKS=(base udev autodetect modconf keyboard keymap consolefont plymouth block plymouth-encrypt lvm2 resume filesystems fsck shutdown)/g" /etc/mkinitcpio.conf
 ```
 
 Regenerate the initrd image.
