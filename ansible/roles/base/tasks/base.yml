@@ -1,6 +1,5 @@
 ---
 
-# Setup pacman
 - name: Pacman mirrorlist setup
   copy: src=mirrorlist dest=/etc/pacman.d/
 
@@ -18,23 +17,17 @@
   notify:
     - rkhunter propupdate
 
-# Install base packages
 - name: Install base packages
   pacman: name={{ item }} state=present
   with_items: "{{ base_packages }}"
   notify:
     - rkhunter propupdate
 
-# Install AUR packages
 - name: Install pacaur as aur helper
   aur: name={{ item }} user={{ user.name }} skip_pgp=true
   with_items:
     - cower
     - pacaur
-
-# Enable services
-- name: Enable network time
-  service: name=ntpd state=started enabled=yes
 
 - name: Enable cronie server
   service: name=cronie state=started enabled=yes
