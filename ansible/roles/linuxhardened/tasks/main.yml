@@ -17,12 +17,12 @@
             MENU LABEL Arch Linux Hardened
             LINUX ../vmlinuz-linux-hardened
             APPEND cryptdevice=/dev/sda2:vg0 root=/dev/mapper/vg0-root resume=/dev/mapper/vg0-swap rw lang=en locale={{ system.locale }} vga=773 quiet splash
-            INITRD ../{{ system.processor_type }}-ucode.img,../initramfs-linux-hardened.img
+            INITRD ../intel-ucode.img,../initramfs-linux-hardened.img
 
             LABEL archhardenedfallback
             MENU LABEL Arch Linux Hardened Fallback
             LINUX ../vmlinuz-linux-hardened
             APPEND cryptdevice=/dev/sda2:vg0 root=/dev/mapper/vg0-root resume=/dev/mapper/vg0-swap rw lang=en locale={{ system.locale }} vga=773 quiet splash
-            INITRD ../{{ system.processor_type }}-ucode.img,../initramfs-linux-hardened-fallback.img
-    marker: "# {mark} ANSIBLE MANAGED BLOCK { mark }"
+            INITRD ../intel-ucode.img,../initramfs-linux-hardened-fallback.img
+    marker: "# {mark} ANSIBLE MANAGED BLOCK {mark}"
   when: bootloader == "syslinux"

@@ -23,4 +23,5 @@
     - { role: spotify, tags: ['spotify'] }
     - { role: nextcloud, tags: ['nextcloud'] }
     - { role: macspoof, tags: ['macspoof'] }
+    - { role: sound, tags : ['sound'] }
   become: true
