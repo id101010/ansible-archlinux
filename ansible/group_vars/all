@@ -7,9 +7,9 @@ system:
     locale: de_CH.UTF-8
     timezone: Europe/Zurich
     # "intel" or "amd"
-    microcode_name: intel
+    processor_type: intel
 
-bootloader: grub
+bootloader: syslinux
 
 ssh:
     port: 22
