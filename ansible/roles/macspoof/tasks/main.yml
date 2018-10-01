@@ -9,13 +9,13 @@
   copy: src=macspoof@.service dest=/etc/systemd/system/
 
 - name: Take down all interfaces
-  net_interface: name={{ item }} state=down enabled=false
+  command: "ip link set dev {{ item }} down"
   with_items:
     - "{{ ansible_interfaces }}"
   when: item != 'lo'
 
-- name: Enable the macspoof service for all interface
-  command: "ip link set dev {{ item }} down"
+- name: Enable macspoof for all interfaces
+  service: name=macspoof@{{ item }}.service state=started enabled=yes
   with_items:
     - "{{ ansible_interfaces }}"
   when: item != 'lo'
