@@ -1,0 +1,6 @@
+---
+
+- name: activate profile
+  command: /usr/local/bin/profile-activate
+  become: yes
+  become_user: "{{ user.name }}"
