@@ -11,6 +11,6 @@
 
 - name: Install firejail profile update script
   copy: 
-    src: profile-activate.sh 
+    src: activate-profile.sh 
     dest: /usr/local/bin/profile-activate 
     mode: 0755
