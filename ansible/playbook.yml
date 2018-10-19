@@ -24,4 +24,5 @@
     - { role: nextcloud, tags: ['nextcloud'] }
     - { role: macspoof, tags: ['macspoof'] }
     - { role: sound, tags : ['sound'] }
+    - { role: mail, tags : ['mail'] }
   become: true

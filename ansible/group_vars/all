@@ -1,13 +1,13 @@
 user:
-    name: vagrant
-    group: vagrant
+    name: aaron
+    group: aaron
     shell: /bin/zsh
 
 system:
     locale: de_CH.UTF-8
     timezone: Europe/Zurich
     # "intel" or "amd"
-    processor_type: intel
+    processor_type: amd
 
 bootloader: syslinux
 
