@@ -6,8 +6,6 @@ user:
 system:
     locale: de_CH.UTF-8
     timezone: Europe/Zurich
-    # "intel" or "amd"
-    processor_type: amd
 
 bootloader: syslinux
 

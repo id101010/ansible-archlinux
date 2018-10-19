@@ -1,0 +1,40 @@
+# {{ ansible_managed }}
+
+UI                      vesamenu.c32
+DEFAULT                 {{ default_label }}
+PROMPT                  0
+TIMEOUT                 50
+MENU TITLE              Glorious Arch Linux
+MENU BACKGROUND         {{ splash.file }}
+MENU RESOLUTION         {{ splash.resolution }}
+MENU COLOR border       30;44   #40ffffff #a0000000 std
+MENU COLOR title        1;36;44 #9033ccff #a0000000 std
+MENU COLOR sel          7;37;40 #e0ffffff #20ffffff all
+MENU COLOR unsel        37;44   #50ffffff #a0000000 std
+MENU COLOR help         37;40   #c0ffffff #a0000000 std
+MENU COLOR timeout_msg  37;40   #80ffffff #00000000 std
+MENU COLOR timeout      1;37;40 #c0ffffff #00000000 std
+MENU COLOR msg07        37;40   #90ffffff #a0000000 std
+MENU COLOR tabmsg       31;40   #30ffffff #00000000 std
+
+{% for option in {{ bootoptions }} %}
+LABEL {{ option.label }}
+    MENU LABEL {{ option.menu_label }}
+    LINUX ../{{ option.image }}
+    APPEND {{ kernel_line }}
+    INITRD ../{{ option.initrd }}
+{% endfor %}
+
+LABEL hdt
+    MENU LABEL HDT (Hardware Detection Tool)
+    COM32 hdt.c32
+
+LABEL reboot
+    MENU LABEL Reboot
+    COM32 reboot.c32
+
+LABEL poweroff
+    MENU LABEL Poweroff
+    COM32 poweroff.c32
+
+# {{ ansible_managed }}
