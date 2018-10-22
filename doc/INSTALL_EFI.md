@@ -179,7 +179,7 @@ $ passwd
 
 Change mkinitcpio.conf to support lvm2 and encryption.
 ```bash
-$ sed -i "s/MODULES=.*/MODULES=(i915 ext4)/g" /etc/mkinitcpio.conf
+$ sed -i "s/MODULES=.*/MODULES=(ext4)/g" /etc/mkinitcpio.conf
 $ sed -i "s/HOOKS=.*/HOOKS=(base udev autodetect modconf keyboard block keymap encrypt lvm2 resume filesystems keyboard fsck shutdown)/g" /etc/mkinitcpio.conf
 ```
 

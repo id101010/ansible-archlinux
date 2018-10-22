@@ -219,7 +219,7 @@ You need to add the following:
 
 Eighter edit `/etc/mkinitcpio.conf` by hand or use the following sed commands.
 ```bash
-$ sed -i "s/MODULES=.*/MODULES=(i915 ext4)/g" /etc/mkinitcpio.conf
+$ sed -i "s/MODULES=.*/MODULES=(ext4)/g" /etc/mkinitcpio.conf
 $ sed -i "s/HOOKS=.*/HOOKS=(base udev autodetect modconf keyboard block keymap encrypt lvm2 resume filesystems keyboard fsck shutdown)/g" /etc/mkinitcpio.conf
 ```
 
@@ -242,8 +242,7 @@ The period signs also do not signify any shorthand or missing code. The INITRD l
 LABEL arch
     MENU LABEL Arch Linux
     LINUX ../vmlinuz-linux
-    INITRD ../{intel||amd}-ucode.img,../initramfs-linux.img # Make sure to
-    choose the right image!
+    INITRD ../{intel||amd}-ucode.img,../initramfs-linux.img # Make sure to choose the right image!
     APPEND <your kernel parameters>
 ```
 
