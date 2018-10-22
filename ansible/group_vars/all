@@ -1,13 +1,21 @@
 user:
-    name: vagrant
-    group: vagrant
+    name: aaron
+    group: aaron
     shell: /bin/zsh
 
+
+# processor type:
+#   Option: "intel" will install microcode updates and configure the bootloader accordingly
+#   Option: "amd" will do the same for amd
+# graphics_card type: 
+#   Option: "intel" will install microcode updates
+#   Option: "nvidia" will install nouveau because i will NEVER EVER touch those filthy nvidia drivers
 system:
     locale: de_CH.UTF-8
     timezone: Europe/Zurich
-    # "intel" or "amd"
-    processor_type: intel
+    processor: amd
+    # nvidia or intel 
+    graphics_card: nvidia
 
 bootloader: syslinux
 

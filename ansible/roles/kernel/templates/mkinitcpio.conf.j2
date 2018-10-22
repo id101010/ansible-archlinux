@@ -1,0 +1,22 @@
+# vim:set ft=sh
+# MODULES
+{% if system.graphics_card == 'nvidia' %} 
+MODULES=({{ initrd_mods }} nouveau) 
+{% elif system.graphics_card == 'i915' %} 
+MODULES=({{ initrd_mods }} i915) 
+{% endif %}
+
+# BINARIES
+BINARIES=({{ initrd_bin }})
+
+# FILES
+FILES=({{ initrd_files }})
+
+# HOOKS
+HOOKS=({{ initrd_hooks }})
+
+# COMPRESSION
+COMPRESSION="{{ initrd_compression }}"
+
+# COMPRESSION_OPTIONS
+#COMPRESSION_OPTIONS=()

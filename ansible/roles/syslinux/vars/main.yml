@@ -1,0 +1,35 @@
+kline:
+    cryptdevice:    cryptdevice=/dev/nvme0n1p2:vg0
+    root:           root=/dev/mapper/vg0-root
+    resume:         resume=/dev/mapper/vg0-swap
+    options:        rw lang=en locale=de_CH.UTF-8 quiet splash
+
+kernel_line: "{{ kline.cryptdevice }} {{ kline.root }} {{ kline.resume }} {{ kline.options }}"
+
+splash:
+    file: splash.png
+    resolution: 1920 1080
+
+bootoptions:
+    arch:
+        label: arch
+        menu_label: Arch Linux
+        image: vmlinuz-linux
+        initrd: initramfs-linux.img
+    arch_fb:
+        label: arch_fallback
+        menu_label: Arch Linux Fallback
+        image: vmlinuz-linux
+        initrd: initramfs-linux-fallback.img
+    archhardened:
+        label: arch_hardened
+        menu_label: Arch Linux Hardened
+        image: vmlinuz-linux-hardened
+        initrd: initramfs-linux-hardened.img
+    archhardened_fb:
+        label: arch_hardened_fallback
+        menu_label: Arch Linux Hardened Fallback
+        image: vmlinuz-linux-hardened
+        initrd: initramfs-linux-hardened-fallback.img
+
+default_label: arch

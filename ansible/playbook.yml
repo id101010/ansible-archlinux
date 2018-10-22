@@ -6,10 +6,10 @@
 
   roles:
     - { role: network, tags: ['network'] }
+    - { role: kernel, tags: ['kernel'] }
     - { role: base, tags: ['base'] }
     - { role: grub, tags: ['grub'], when: "bootloader == 'grub'"}
     - { role: syslinux, tags: ['syslinux'], when: "bootloader == 'syslinux'"}
-    - { role: linuxhardened, tags: ['linuxhardened'] }
     - { role: dotfiles, tags: ['dotfiles'] }
     - { role: firejail, tags: ['firejail'] }
     - { role: shell, tags: ['shell'] }
@@ -24,4 +24,5 @@
     - { role: nextcloud, tags: ['nextcloud'] }
     - { role: macspoof, tags: ['macspoof'] }
     - { role: sound, tags : ['sound'] }
+    - { role: mail, tags : ['mail'] }
   become: true
