@@ -25,4 +25,5 @@
     - { role: macspoof, tags: ['macspoof'] }
     - { role: sound, tags : ['sound'] }
     - { role: mail, tags : ['mail'] }
+    - { role: photography, tags : ['photography'] }
   become: true
