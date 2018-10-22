@@ -6,6 +6,12 @@ user:
 system:
     locale: de_CH.UTF-8
     timezone: Europe/Zurich
+    # amd or intel 
+    #(Option: "intel" will install microcode updates)
+    processor: amd
+    # nvidia or intel 
+    #(Option: "nvidia" will install nouveau because i will NEVER EVER touch those filthy nvidia drivers)
+    graphics_card: nvidia
 
 bootloader: syslinux
 

@@ -1,6 +1,10 @@
 # vim:set ft=sh
 # MODULES
-MODULES=({{ initrd_mods }})
+{% if system.graphics_card == 'nvidia' %} 
+MODULES=({{ initrd_mods }} nouveau) 
+{% elif system.graphics_card == 'i915' %} 
+MODULES=({{ initrd_mods }} i915) 
+{% endif %}
 
 # BINARIES
 BINARIES=({{ initrd_bin }})
@@ -13,11 +17,6 @@ HOOKS=({{ initrd_hooks }})
 
 # COMPRESSION
 COMPRESSION="{{ initrd_compression }}"
-#COMPRESSION="bzip2"
-#COMPRESSION="lzma"
-#COMPRESSION="xz"
-#COMPRESSION="lzop"
-#COMPRESSION="lz4"
 
 # COMPRESSION_OPTIONS
 #COMPRESSION_OPTIONS=()
