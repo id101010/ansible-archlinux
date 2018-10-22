@@ -1,0 +1,23 @@
+# vim:set ft=sh
+# MODULES
+MODULES=({{ initrd_mods }})
+
+# BINARIES
+BINARIES=({{ initrd_bin }})
+
+# FILES
+FILES=({{ initrd_files }})
+
+# HOOKS
+HOOKS=({{ initrd_hooks }})
+
+# COMPRESSION
+COMPRESSION="{{ initrd_compression }}"
+#COMPRESSION="bzip2"
+#COMPRESSION="lzma"
+#COMPRESSION="xz"
+#COMPRESSION="lzop"
+#COMPRESSION="lz4"
+
+# COMPRESSION_OPTIONS
+#COMPRESSION_OPTIONS=()

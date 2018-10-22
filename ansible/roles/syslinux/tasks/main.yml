@@ -7,5 +7,5 @@
 - name: Copy splash image into place
   copy: src=splash.png dest=/boot/syslinux/
 
-- name: Push configuration
+- name: Generate and push syslinux configuration
   template: src=syslinux.cfg.j2 dest=/boot/syslinux/syslinux.cfg

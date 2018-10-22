@@ -17,12 +17,12 @@ MENU COLOR timeout      1;37;40 #c0ffffff #00000000 std
 MENU COLOR msg07        37;40   #90ffffff #a0000000 std
 MENU COLOR tabmsg       31;40   #30ffffff #00000000 std
 
-{% for option in {{ bootoptions }} %}
-LABEL {{ option.label }}
-    MENU LABEL {{ option.menu_label }}
-    LINUX ../{{ option.image }}
+{% for item in bootoptions.values() %}
+LABEL {{ item.label }}
+    MENU LABEL {{ item.menu_label }}
+    LINUX ../{{ item.image }}
     APPEND {{ kernel_line }}
-    INITRD ../{{ option.initrd }}
+    INITRD ../{{ item.initrd }}
 {% endfor %}
 
 LABEL hdt
