@@ -35,11 +35,13 @@ First install ansible
 ```
 $ sudo pacman -S ansible
 ```
-then download and run the provided playbook
+then download the playbook and make sure you adjust the values of the global
+config in `group_vars/all` to match your system stats. Then run it.
 
 ```
 $ git clone https://github.com/id101010/ansible-archlinux.git
 $ cd ansible-archlinux/ansible
+$ vim group_vars/all
 $ ansible-playbook --ask-become-pass -i inventory/hosts playbook.yml [--tags $LIMIT_TO_TAG]
 ```
 Lean back and watch the installation.

@@ -157,8 +157,7 @@ $ syslinux-install_update -i -a -m -c /mnt
 Edit the `/mnt/boot/syslinux/syslinux.cfg` bootloader configuration to support your cryptlvm. 
 To do this you need to change the `APPEND` lines for the Arch and Archfallback targets. 
 To make sure your system has the right keyboard layout when entering the LUKS key, append a location and language entry to the
-kernel line. The example below uses the Swiss QWERTY layout. If you use an english QWERTZ layout you can omit these entries. The `quiet` and `splash` options
-are used for plymouth. This will give you a nice looking input field for the LUKS passphrase.
+kernel line. The example below uses the Swiss QWERTY layout. If you use an english QWERTZ layout you can omit these entries.
 The Resume statement is used for hibernation. If you don't want this you can omit it as well.
 
 ```bash
@@ -213,26 +212,28 @@ echo "FONT=lat9w-16" >> /etc/vconsole.conf
 echo "FONT_MAP=8859-1_to_uni" >> /etc/vconsole.conf
 ```
 
-Change mkinitcpio.conf to support ext4, lvm2, encryption and plymouth.
+Change mkinitcpio.conf to support ext4, lvm2 and encryption.
 You need to add the following:
-* MODULES: i915 ext4
-* HOOKS: plymouth plymouth-encrypt lvm2 resume
+* MODULES: ext4
+* HOOKS: encrypt lvm2 resume
 
 Eighter edit `/etc/mkinitcpio.conf` by hand or use the following sed commands.
 ```bash
-$ sed -i "s/MODULES=.*/MODULES=(i915 ext4)/g" /etc/mkinitcpio.conf
-$ sed -i "s/HOOKS=.*/HOOKS=(base udev autodetect modconf keyboard keymap consolefont plymouth block plymouth-encrypt lvm2 resume filesystems fsck shutdown)/g" /etc/mkinitcpio.conf
+$ sed -i "s/MODULES=.*/MODULES=(ext4)/g" /etc/mkinitcpio.conf
+$ sed -i "s/HOOKS=.*/HOOKS=(base udev autodetect modconf keyboard block keymap encrypt lvm2 resume filesystems keyboard fsck shutdown)/g" /etc/mkinitcpio.conf
 ```
 
 Regenerate the initrd image.
 ```bash
 $ mkinitcpio -p linux
 ```
-
-If you own an Intel processor I strongly recommend that you install the microcode updates. While microcode can be updated through the BIOS, the Linux kernel is also able to apply these updates during boot.
+The next step is optional since the ansible playbook will take care of it! But
+I'll leave this here for documentation purposes. If you own an Intel processor I strongly recommend that you install the microcode updates. While microcode can be updated through the BIOS, the Linux kernel is also able to apply these updates during boot.
 These updates provide bug fixes that can be critical to the stability of your system. You need to install the package first and then create a second initrd entry in the bootloader config.
 ```bash
 $ pacman -S intel-ucode
+or
+$ pacman -S amd-ucode
 ``` 
 
 Edit the `/boot/syslinux/syslinux.cfg` config file. There must be no spaces between the intel-ucode and initramfs-linux initrd files.
@@ -241,7 +242,7 @@ The period signs also do not signify any shorthand or missing code. The INITRD l
 LABEL arch
     MENU LABEL Arch Linux
     LINUX ../vmlinuz-linux
-    INITRD ../intel-ucode.img,../initramfs-linux.img
+    INITRD ../{intel||amd}-ucode.img,../initramfs-linux.img # Make sure to choose the right image!
     APPEND <your kernel parameters>
 ```
 

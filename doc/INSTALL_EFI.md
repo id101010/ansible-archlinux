@@ -137,7 +137,7 @@ sda              8:0    0 931.5G  0 disk
 
 Install the base system and some further components using pacstrap.
 ```bash
-$ pacstrap /mnt base base-devel grub-efi-x86_64 vim git efibootmgr plymouth
+$ pacstrap /mnt base base-devel grub-efi-x86_64 vim git efibootmgr
 ```
 
 Generate fstab with UUID representation.
@@ -177,10 +177,10 @@ Set a strong root password.
 $ passwd
 ```
 
-Change mkinitcpio.conf to support lvm2, encryption and plymouth.
+Change mkinitcpio.conf to support lvm2 and encryption.
 ```bash
-$ sed -i "s/MODULES=.*/MODULES=(i915 ext4)/g" /etc/mkinitcpio.conf
-$ sed -i "s/HOOKS=.*/HOOKS=(base udev autodetect modconf keyboard plymouth block keymap plymouth-encrypt lvm2 resume filesystems keyboard fsck shutdown)/g" /etc/mkinitcpio.conf
+$ sed -i "s/MODULES=.*/MODULES=(ext4)/g" /etc/mkinitcpio.conf
+$ sed -i "s/HOOKS=.*/HOOKS=(base udev autodetect modconf keyboard block keymap encrypt lvm2 resume filesystems keyboard fsck shutdown)/g" /etc/mkinitcpio.conf
 ```
 
 Regenerate the initrd image.
@@ -220,12 +220,6 @@ $ cryptsetup luksAddKey /dev/sda3 /keyfile.bin
 $ sed -i 's\^FILES=.*\FILES="/keyfile.bin"\g' /etc/mkinitcpio.conf
 $ mkinitcpio -p linux
 $ chmod 600 /boot/initramfs-linux*
-```
-
-Enable Intel microcode CPU updates (this is currently only needed for intel processors).
-```bash
-$ pacman -S intel-ucode
-$ grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
 Create a new user and set its password.
