@@ -2,18 +2,18 @@
 
 - name: Install rcm
   aur: name=rcm user={{ user.name }}
-  when: dotfiles is defined
+  when: dotfiles.installation == "true"
   tags:
     - aur
 
 - name: Clone user dotfiles
   git: repo={{ dotfiles.url }} dest=/home/{{ user.name }}/{{ dotfiles.destination }} accept_hostkey=yes update=yes
-  when: dotfiles is defined
+  when: dotfiles.installation == "true"
   become: yes
   become_user: "{{ user.name }}"
 
 - name: Install user dotfiles
   command: rcup -d /home/{{ user.name}}/{{ dotfiles.destination}} {{ dotfiles.rcup_flags }}
-  when: dotfiles is defined
+  when: dotfiles.installation == "true"
   become: yes
   become_user: "{{ user.name }}"

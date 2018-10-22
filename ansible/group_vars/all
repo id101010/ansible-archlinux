@@ -1,33 +1,59 @@
+##
+# User configuration
+# ==================
+##
 user:
     name: aaron
     group: aaron
     shell: /bin/zsh
 
-
+##
+# System configuration
+# ====================
 # processor type:
 #   Option: "intel" will install microcode updates and configure the bootloader accordingly
 #   Option: "amd" will do the same for amd
 # graphics_card type: 
 #   Option: "intel" will install microcode updates
 #   Option: "nvidia" will install nouveau because i will NEVER EVER touch those filthy nvidia drivers
+##
 system:
     locale: de_CH.UTF-8
     timezone: Europe/Zurich
     processor: amd
-    # nvidia or intel 
     graphics_card: nvidia
 
+##
+# Bootloader configuration
+# ========================
+# syslinux and grub are supported
+##
 bootloader: syslinux
 
+##
+# Connectivity configuration
+# ==========================
+##
 ssh:
     port: 22
     enable_sshd: true
 
+##
+# Dotfile configuration
+# =====================
+# Choose wheter custom dotfiles should be installed or not
+# Just delete the url to avoid an installation
+##
 dotfiles:
+    installation: "true"
     url: https://github.com/id101010/LinuxDotFiles.git
     destination: .dotfiles
     rcup_flags: -fx README.md
 
+##
+# Base package configuration
+# ==========================
+##
 base_packages:
     - base-devel
     - cronie
