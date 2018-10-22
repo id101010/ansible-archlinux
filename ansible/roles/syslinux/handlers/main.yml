@@ -1,0 +1,5 @@
+---
+
+- name: update syslinux
+  command: "syslinux --update"
+  when: bootloader == "syslinux"

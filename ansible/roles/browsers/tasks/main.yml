@@ -1,0 +1,54 @@
+---
+
+- name: Install w3m
+  pacman: name=w3m state=present
+
+- name: Install firefox
+  pacman: name=firefox state=present
+  tags:
+    - firefox
+
+- name: Firejail entry for firefox
+  file: src=/usr/bin/firejail
+        dest=/usr/local/bin/firefox
+        state=link
+
+  tags:
+    - firefox
+    - firejail
+
+- name: Place new application.desktop file for the jailed firefox
+  copy: src=firefox.desktop
+        dest=/usr/share/applications/
+  tags:
+    - firefox
+    - firejail
+
+- name: Verify firefox firejail local profile exists
+  file: path=/etc/firejail/firefox.local state=touch
+  tags:
+    - firefox
+    - firejail
+
+- name: Restrict Firefox access to /etc
+  lineinfile:
+    dest: /etc/firejail/firefox.local
+    regexp: "^private-etc"
+    line: "private-etc firejail,passwd,group,hostname,hosts,nsswitch.conf,resolv.conf,gtk-2.0,gtk-3.0,fonts,mime.types,asound.conf,pulse,localtime"
+  tags:
+    - firefox
+    - firejail
+
+- name: Install tor-browser-en
+  aur: name=tor-browser-en user={{ user.name }} skip_pgp=yes
+  tags:
+    - tor-browser
+    - aur
+
+- name: Jail tor-browser-en
+  file: src=/usr/bin/firejail
+        dest=/usr/local/bin/tor-browser-en
+        state=link
+  tags:
+    - tor-browser
+    - firejail

@@ -2,3 +2,6 @@
 
 - name: rkhunter propupdate
   command: rkhunter --propupd
+
+- name: restart ntpd
+  service: name=ntpd state=restarted

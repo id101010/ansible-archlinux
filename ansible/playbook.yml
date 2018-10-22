@@ -1,15 +1,28 @@
 ---
 
-- name: Install local arch linux desktop environment
+- name: Install secure arch linux environment
   hosts: all
   connection: local
 
   roles:
     - { role: network, tags: ['network'] }
+    - { role: kernel, tags: ['kernel'] }
     - { role: base, tags: ['base'] }
+    - { role: grub, tags: ['grub'], when: "bootloader == 'grub'"}
+    - { role: syslinux, tags: ['syslinux'], when: "bootloader == 'syslinux'"}
     - { role: dotfiles, tags: ['dotfiles'] }
+    - { role: firejail, tags: ['firejail'] }
     - { role: shell, tags: ['shell'] }
     - { role: editor, tags: ['editor'] }
     - { role: terminal, tags: ['terminal'] }
     - { role: windowmanager, tags: ['windowmanager'] }
+    - { role: browsers, tags: ['browsers'] }
+    - { role: calibre, tags: ['calibre'] }
+    - { role: redshift, tags: ['redshift'] }
+    - { role: keepass, tags: ['keepass'] }
+    - { role: spotify, tags: ['spotify'] }
+    - { role: nextcloud, tags: ['nextcloud'] }
+    - { role: macspoof, tags: ['macspoof'] }
+    - { role: sound, tags : ['sound'] }
+    - { role: mail, tags : ['mail'] }
   become: true
