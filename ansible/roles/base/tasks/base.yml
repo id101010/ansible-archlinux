@@ -29,5 +29,19 @@
     - cower
     - pacaur
 
+- name: Install microcode updates for intel (if necessary)
+  pacman: name=intel-ucode state=present
+  notify:
+      - update grub
+      - update syslinux
+  when: system.processor == "intel"
+
+- name: Install microcode updates for amd (if necessary)
+  pacman: name=amd-ucode state=present
+  notify:
+      - update grub
+      - update syslinux
+  when: system.processor == "amd"
+
 - name: Enable cronie server
   service: name=cronie state=started enabled=yes
