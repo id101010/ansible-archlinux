@@ -5,6 +5,7 @@
   with_items:
       - ethtool
       - wpa_supplicant
+      - wpa_actiond
       - netctl
       - dhcpcd
       - nmap
