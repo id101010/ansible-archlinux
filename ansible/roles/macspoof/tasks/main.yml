@@ -15,7 +15,7 @@
   when: item != 'lo'
 
 - name: Enable macspoof for all interfaces
-  service: name=macspoof@{{ item }}.service state=started enabled=yes
+  service: name=macspoof@{{ item }}.service enabled=yes
   with_items:
     - "{{ ansible_interfaces }}"
   when: item != 'lo'
