@@ -1,0 +1,29 @@
+---
+
+- name: Install gimp
+  pacman: name={{ item }} state=present
+  with_items:
+    - gimp
+    - darktable
+    - rawtherapee
+
+- name: Jail gimp
+  file: src=/usr/bin/firejail
+        dest=/usr/local/bin/gimp
+        state=link
+  tags:
+    - firejail
+
+- name: Jail darktable
+  file: src=/usr/bin/firejail
+        dest=/usr/local/bin/darktable
+        state=link
+  tags:
+    - firejail
+
+- name: Jail rawtherapee
+  file: src=/usr/bin/firejail
+        dest=/usr/local/bin/rawtherapee
+        state=link
+  tags:
+    - firejail
