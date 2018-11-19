@@ -42,7 +42,7 @@ ssh:
 # Dotfile configuration
 # =====================
 # Choose wheter custom dotfiles should be installed or not
-# Just delete the url to avoid an installation
+# Just set the installation flag to false to avoid an installation
 ##
 dotfiles:
     installation: "true"
