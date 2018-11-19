@@ -1,5 +1,4 @@
 # Automated ArchLinux
-
 This ansible playbook automates my personal Arch Linux installation. The goal is a fully encrypted and secure desktop system. 
 All dotfiles are kept in an independent repository. They are managed using [rcm](https://robots.thoughtbot.com/rcm-for-rc-files-in-dotfiles-repos) and will only get installed if the `dotfiles` variable is defined.
 
@@ -40,7 +39,7 @@ then download and run the provided playbook
 ```
 $ git clone https://github.com/id101010/ansible-archlinux.git
 $ cd ansible-archlinux/ansible
-$ ansible-playbook --ask-become-pass -i inventory/hosts playbook.yml [--tags $LIMIT_TO_TAG]
+$ ansible-playbook -i inventory/hosts playbook.yml [--tags $LIMIT_TO_TAG]
 ```
 Lean back and watch the installation.
 
