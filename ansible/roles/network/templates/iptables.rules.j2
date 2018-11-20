@@ -13,7 +13,6 @@
 -A INPUT    -m state --state NEW,INVALID              -j DROP
 -A INPUT    -p icmp                                   -j ACCEPT
 -A OUTPUT   -p icmp                                   -j ACCEPT
--A OUTPUT   -m multiport -p TCP --dports http,https   -j ACCEPT
 -A OUTPUT   -p TCP --dport ssh                        -j ACCEPT
 -A OUTPUT   -p TCP --dport http                       -j ACCEPT
 -A OUTPUT   -p TCP --dport https                      -j ACCEPT
