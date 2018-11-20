@@ -1,7 +1,7 @@
 ---
 
 - name: Install secure arch linux environment
-  hosts: all
+  hosts: localhost
   connection: local
 
   roles:
