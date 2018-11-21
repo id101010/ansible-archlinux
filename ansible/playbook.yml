@@ -1,8 +1,9 @@
 ---
 
 - name: Install secure arch linux environment
-  hosts: localhost
+  hosts: hosts
   connection: local
+  become: True
 
   roles:
     - { role: network, tags: ['network'] }
@@ -27,4 +28,3 @@
     - { role: mail, tags : ['mail'] }
     - { role: photography, tags : ['photography'] }
     - { role: messengers, tags : ['messengers'] }
-  become: true
