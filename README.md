@@ -49,7 +49,7 @@ Lean back and watch the installation.
 Assuming you've already installed vagrant you can set up a vritual machine with just these steps
 
 ``` bash
-$ git clone https://github.com/id101010/ansible-archlinux.git
+$ git clone --recurse-submodules -j8 https://github.com/id101010/ansible-archlinux.git
 $ cd ansible-archlinux/vagrant
 $ vagrant up --provision
 ```
