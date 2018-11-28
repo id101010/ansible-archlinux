@@ -28,3 +28,4 @@
     - { role: mail, tags : ['mail'] }
     - { role: photography, tags : ['photography'] }
     - { role: messengers, tags : ['messengers'] }
+    - { role: teamspeak3, tags : ['teamspeak3'] }
