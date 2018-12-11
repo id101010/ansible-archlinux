@@ -13,6 +13,8 @@
 -A INPUT    -m state --state NEW,INVALID              -j DROP
 -A INPUT    -p icmp                                   -j ACCEPT
 -A OUTPUT   -p icmp                                   -j ACCEPT
+
+# Default outgoing connections
 -A OUTPUT   -p TCP --dport ssh                        -j ACCEPT
 -A OUTPUT   -p TCP --dport http                       -j ACCEPT
 -A OUTPUT   -p TCP --dport https                      -j ACCEPT
@@ -21,8 +23,19 @@
 -A OUTPUT   -p TCP --dport domain                     -j ACCEPT
 -A OUTPUT   -p TCP --dport 631                        -j ACCEPT
 
+# Personal Mailserver config
+-A OUTPUT   -p TCP --dport 587                        -j ACCEPT
+-A OUTPUT   -p TCP --dport 993                        -j ACCEPT
+
 {% if ssh.enable_sshd %}
 -A INPUT    -p TCP --dport {{ ssh.port }}             -j ACCEPT
 {% endif %}
+
+# Logging of droppped packets
+-N LOGGING
+-A INPUT                                              -j LOGGING
+-A OUTPUT                                             -j LOGGING
+-A LOGGING -m limit --limit 2/min                     -j LOG --log-prefix "iptables-dropped: " --log-level 4
+-A LOGGING                                            -j DROP
 
 COMMIT
