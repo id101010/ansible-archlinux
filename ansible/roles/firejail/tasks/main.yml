@@ -10,7 +10,7 @@
   file: path=/etc/firejail/globals.local state=touch
 
 - name: Install firejail profile update script
-  copy: 
-    src: activate-profile.sh 
-    dest: /usr/local/bin/profile-activate 
+  copy:
+    src: activate-profile.sh
+    dest: /usr/local/bin/profile-activate
     mode: 0755

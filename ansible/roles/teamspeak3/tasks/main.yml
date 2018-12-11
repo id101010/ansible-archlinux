@@ -1,0 +1,11 @@
+---
+
+- name: Install teamspeak3
+  pacman: name=teamspeak3 state=present
+
+- name: Jail teamspeak3
+  file: src=/usr/bin/firejail
+        dest=/usr/local/bin/teamspeak3
+        state=link
+  tags:
+    - firejail

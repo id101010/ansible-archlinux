@@ -1,13 +1,13 @@
 ---
 
 - name: Install alsa-utils
-  pacman: 
-    name: alsa-utils 
+  pacman:
+    name: alsa-utils
     state: present
 
 - name: Install PulseAudio
-  pacman: 
-    name: "{{ item }}" 
+  pacman:
+    name: "{{ item }}"
     state: present
   with_items:
     - pulseaudio

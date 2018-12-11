@@ -23,7 +23,7 @@
     - firejail
 
 - name: Apply redshift firejail profile
-  copy: 
+  copy:
     src: redshift.profile
     dest: /usr/local/etc/firejail/redshift.profile
   notify:
