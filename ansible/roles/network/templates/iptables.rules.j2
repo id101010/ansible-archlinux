@@ -27,6 +27,9 @@
 -A OUTPUT   -p TCP --dport 587                        -j ACCEPT
 -A OUTPUT   -p TCP --dport 993                        -j ACCEPT
 
+# Plex Mediaserver
+-A OUTPUT   -p TCP --dport 32400                      -j ACCEPT
+
 {% if ssh.enable_sshd %}
 -A INPUT    -p TCP --dport {{ ssh.port }}             -j ACCEPT
 {% endif %}
@@ -35,7 +38,7 @@
 -N LOGGING
 -A INPUT                                              -j LOGGING
 -A OUTPUT                                             -j LOGGING
--A LOGGING -m limit --limit 2/min                     -j LOG --log-prefix "iptables-dropped: " --log-level 4
+-A LOGGING -m limit --limit 2/min                     -j LOG --log-prefix "[DROPPED]:" --log-level 4
 -A LOGGING                                            -j DROP
 
 COMMIT
