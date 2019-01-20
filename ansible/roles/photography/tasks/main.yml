@@ -6,6 +6,7 @@
     - gimp
     - darktable
     - rawtherapee
+    - shotwell
 
 - name: Jail gimp
   file: src=/usr/bin/firejail
@@ -24,6 +25,13 @@
 - name: Jail rawtherapee
   file: src=/usr/bin/firejail
         dest=/usr/local/bin/rawtherapee
+        state=link
+  tags:
+    - firejail
+
+- name: Jail shotwell
+  file: src=/usr/bin/firejail
+        dest=/usr/local/bin/shotwell
         state=link
   tags:
     - firejail
