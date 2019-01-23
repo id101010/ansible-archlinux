@@ -1,7 +1,19 @@
 ---
 
-- name: Install urxvt
-  pacman: name=rxvt-unicode state=present
+- name: install urxvt terminal emulator
+  pacman:
+    name: rxvt-unicode
+    state: present
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
 
-- name: Install tmux
-  pacman: name=tmux state=present
+- name: install tmux terminal multiplexer
+  pacman:
+    name: tmux
+    state: present
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
