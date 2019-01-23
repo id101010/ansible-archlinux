@@ -1,11 +1,18 @@
 ---
 
-- name: Install teamspeak3
-  pacman: name=teamspeak3 state=present
+- name: install teamspeak3 communication software
+  pacman:
+    name: teamspeak3
+    state: present
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
 
-- name: Jail teamspeak3
-  file: src=/usr/bin/firejail
-        dest=/usr/local/bin/teamspeak3
-        state=link
+- name: jail teamspeak3
+  file:
+    src: /usr/bin/firejail
+    dest: /usr/local/bin/teamspeak3
+    state: link
   tags:
     - firejail
