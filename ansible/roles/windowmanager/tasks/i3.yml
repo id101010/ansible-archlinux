@@ -2,7 +2,7 @@
 
 - name: install i3 windowmanager and components
   pacman:
-    name: item
+    name: "{{ item }}"
     state: present
   with_items:
       - xorg
