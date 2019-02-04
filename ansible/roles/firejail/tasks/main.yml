@@ -1,13 +1,23 @@
 ---
 
 - name: Install firejail
-  pacman: name=firejail state=present
+  pacman:
+    name: firejail
+    state: present
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
 
 - name: Create firejail profile directory
-  file: path=/usr/local/etc/firejail state=directory
+  file:
+    path: /usr/local/etc/firejail
+    state: directory
 
 - name: Verify firejail globals file exists
-  file: path=/etc/firejail/globals.local state=touch
+  file:
+    path: /etc/firejail/globals.local
+    state: touch
 
 - name: Install firejail profile update script
   copy:
