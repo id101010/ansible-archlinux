@@ -8,20 +8,8 @@
 - name: Create systemd unit for macchanger
   copy: src=macspoof@.service dest=/etc/systemd/system/
 
-- name: Take down all interfaces
-  command: "ip link set dev {{ item }} down"
-  with_items:
-    - "{{ ansible_interfaces }}"
-  when: item != 'lo'
-
 - name: Enable macspoof for all interfaces
   service: name=macspoof@{{ item }}.service enabled=yes
-  with_items:
-    - "{{ ansible_interfaces }}"
-  when: item != 'lo'
-
-- name: Bring all interfaces back up
-  command: "ip link set dev {{ item }} up"
   with_items:
     - "{{ ansible_interfaces }}"
   when: item != 'lo'

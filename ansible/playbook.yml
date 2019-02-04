@@ -23,7 +23,7 @@
     - { role: keepass, tags: ['keepass'] }
     - { role: spotify, tags: ['spotify'] }
     - { role: nextcloud, tags: ['nextcloud'] }
-    - { role: macspoof, tags: ['macspoof'] }
+    - { role: macspoof, tags: ['macspoof'], when: "system.macspoof == 'enabled'"}
     - { role: sound, tags : ['sound'] }
     - { role: mail, tags : ['mail'] }
     - { role: photography, tags : ['photography'] }
