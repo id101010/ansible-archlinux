@@ -9,6 +9,7 @@
     - { role: network, tags: ['network'] }
     - { role: kernel, tags: ['kernel'] }
     - { role: base, tags: ['base'] }
+    - { role: firewall, tags: ['firewall'] }
     - { role: grub, tags: ['grub'], when: "bootloader == 'grub'"}
     - { role: syslinux, tags: ['syslinux'], when: "bootloader == 'syslinux'"}
     - { role: dotfiles, tags: ['dotfiles'] }
