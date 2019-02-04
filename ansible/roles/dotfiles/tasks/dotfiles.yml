@@ -2,6 +2,10 @@
 
 - name: Install rcm
   aur: name=rcm user={{ user.name }}
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
   when: dotfiles.installation == "true"
   tags:
     - aur
@@ -13,7 +17,7 @@
   become_user: "{{ user.name }}"
 
 - name: Install user dotfiles
-  command: rcup -d /home/{{ user.name}}/{{ dotfiles.destination}} {{ dotfiles.rcup_flags }}
+  command: "rcup -d /home/{{ user.name}}/{{ dotfiles.destination }} {{ dotfiles.rcup_flags }}"
   when: dotfiles.installation == "true"
   become: yes
   become_user: "{{ user.name }}"
