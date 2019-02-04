@@ -1,7 +1,9 @@
 ---
 
-- name: Install i3 windowmanager and components
-  pacman: name={{ item }} state=present
+- name: install i3 windowmanager and components
+  pacman:
+    name: "{{ item }}"
+    state: present
   with_items:
       - xorg
       - xorg-xinit
@@ -13,13 +15,29 @@
       - dunst
       - rofi
       - compton
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
 
-- name: Install i3lock fancy
-  aur: name=i3lock-fancy-dualmonitors-git user={{ user.name }}
+- name: install i3lock fancy
+  aur:
+    name: i3lock-fancy-dualmonitors-git
+    user: "{{ user.name }}"
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
 
 # Compton does not work with xsetroot
-- name: Install hsetroot from aur
-  aur: name=hsetroot user={{ user.name }}
+- name: install hsetroot from aur
+  aur:
+    name: hsetroot
+    user: "{{ user.name }}"
 
-- name: Create i3wm configuration directory and util subdirectory
-  file: name=/home/{{ user.name }}/.i3/util state=directory owner={{ user.name }} group={{ user.group }}
+- name: create i3wm configuration directory and util subdirectory
+  file:
+    name: /home/{{ user.name }}/.i3/util
+    state: directory
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"

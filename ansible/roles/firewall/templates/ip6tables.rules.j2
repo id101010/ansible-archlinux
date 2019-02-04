@@ -6,15 +6,19 @@
 :FORWARD     DROP
 :OUTPUT      DROP
 
+# Input chain
 -A INPUT    -i lo                                     -j ACCEPT
--A OUTPUT   -o lo                                     -j ACCEPT
--A INPUT    -m state --state RELATED,ESTABLISHED      -j ACCEPT
--A OUTPUT   -m state --state RELATED,ESTABLISHED      -j ACCEPT
--A INPUT    -m state --state NEW,INVALID              -j DROP
 -A INPUT    -p icmp                                   -j ACCEPT
--A OUTPUT   -p icmp                                   -j ACCEPT
+{% if ssh.enable_sshd %}
+-A INPUT    -p TCP --dport {{ ssh.port }}             -j ACCEPT
+{% endif %}
+-A INPUT    -m state --state RELATED,ESTABLISHED      -j ACCEPT
+-A INPUT    -m state --state NEW,INVALID              -j DROP
 
-# Default outgoing connections
+# Output chain
+-A OUTPUT   -o lo                                     -j ACCEPT
+-A OUTPUT   -p icmp                                   -j ACCEPT
+-A OUTPUT   -m state --state RELATED,ESTABLISHED      -j ACCEPT
 -A OUTPUT   -p TCP --dport ssh                        -j ACCEPT
 -A OUTPUT   -p TCP --dport http                       -j ACCEPT
 -A OUTPUT   -p TCP --dport https                      -j ACCEPT
@@ -22,20 +26,19 @@
 -A OUTPUT   -p UDP --dport domain                     -j ACCEPT
 -A OUTPUT   -p TCP --dport domain                     -j ACCEPT
 -A OUTPUT   -p TCP --dport 631                        -j ACCEPT
-
 # Personal Mailserver config
 -A OUTPUT   -p TCP --dport 587                        -j ACCEPT
 -A OUTPUT   -p TCP --dport 993                        -j ACCEPT
-
-{% if ssh.enable_sshd %}
--A INPUT    -p TCP --dport {{ ssh.port }}             -j ACCEPT
-{% endif %}
+# Plex Mediaserver
+-A OUTPUT   -p TCP --dport 32400                      -j ACCEPT
+-A OUTPUT   -p TCP --dport 25271                      -j ACCEPT
+-A OUTPUT   -p TCP --dport 8443                       -j ACCEPT
 
 # Logging of droppped packets
 -N LOGGING
 -A INPUT                                              -j LOGGING
 -A OUTPUT                                             -j LOGGING
--A LOGGING -m limit --limit 2/min                     -j LOG --log-prefix "iptables-dropped: " --log-level 4
+-A LOGGING -m limit --limit 2/min                     -j LOG --log-prefix "[DROPPED]:" --log-level 4
 -A LOGGING                                            -j DROP
 
 COMMIT

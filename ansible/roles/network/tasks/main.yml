@@ -1,4 +1,16 @@
 ---
 
-- import_tasks: network.yml
-- import_tasks: firewall.yml
+- name: Install network tools
+  package: name={{ item }} state=present
+  with_items:
+      - ethtool
+      - wpa_supplicant
+      - wpa_actiond
+      - netctl
+      - dhcpcd
+      - nmap
+  notify:
+      - rkhunter propupdate
+
+- name: Enable dhcp service
+  service: name=dhcpcd state=started enabled=yes
