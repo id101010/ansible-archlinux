@@ -1,7 +1,13 @@
 ---
 
 - name: Install telegram-desktop
-  pacman: name=telegram-desktop state=present
+  pacman:
+    name: telegram-desktop
+    state: present
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
 
 - name: Jail telegram-desktop
   file: src=/usr/bin/firejail

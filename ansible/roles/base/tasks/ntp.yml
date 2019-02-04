@@ -1,25 +1,38 @@
 ---
 
 - name: Install ntp daemon
-  pacman: name=ntp state=present
+  pacman:
+    name: ntp
+    state: present
   register: install
+  until: install is success
+  retries: 10
+  delay: 2
+  notify: rkhunter propupdate
 
 - name: Configure swiss metas atomic clocks
   copy: src=ntp.conf dest=/etc/
   notify:
     - restart ntpd
 
-- name: Make sure NTPD is stopped
-  service: name=ntpd state=stopped enabled=yes
-  when: install.changed
+- name: Make sure ntpd is stopped
+  service:
+    name: ntpd
+    state: stopped
+    enabled: yes
+  when: install is changed
 
-- name: Sync time initialy
+- name: Sync time with swiss ntp metas atomic clock
   shell: ntpdate metasntp11.admin.ch
-  when: install.changed
+  when: install is changed
 
-- name: Make sure NTPD is started up
-  service: name=ntpd state=started enabled=yes
-  when: install.changed
+- name: Start ntpd back up
+  service:
+    name: ntpd
+    state: started
+    enabled: yes
+  when: install is changed
 
-- name: Sync hwclock
-  shell: hwclock -w
+- name: Sync time to hwclock
+  shell: hwclock --systohc
+  when: install is changed
