@@ -1,11 +1,21 @@
 ---
 
 - name: Install syslinux and tools
-  pacman: name=syslinux state=present
+  pacman:
+    name: syslinux
+    state: present
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
   when: bootloader == "syslinux"
 
 - name: Copy splash image into place
-  copy: src=splash.png dest=/boot/syslinux/
+  copy:
+    src: splash.png
+    dest: /boot/syslinux/
 
 - name: Generate and push syslinux configuration
-  template: src=syslinux.cfg.j2 dest=/boot/syslinux/syslinux.cfg
+  template:
+    src: syslinux.cfg.j2
+    dest: /boot/syslinux/syslinux.cfg

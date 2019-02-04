@@ -1,0 +1,4 @@
+---
+
+- name: change shell
+  user: name={{ user.name }} shell={{ user.shell }}

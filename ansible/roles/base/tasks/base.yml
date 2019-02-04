@@ -1,43 +1,76 @@
 ---
 
 - name: Pacman mirrorlist setup
-  copy: src=mirrorlist dest=/etc/pacman.d/
+  copy:
+    src: mirrorlist
+    dest: /etc/pacman.d/
 
 - name: Pacman config setup
-  copy: src=pacman.conf dest=/etc/
+  copy:
+    src: pacman.conf
+    dest: /etc/
 
 - name: Update pacman package cache
   pacman:
     update_cache: yes
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
 
 - name: Perform full system upgrade
   pacman:
     update_cache: yes
     upgrade: yes
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
   notify:
     - rkhunter propupdate
 
 - name: Install base packages
-  pacman: name={{ item }} state=present
-  with_items: "{{ base_packages }}"
+  pacman:
+    name: "{{ base_packages }}"
+    state: present
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
   notify:
     - rkhunter propupdate
 
 - name: Install pacaur as aur helper
   aur: name={{ item }} user={{ user.name }} skip_pgp=true
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
   with_items:
     - cower
     - pacaur
 
 - name: Install microcode updates for intel (if necessary)
-  pacman: name=intel-ucode state=present
+  pacman:
+    name: intel-ucode
+    state: present
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
   notify:
       - update grub
       - update syslinux
   when: system.processor == "intel"
 
 - name: Install microcode updates for amd (if necessary)
-  pacman: name=amd-ucode state=present
+  pacman:
+    name: amd-ucode
+    state: present
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
   notify:
       - update grub
       - update syslinux
