@@ -6,6 +6,9 @@
       - oh-my-zsh-git
       - oh-my-zsh-powerline-theme-git
   register: omzinstall
+  until: omzinstall is success
+  retries: 10
+  delay: 2
 
 - name: Install ZSH with completion and syntax
   pacman: name={{ item }} state=present
@@ -14,17 +17,17 @@
       - zsh-completions
       - zsh-syntax-highlighting
   register: zshinstall
-
-- name: Change shell to ZSH
-  user: name={{ user.name }} shell={{ user.shell }}
-  when: zshinstall.changed
+  until: zshinstall is success
+  retries: 10
+  delay: 2
+  notify: change shell
 
 - name: Customize oh-my-zsh Agnoster theme folder view
   lineinfile:
       path: "/usr/share/oh-my-zsh/themes/agnoster.zsh-theme"
       regexp: "'%~'"
       line: "prompt_segment blue black '%2~'"
-  when: omzinstall.changed
+  when: omzinstall is changed
 
 - name: Ensure the cache folder with oh-my-zsh subfolder is present
   file:
@@ -33,6 +36,7 @@
     group: "{{ user.group }}"
     state: directory
     mode: 0755
+  when: omzinstall is changed
 
 - name: Ensure the last working dir file for oh-my-zsh is present
   file:
@@ -40,3 +44,4 @@
     owner: "{{ user.name }}"
     group: "{{ user.group }}"
     state: touch
+  when: omzinstall is changed

@@ -7,6 +7,10 @@
     - python-gobject
     - python-xdg
     - redshift
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
 
 - name: Jail RedShift
   file: src=/usr/bin/firejail
@@ -43,8 +47,14 @@
     - restart geoclue
 
 - name: Enable geoclue service
-  service: name=geoclue state=started enabled=yes
+  service:
+    name: geoclue
+    state: started
+    enabled: yes
 
 - name: Enable avahi daemon
-  service: name=avahi-daemon state=started enabled=yes
+  service:
+    name: avahi-daemon
+    state: started
+    enabled: yes
 

@@ -1,15 +1,15 @@
 ---
 
-- name: Install alsa-utils
-  pacman:
-    name: alsa-utils
-    state: present
-
-- name: Install PulseAudio
+- name: Install alsa-utils and pulseaudio tools
   pacman:
     name: "{{ item }}"
     state: present
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
   with_items:
+    - alsa-utils
     - pulseaudio
     - pulseaudio-alsa
     - pavucontrol
