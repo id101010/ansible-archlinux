@@ -33,6 +33,19 @@
 -A OUTPUT   -p TCP --dport 32400                      -j ACCEPT
 -A OUTPUT   -p TCP --dport 25271                      -j ACCEPT
 -A OUTPUT   -p TCP --dport 8443                       -j ACCEPT
+-A OUTPUT   -p TCP --dport 32400                      -j ACCEPT
+-A OUTPUT   -p TCP --dport 25271                      -j ACCEPT
+-A OUTPUT   -p TCP --dport 8443                       -j ACCEPT
+-A OUTPUT   -p TCP --dport 9091                       -j ACCEPT
+# Teamspeak
+-A OUTPUT   -p UDP --dport 9987                       -j ACCEPT
+# Factorio
+-A OUTPUT   -p UDP --dport 34197                      -j ACCEPT
+-A OUTPUT   -p UDP --dport 34397                      -j ACCEPT
+-A OUTPUT   -p TCP --dport 41144                      -j ACCEPT
+# GPG Keys
+-A OUTPUT   -p TCP --dport 11371                      -j ACCEPT
+
 
 # Logging of droppped packets
 -N LOGGING
