@@ -39,6 +39,15 @@
     - firefox
     - firejail
 
+- name: Allow u2f in browsers to mak security tokens work
+  lineinfile:
+    dest: /etc/firejail/firejail.config
+    regexp: "^# browser-disable-u2f yes"
+    line: "browser-disable-u2f no"
+  tags:
+    - firefox
+    - firejail
+
 - name: Install tor-browser-en
   aur: name=tor-browser-en user={{ user.name }} skip_pgp=yes
   tags:
