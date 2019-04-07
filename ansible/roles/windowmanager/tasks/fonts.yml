@@ -8,6 +8,7 @@
     - ttf-dejavu
     - ttf-liberation
     - ttf-droid
+    - noto-fonts-emoji
     - fontconfig
     - xorg-font-utils
   register: task_result
