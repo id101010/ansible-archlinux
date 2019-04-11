@@ -3,8 +3,8 @@
 - name: Install oh-my-zsh-git and optional dependencies from AUR
   aur: name={{ item }} user={{ user.name }}
   with_items:
-      - oh-my-zsh-git
-      - oh-my-zsh-powerline-theme-git
+    - oh-my-zsh-git
+    - oh-my-zsh-powerline-theme-git
   register: omzinstall
   until: omzinstall is success
   retries: 10
@@ -13,20 +13,19 @@
 - name: Install ZSH with completion and syntax
   pacman: name={{ item }} state=present
   with_items:
-      - zsh
-      - zsh-completions
-      - zsh-syntax-highlighting
+    - zsh
+    - zsh-completions
+    - zsh-syntax-highlighting
   register: zshinstall
   until: zshinstall is success
   retries: 10
   delay: 2
   notify: change shell
 
-- name: Customize oh-my-zsh Agnoster theme folder view
-  lineinfile:
-      path: "/usr/share/oh-my-zsh/themes/agnoster.zsh-theme"
-      regexp: "'%~'"
-      line: "prompt_segment blue black '%2~'"
+- name: Push customized agnoster theme
+  copy:
+    src: "custom_agnoster.zsh-theme"
+    dest: "/usr/share/oh-my-zsh/themes/agnoster.zsh-theme"
   when: omzinstall is changed
 
 - name: Ensure the cache folder with oh-my-zsh subfolder is present
