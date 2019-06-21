@@ -32,9 +32,9 @@ Since new isos are not built on a daily basis, you may need to choose the
 newest iso yourself. 
 
 ```bash
-$ wget https://mirror.puzzle.ch/archlinux/iso/latest/archlinux-$(date +%Y.%m.%d)-x86_64.iso archlinux.iso
-$ wget https://mirror.puzzle.ch/archlinux/iso/latest/md5sums.txt
-$ wget https://mirror.puzzle.ch/archlinux/iso/latest/sha1sums.txt
+$ curl -O https://arch.eckner.net/archlinux/iso/2019.06.01/archlinux-2019.06.01-x86_64.iso
+$ curl -O https://arch.eckner.net/archlinux/iso/latest/md5sums.txt
+$ curl -O https://arch.eckner.net/archlinux/iso/latest/sha1sums.txt
 ```
 
 Check if the download is valid.
@@ -196,10 +196,9 @@ $ ln -sf /usr/share/zoneinfo/Europe/Zurich /etc/localtime
 $ hwclock --systohc --utc
 ```
 
-Configure your locales. Omit the swiss german line if you don't need it.
+Configure your locales.
 ```bash
 $ echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
-$ echo "de_CH.UTF-8 UTF-8" >> /etc/locale.gen
 $ locale-gen
 $ echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 ```
@@ -207,7 +206,7 @@ $ echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 Set a hostname, keymap and nice console font.
 ```bash
 echo "myhostname" >> /etc/hostname
-echo "KEYMAP=de_CH-latin1" >> /etc/vconsole.conf # Change to your locale
+echo "KEYMAP=us" >> /etc/vconsole.conf # Change to your locale
 echo "FONT=lat9w-16" >> /etc/vconsole.conf
 echo "FONT_MAP=8859-1_to_uni" >> /etc/vconsole.conf
 ```
