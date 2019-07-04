@@ -3,25 +3,25 @@
 # ==================
 ##
 user:
-    name: aaron
+    name: michael
     group: users
     shell: /bin/zsh
 
 ##
 # System configuration
 # ====================
-# processor type:
+processor type:
 #   Option: "intel" will install microcode updates and configure the bootloader accordingly
 #   Option: "amd" will do the same for amd
-# graphics_card type: 
+# graphics_card type:
 #   Option: "intel" will install intel graphics drivers
 #   Option: "nvidia" will install nouveau because i will NEVER EVER touch those filthy nvidia drivers
 #                    if you wan't proprietary drivers follow the steps documented in the arch wiki.
 ##
 system:
-    locale: de_CH.UTF-8
-    timezone: Europe/Zurich
-    processor: amd
+    locale: de_DE.UTF-8
+    timezone: Europe/Berlin
+    processor: intel
     graphics_card: nvidia
     macspoof: disabled
 
@@ -30,7 +30,7 @@ system:
 # ========================
 # syslinux and grub are supported
 ##
-bootloader: syslinux
+bootloader: grub
 
 ##
 # Connectivity configuration
