@@ -7,7 +7,7 @@
       - xorg-xinit
       - i3-wm
       - i3lock
-      - i3status
+      - i3status-rs
       - dmenu
       - feh
       - dunst
@@ -19,14 +19,17 @@
   retries: 10
   delay: 2
 
-- name: install i3lock fancy
+- name: install i3lock fancy and glitchlock from aur
   aur:
-    name: i3lock-fancy-dualmonitors-git
+    name: "{{ item }}"
     user: "{{ user.name }}"
   register: task_result
   until: task_result is success
   retries: 10
   delay: 2
+  with_items:
+    - i3lock-fancy-dualmonitors-git
+    - glitchlock
 
 # Compton does not work with xsetroot
 - name: install hsetroot from aur
