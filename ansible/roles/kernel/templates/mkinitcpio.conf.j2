@@ -1,7 +1,7 @@
 # vim:set ft=sh
 # MODULES
 {% if system.graphics_card == 'nvidia' %} 
-MODULES=({{ initrd_mods }} nouveau) 
+MODULES=({{ initrd_mods }} nvidia nvidia_modeset nvidia_uvm nvidia_drm) 
 {% elif system.graphics_card == 'i915' %} 
 MODULES=({{ initrd_mods }} i915) 
 {% endif %}
