@@ -1,0 +1,22 @@
+# {{ ansible_managed }}
+
+# Sample rate configuration
+default-sample-format = {{ PA_SAMPLE_FORMAT }}
+default-sample-rate = {{ PA_SAMPLE_RATE }}
+alternate-sample-rate = {{ PA_ALT_SAMPLE_RATE }}
+default-sample-channels = {{ PA_SAMPLE_CHANNEL }}
+resample-method = {{ PA_RESAMPLE_METHOD }}
+
+# Channel-map, Fragment config and lfe mixing
+default-channel-map = {{ PA_DEFAULT_CHANNEL_MAP}}
+default-fragments = {{ PA_DEFAULT_FRAGMENTS }}
+default-fragment-size-msec = {{ PA_DEFAULT_FRAGMENT_SIZE }}
+enable-lfe-remixing = {{ PA_ENABLE_LFE_MIXING }}
+
+# Scheduling configuration
+high-priority = {{ PA_HIGH_PRIORITY }}
+nice-level = {{ PA_NICENESS }}
+realtime-scheduling = {{ PA_REALTIME_SCHEDULING }}
+realtime-priority = {{ PA_REALTIME_PRIORITY }}
+rlimit-rtprio = {{ PA_RLIMIT_RTPRIO }}
+daemonize = {{ PA_DAEMONIZE }}

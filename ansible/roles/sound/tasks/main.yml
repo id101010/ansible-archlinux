@@ -13,3 +13,10 @@
     - pulseaudio
     - pulseaudio-alsa
     - pavucontrol
+
+- name: Deploy HiFi pulse audio daemon configuration
+  template:
+    src: daemon.conf.j2
+    dest: "/home/{{ user.name }}/.config/pulse/daemon.conf"
+  become_user: "{{ user.name }}"
+  become: true
