@@ -137,7 +137,7 @@ sda              8:0    0 931.5G  0 disk
 
 Install the base system and some further components using pacstrap.
 ```bash
-$ pacstrap /mnt base base-devel grub-efi-x86_64 vim git efibootmgr
+$ pacstrap /mnt base base-devel grub-efi-x86_64 vim git efibootmgr linux
 ```
 
 Generate fstab with UUID representation.

@@ -146,7 +146,7 @@ $ echo 'Server = http://mirror.puzzle.ch/archlinux/$repo/os/$arch' >
 Install the base system, bootloader and some additional components using
 pacstrap.
 ```bash
-$ pacstrap /mnt base base-devel syslinux vim git
+$ pacstrap /mnt base base-devel syslinux vim git linux
 ```
 
 Install the syslinux bootloader.
