@@ -88,7 +88,7 @@ $ mkfs.ext2 /dev/mapper/cryptboot
 Create an encrypted container containing an the logical volumes /root and swap. Again set a temporary safe passphrase.
 ```bash
 $ cryptsetup luksFormat --type luks2 -c aes-xts-plain64 -s 512 /dev/sda3
-$ cryptsetup open /dev/sda3 cryptlvma
+$ cryptsetup open /dev/sda3 cryptlvm
 $ pvcreate /dev/mapper/cryptlvm
 $ vgcreate vg0 /dev/mapper/cryptlvm
 $ lvcreate -L 16G vg0 -n swap # This should be at least the size of your RAM if you want hybernation to work
