@@ -14,8 +14,9 @@ user:
 #   Option: "intel" will install microcode updates and configure the bootloader accordingly
 #   Option: "amd" will do the same for amd
 # graphics_card type: 
-#   Option: "intel" will install microcode updates
+#   Option: "intel" will install intel graphics drivers
 #   Option: "nvidia" will install nouveau because i will NEVER EVER touch those filthy nvidia drivers
+#                    if you wan't proprietary drivers follow the steps documented in the arch wiki.
 ##
 system:
     locale: de_CH.UTF-8
