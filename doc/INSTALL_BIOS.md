@@ -147,7 +147,7 @@ $ echo 'Server = http://mirror.puzzle.ch/archlinux/$repo/os/$arch' >
 Install the base system, bootloader and some additional components using
 pacstrap.
 ```bash
-$ pacstrap /mnt base base-devel syslinux vim git
+$ pacstrap /mnt base base-devel syslinux linux linux-firmware vim git
 ```
 
 Install the syslinux bootloader.
@@ -228,9 +228,7 @@ Regenerate the initrd image.
 ```bash
 $ mkinitcpio -p linux
 ```
-The next step is optional since the ansible playbook will take care of it! But
-I'll leave this here for documentation purposes. If you own an Intel processor I strongly recommend that you install the microcode updates. While microcode can be updated through the BIOS, the Linux kernel is also able to apply these updates during boot.
-These updates provide bug fixes that can be critical to the stability of your system. You need to install the package first and then create a second initrd entry in the bootloader config.
+Install microcode updates. These updates provide bug fixes that can be critical to the stability of your system. You need to install the package first and then create a second initrd entry in the bootloader config.
 ```bash
 $ pacman -S intel-ucode
 or
@@ -268,7 +266,7 @@ Exit from chroot, unmount system, shutdown, extract flash stick. You made it! No
 $ exit
 $ umount -R /mnt
 $ swapoff -a
-$ shutdown now
+$ reboot
 ```
 
 Reboot into your new arch linux base system and begin installing software.

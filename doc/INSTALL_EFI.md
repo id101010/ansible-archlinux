@@ -148,7 +148,7 @@ Generate fstab with UUID representation.
 $ genfstab -pU /mnt >> /mnt/etc/fstab
 ```
 
-# Make /tmp a ramdisk (add the following line to /mnt/etc/fstab)
+Make /tmp a ramdisk (add the following line to /mnt/etc/fstab)
 ```bash
 tmpfs   /tmp    tmpfs   defaults,noatime,mode=1777  0 0
 ```
