@@ -1,4 +1,5 @@
 # Arch installation guide covering the following topics 
+* MBR partition BIOS Mode installation
 * Full disk encryption using dm-crypt/LUKS
 * LVM on LUKS
 * Lightweight Sysliux Bootloader

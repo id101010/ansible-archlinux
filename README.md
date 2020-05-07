@@ -6,7 +6,7 @@ dotfiles are kept in an independent repository. They are managed using
 will only get installed if the `dotfiles` variable is defined.
 
 ## System overview
-* Full disk encryption (including /boot if Grub/EFI is used)
+* Full disk encryption
 * LVM on LUKS partitioning scheme
 * Plymouth support for a nice boot screen
 
@@ -27,16 +27,14 @@ will only get installed if the `dotfiles` variable is defined.
 ## Install base system
 
 You can eighter install your own minimal system or you follow the instructions
-provided in the two installation guides.
+provided in the two installation guides below.
 
-* [INSTALL\_LEGACY](https://github.com/id101010/ansible-archlinux/blob/master/doc/INSTALL_LEGACY.md)
-to setup an encrypted base system with LVM, syslinux in legacy boot mode.
-* [INSTALL\_EFI](https://github.com/id101010/ansible-archlinux/blob/master/doc/INSTALL_EFI.md)
-to setup a fully encrypted base system with LVM, encrypted /boot partition and
-EFI support.
+* [INSTALL\_BIOS](/doc/INSTALL_BIOS.md)
+to setup a LVM on LUKS system using syslinux in MBR BIOS boot mode.
+* [INSTALL\_EFI](/doc/INSTALL_EFI.md)
+to setup a LVM on LUKS system using grub2 in GPT EFI boot mode.
 
 The Ansible playbook does not depend on any specific installation method.
-However the Legacy install is slightly easier and more "user friendly".
 
 ## How to run the ansible playbooks
 
@@ -57,7 +55,10 @@ $ ansible-playbook -i inventory/localhost playbook.yml [--tags $LIMIT_TO_TAG]
 
 Lean back and watch the installation.
 
-## Testing (local vagrant machine)
+## Testing and development (local vagrant machine) 
+
+Warning, this is kind of buggy. Vagrant looks quite abandoned. Hashicorp does not react to issues.
+I might remove this section soon. 
 
 Assuming you've already installed vagrant you can set up a vritual machine with
 just these steps
