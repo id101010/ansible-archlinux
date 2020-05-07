@@ -170,6 +170,7 @@ $ echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 $ echo "de_CH.UTF-8 UTF-8" >> /etc/locale.gen
 $ locale-gen
 $ echo "LANG=en_US.UTF-8" >> /etc/locale.conf
+$ echo "LC_ALL=C" >> /etc/locale.conf
 ```
 
 Set a hostname, keymap and nice console font.
