@@ -48,7 +48,7 @@ ssh:
 ##
 dotfiles:
     installation: "true"
-    url: https://github.com/id101010/LinuxDotFiles.git
+    url: https://github.com/id101010/dotfiles.git
     destination: .dotfiles
     rcup_flags: -fx README.md
 
