@@ -4,4 +4,3 @@
 - import_tasks: base.yml
 - import_tasks: ntp.yml
 - import_tasks: locale.yml
-- import_tasks: plymouth.yml

@@ -4,16 +4,9 @@
   pacman:
     name:
       - thunderbird
-      - thunderbird-extension-enigmail
     state: present
   register: task_result
   until: task_result is success
   retries: 10
   delay: 2
 
-- name: Jail thunderbird
-  file: src=/usr/bin/firejail
-        dest=/usr/local/bin/thunderbird
-        state=link
-  tags:
-    - firejail

@@ -1,11 +1,7 @@
 ---
 
 - name: Install spotify from aur
-  aur: name=spotify user={{ user.name }}
-
-- name: Jail spotify
-  file: src=/usr/bin/firejail
-        dest=/usr/local/bin/spotify
-        state=link
-  tags:
-    - firejail
+  aur: 
+    name: spotify
+    user: "{{ user.name }}"
+    skip_pgp: true

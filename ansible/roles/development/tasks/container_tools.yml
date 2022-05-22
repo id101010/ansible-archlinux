@@ -1,0 +1,25 @@
+- name: pacman install development tools
+  pacman:
+    name:
+    - kubectl
+    - helm
+    - kustomize
+    - docker
+    - docker-compose
+
+- name: Create "docker" group
+  group:
+    name: docker
+    state: present
+
+- name: Add remote user to "docker" group
+  user:
+    name: "{{ user.name }}"
+    groups: docker
+    append: yes
+
+- name: enable docker service
+  service:
+    name: docker
+    state: started
+    enabled: yes

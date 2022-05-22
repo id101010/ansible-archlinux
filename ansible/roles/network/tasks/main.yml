@@ -5,10 +5,13 @@
     name:
       - ethtool
       - wpa_supplicant
-      - wpa_actiond
       - netctl
       - dhcpcd
       - nmap
+      - networkmanager
+      - network-manager-applet
+      - networkmanager-openconnect
+      - networkmanager-openvpn
     state: present
   register: task_result
   until: task_result is success
@@ -19,3 +22,9 @@
 
 - name: Enable dhcp service
   service: name=dhcpcd state=started enabled=yes
+
+- name: Enable NetworkManager service
+  service: 
+    name: NetworkManager
+    state: started
+    enabled: yes

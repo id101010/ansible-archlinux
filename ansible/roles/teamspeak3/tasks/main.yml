@@ -9,10 +9,3 @@
   retries: 10
   delay: 2
 
-- name: jail teamspeak3
-  file:
-    src: /usr/bin/firejail
-    dest: /usr/local/bin/teamspeak3
-    state: link
-  tags:
-    - firejail

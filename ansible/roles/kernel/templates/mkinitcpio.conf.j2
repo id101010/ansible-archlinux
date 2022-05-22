@@ -4,6 +4,8 @@
 MODULES=({{ initrd_mods }} nvidia nvidia_modeset nvidia_uvm nvidia_drm) 
 {% elif system.graphics_card == 'i915' %} 
 MODULES=({{ initrd_mods }} i915) 
+{% elif system.graphics_card == 'amd' %} 
+MODULES=({{ initrd_mods }} amdgpu)
 {% endif %}
 
 # BINARIES

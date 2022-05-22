@@ -13,12 +13,12 @@
     - { role: grub, tags: ['grub'], when: "bootloader == 'grub'"}
     - { role: syslinux, tags: ['syslinux'], when: "bootloader == 'syslinux'"}
     - { role: dotfiles, tags: ['dotfiles'] }
-    - { role: firejail, tags: ['firejail'] }
     - { role: shell, tags: ['shell'] }
     - { role: editor, tags: ['editor'] }
     - { role: terminal, tags: ['terminal'] }
     - { role: windowmanager, tags: ['windowmanager'] }
     - { role: browsers, tags: ['browsers'] }
+    - { role: bluetooth, tags: ['bluetooth'] }
     - { role: calibre, tags: ['calibre'] }
     - { role: redshift, tags: ['redshift'] }
     - { role: keepass, tags: ['keepass'] }
@@ -30,3 +30,5 @@
     - { role: photography, tags : ['photography'] }
     - { role: messengers, tags : ['messengers'] }
     - { role: teamspeak3, tags : ['teamspeak3'] }
+    - { role: development, tags : ['development'] }
+    - { role: games, tags : ['games'] }

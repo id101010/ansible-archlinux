@@ -1,11 +1,7 @@
 ---
 
 - name: Install keepassxc
-  pacman: name=keepassxc state=present
+  pacman: 
+    name: keepassxc
+    state: present
 
-- name: Jail keepassxc
-  file: src=/usr/bin/firejail
-        dest=/usr/local/bin/keepassxc
-        state=link
-  tags:
-    - firejail

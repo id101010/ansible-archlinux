@@ -6,23 +6,3 @@
 - name: Install evince
   pacman: name=evince state=present
 
-- name: Jail calibre
-  file: src=/usr/bin/firejail
-        dest=/usr/local/bin/calibre
-        state=link
-  tags:
-    - firejail
-
-- name: Jail ebook-viewer
-  file: src=/usr/bin/firejail
-        dest=/usr/local/bin/ebook-viewer
-        state=link
-  tags:
-    - firejail
-
-- name: Jail evince
-  file: src=/usr/bin/firejail
-        dest=/usr/local/bin/evince
-        state=link
-  tags:
-    - firejail

@@ -3,5 +3,5 @@
 initrd_mods: "ext4"
 initrd_bin: ""
 initrd_files: ""
-initrd_hooks: "base udev autodetect modconf keyboard keymap consolefont block plymouth plymouth-encrypt lvm2 resume filesystems fsck shutdown"
+initrd_hooks: "base udev autodetect keyboard keymap modconf block encrypt consolefont filesystems fsck shutdown"
 initrd_compression: "gzip"

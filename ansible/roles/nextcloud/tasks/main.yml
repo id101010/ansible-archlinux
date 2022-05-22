@@ -1,11 +1,8 @@
 ---
 
 - name: Install nextcloud client
-  aur: name=nextcloud-client user={{ user.name }}
+  aur: 
+    name: nextcloud-client
+    user: "{{ user.name }}"
 
-- name: Jail nextcloud client
-  file: src=/usr/bin/firejail
-        dest=/usr/local/bin/nextcloud
-        state=link
-  tags:
-    - firejail
+

@@ -1,0 +1,10 @@
+- name: pacman install steam and lutris
+  pacman:
+    name:
+    - steam
+    - lutris
+
+- name: install heroic launcer
+  aur:
+    name: heroic-games-launcher-bin
+    user: "{{ user.name }}"

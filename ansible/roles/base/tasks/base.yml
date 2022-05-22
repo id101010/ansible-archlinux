@@ -40,15 +40,15 @@
   notify:
     - rkhunter propupdate
 
-- name: Install pacaur as aur helper
-  aur: name={{ item }} user={{ user.name }} skip_pgp=true
+- name: Install yay as aur helper
+  aur: 
+    name: yay
+    user: "{{ user.name }}"
+    skip_pgp: true
   register: task_result
   until: task_result is success
   retries: 10
   delay: 2
-  with_items:
-    - cower
-    - pacaur
 
 - name: Install microcode updates for intel (if necessary)
   pacman:

@@ -1,0 +1,46 @@
+{
+    "additional-repositories": [
+        "multilib"
+    ],
+    "audio": "pulseaudio",
+    "bootloader": "grub-install",
+    "config_version": "2.5.1",
+    "debug": false,
+    "harddrives": [
+        "/dev/sda"
+    ],
+    "keyboard-layout": "de_CH-latin1",
+    "mirror-region": {
+        "Switzerland": {
+            "http://mirror.init7.net/archlinux/$repo/os/$arch": true,
+            "http://mirror.puzzle.ch/archlinux/$repo/os/$arch": true,
+            "http://pkg.adfinis.com/archlinux/$repo/os/$arch": true,
+            "https://mirror.init7.net/archlinux/$repo/os/$arch": true,
+            "https://mirror.puzzle.ch/archlinux/$repo/os/$arch": true,
+            "https://mirror.ungleich.ch/mirror/packages/archlinux/$repo/os/$arch": true,
+            "https://pkg.adfinis.com/archlinux/$repo/os/$arch": true,
+            "https://theswissbay.ch/archlinux/$repo/os/$arch": true
+        }
+    },
+    "nic": {
+        "dhcp": true,
+        "dns": null,
+        "gateway": null,
+        "iface": null,
+        "ip": null,
+        "type": "iso"
+    },
+    "no_pkg_lookups": false,
+    "offline": false,
+    "packages": [
+        "ansible",
+        "git",
+        "openssh"
+    ],
+    "profile": {
+        "path": "/usr/lib/python3.10/site-packages/archinstall/profiles/minimal.py"
+    },
+    "script": "guided",
+    "silent": false,
+    "version": "2.5.1"
+}

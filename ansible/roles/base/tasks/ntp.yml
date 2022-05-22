@@ -23,7 +23,7 @@
   when: install is changed
 
 - name: Sync time with swiss ntp metas atomic clock
-  shell: ntpdate metasntp11.admin.ch
+  shell: ntpdate ntp.metas.ch
   when: install is changed
 
 - name: Start ntpd back up
