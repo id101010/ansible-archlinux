@@ -1,7 +1,7 @@
 ---
 
 - name: install vim
-  pacman: 
+  pacman:
     name: vim
     state: present
 
@@ -16,8 +16,10 @@
     user: "{{ user.name }}"
 
 - name: install vscodium extensions
-  shell: "vscodium --install-extension {{ item }}"
+  ansible.builtin.command: "vscodium --install-extension {{ item }}"
   become_user: "{{ user.name }}"
+  register: ext_install
+  changed_when: ext_install.rc != 0
   with_items:
     - asciidoctor.asciidoctor-vscode
     - gulajavaministudio.mayukaithemevsc

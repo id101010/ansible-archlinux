@@ -1,5 +1,8 @@
 ---
 
-- import_tasks: dunst.yml
-- import_tasks: fonts.yml
-- import_tasks: i3.yml
+- ansible.builtin.import_tasks: dunst.yml
+  name: dunst
+- ansible.builtin.import_tasks: fonts.yml
+  name: fonts
+- ansible.builtin.import_tasks: i3.yml
+  name: i3

@@ -1,7 +1,7 @@
 ---
 
 - name: regenerate initramfs
-  command: "mkinitcpio -p {{ item }}"
+  ansible.builtin.command: "mkinitcpio -p {{ item }}"
   with_items:
       - linux
       - linux-hardened

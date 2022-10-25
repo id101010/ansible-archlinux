@@ -9,10 +9,10 @@
     - firefox
 
 - name: Install tor-browser
-  aur: 
+  aur:
     name: tor-browser
     user: "{{ user.name }}"
-    skip_pgp: yes
+    skip_pgp: true
   tags:
     - tor-browser
     - aur

@@ -1,7 +1,7 @@
 ---
 
 - name: Install RedShift and dependencies
-  pacman: 
+  pacman:
     name: "{{ item }}"
     state: present
   with_items:
@@ -15,7 +15,7 @@
   delay: 2
 
 - name: Allow RedShift to access geoclue
-  blockinfile:
+  ansible.builtin.blockinfile:
     dest: /etc/geoclue/geoclue.conf
     block: |
       [redshift]
@@ -26,14 +26,13 @@
     - restart geoclue
 
 - name: Enable geoclue service
-  service:
+  ansible.builtin.service:
     name: geoclue
     state: started
-    enabled: yes
+    enabled: true
 
 - name: Enable avahi daemon
-  service:
+  ansible.builtin.service:
     name: avahi-daemon
     state: started
-    enabled: yes
-
+    enabled: true

@@ -1,3 +1,4 @@
 ---
 
-- import_tasks: games.yml
+- ansible.builtin.import_tasks: games.yml
+  name: games

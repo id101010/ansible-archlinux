@@ -1,6 +1,10 @@
 ---
 
-- import_tasks: userconfig.yml
-- import_tasks: base.yml
-- import_tasks: ntp.yml
-- import_tasks: locale.yml
+- ansible.builtin.import_tasks: userconfig.yml
+  name: userconfig
+- ansible.builtin.import_tasks: base.yml
+  name: base
+- ansible.builtin.import_tasks: ntp.yml
+  name: ntp
+- ansible.builtin.import_tasks: locale.yml
+  name: locale

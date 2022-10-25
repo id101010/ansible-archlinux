@@ -1,18 +1,18 @@
 ---
 
 - name: Pacman mirrorlist setup
-  copy:
+  ansible.builtin.copy:
     src: mirrorlist
     dest: /etc/pacman.d/
 
 - name: Pacman config setup
-  copy:
+  ansible.builtin.copy:
     src: pacman.conf
     dest: /etc/
 
 - name: Update pacman package cache
   pacman:
-    update_cache: yes
+    update_cache: true
   register: task_result
   until: task_result is success
   retries: 10
@@ -20,8 +20,8 @@
 
 - name: Perform full system upgrade
   pacman:
-    update_cache: yes
-    upgrade: yes
+    update_cache: true
+    upgrade: true
   register: task_result
   until: task_result is success
   retries: 10
@@ -41,7 +41,7 @@
     - rkhunter propupdate
 
 - name: Install yay as aur helper
-  aur: 
+  aur:
     name: yay
     user: "{{ user.name }}"
     skip_pgp: true
@@ -59,8 +59,8 @@
   retries: 10
   delay: 2
   notify:
-      - update grub
-      - update syslinux
+    - update grub
+    - update syslinux
   when: system.processor == "intel"
 
 - name: Install microcode updates for amd (if necessary)
@@ -72,9 +72,9 @@
   retries: 10
   delay: 2
   notify:
-      - update grub
-      - update syslinux
+    - update grub
+    - update syslinux
   when: system.processor == "amd"
 
 - name: Enable cronie server
-  service: name=cronie state=started enabled=yes
+  ansible.builtin.service: name=cronie state=started enabled=true

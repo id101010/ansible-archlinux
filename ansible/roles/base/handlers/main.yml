@@ -1,7 +1,7 @@
 ---
 
 - name: rkhunter propupdate
-  command: rkhunter --propupd
+  ansible.builtin.command: rkhunter --propupd
 
 - name: restart ntpd
-  service: name=ntpd state=restarted
+  ansible.builtin.service: name=ntpd state=restarted

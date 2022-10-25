@@ -1,8 +1,6 @@
 ---
 
 - name: Install nextcloud client
-  aur: 
+  aur:
     name: nextcloud-client
     user: "{{ user.name }}"
-
-

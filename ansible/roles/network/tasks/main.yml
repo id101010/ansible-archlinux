@@ -1,7 +1,7 @@
 ---
 
 - name: Install network tools
-  package:
+  ansible.builtin.package:
     name:
       - ethtool
       - wpa_supplicant
@@ -18,13 +18,13 @@
   retries: 10
   delay: 2
   notify:
-      - rkhunter propupdate
+    - rkhunter propupdate
 
 - name: Enable dhcp service
-  service: name=dhcpcd state=started enabled=yes
+  ansible.builtin.service: name=dhcpcd state=started enabled=true
 
 - name: Enable NetworkManager service
-  service: 
+  ansible.builtin.service:
     name: NetworkManager
     state: started
-    enabled: yes
+    enabled: true

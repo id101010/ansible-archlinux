@@ -1,7 +1,6 @@
 ---
 
 - name: Install keepassxc
-  pacman: 
+  pacman:
     name: keepassxc
     state: present
-

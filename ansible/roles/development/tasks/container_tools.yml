@@ -1,25 +1,25 @@
 - name: pacman install development tools
   pacman:
     name:
-    - kubectl
-    - helm
-    - kustomize
-    - docker
-    - docker-compose
+      - kubectl
+      - helm
+      - kustomize
+      - docker
+      - docker-compose
 
 - name: Create "docker" group
-  group:
+  ansible.builtin.group:
     name: docker
     state: present
 
 - name: Add remote user to "docker" group
-  user:
+  ansible.builtin.user:
     name: "{{ user.name }}"
     groups: docker
-    append: yes
+    append: true
 
 - name: enable docker service
-  service:
+  ansible.builtin.service:
     name: docker
     state: started
-    enabled: yes
+    enabled: true

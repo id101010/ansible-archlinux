@@ -11,28 +11,28 @@
   notify: rkhunter propupdate
 
 - name: Configure swiss metas atomic clocks
-  copy: src=ntp.conf dest=/etc/
+  ansible.builtin.copy: src=ntp.conf dest=/etc/
   notify:
     - restart ntpd
 
 - name: Make sure ntpd is stopped
-  service:
+  ansible.builtin.service:
     name: ntpd
     state: stopped
-    enabled: yes
+    enabled: true
   when: install is changed
 
 - name: Sync time with swiss ntp metas atomic clock
-  shell: ntpdate ntp.metas.ch
+  ansible.builtin.command: ntpdate ntp.metas.ch
   when: install is changed
 
 - name: Start ntpd back up
-  service:
+  ansible.builtin.service:
     name: ntpd
     state: started
-    enabled: yes
+    enabled: true
   when: install is changed
 
 - name: Sync time to hwclock
-  shell: hwclock --systohc
+  ansible.builtin.command: hwclock --systohc
   when: install is changed

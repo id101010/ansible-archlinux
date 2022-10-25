@@ -2,7 +2,7 @@
 
 - name: install fonts
   pacman:
-    name: 
+    name:
       - ttf-dejavu
       - ttf-liberation
       - ttf-droid

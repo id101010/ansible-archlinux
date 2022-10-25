@@ -1,6 +1,10 @@
 ---
 
-- import_tasks: container_tools.yml
-- import_tasks: java.yml
-- import_tasks: ruby.yml
-- import_tasks: nodejs.yml
+- ansible.builtin.import_tasks: container_tools.yml
+  name: container_tools
+- ansible.builtin.import_tasks: java.yml
+  name: java
+- ansible.builtin.import_tasks: ruby.yml
+  name: ruby
+- ansible.builtin.import_tasks: nodejs.yml
+  name: nodejs

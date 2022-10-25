@@ -1,8 +1,8 @@
 kline:
-    cryptdevice:    cryptdevice=/dev/nvme0n1p2:vg0
-    root:           root=/dev/mapper/vg0-root
-    resume:         resume=/dev/mapper/vg0-swap
-    options:        nvidia-drm.modeset=1 rw lang=en locale=de_CH.UTF-8 quiet splash
+    cryptdevice: cryptdevice=/dev/nvme0n1p2:vg0
+    root: root=/dev/mapper/vg0-root
+    resume: resume=/dev/mapper/vg0-swap
+    options: nvidia-drm.modeset=1 rw lang=en locale=de_CH.UTF-8 quiet splash
 
 kernel_line: "{{ kline.cryptdevice }} {{ kline.root }} {{ kline.resume }} {{ kline.options }}"
 

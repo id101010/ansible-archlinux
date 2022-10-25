@@ -7,7 +7,7 @@
       - xorg-xinit
       - i3-gaps
       - i3lock
-      - i3status-rust 
+      - i3status-rust
       - dmenu
       - feh
       - dunst
@@ -33,14 +33,14 @@
     - rofi-power-menu
 
 - name: create i3wm configuration directory and util subdirectory
-  file:
+  ansible.builtin.file:
     name: /home/{{ user.name }}/.i3/util
     state: directory
     owner: "{{ user.name }}"
     group: "{{ user.group }}"
 
 - name: copy X11 config
-  copy:
+  ansible.builtin.copy:
     src: "{{ item }}"
     dest: /etc/X11/xorg.conf.d/
     owner: root

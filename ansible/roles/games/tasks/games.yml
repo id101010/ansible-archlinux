@@ -1,8 +1,8 @@
 - name: pacman install steam and lutris
   pacman:
     name:
-    - steam
-    - lutris
+      - steam
+      - lutris
 
 - name: install heroic launcer
   aur:

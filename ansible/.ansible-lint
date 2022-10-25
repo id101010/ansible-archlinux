@@ -1,0 +1,3 @@
+skip_list:
+    - latest[git]
+    - meta-no-info

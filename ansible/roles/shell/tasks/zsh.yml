@@ -10,12 +10,12 @@
   delay: 2
 
 - name: Install ZSH with completion and syntax
-  pacman: 
-    name: 
-     - zsh
-     - zsh-completions
-     - zsh-syntax-highlighting
-     - zsh-theme-powerlevel10k
+  pacman:
+    name:
+      - zsh
+      - zsh-completions
+      - zsh-syntax-highlighting
+      - zsh-theme-powerlevel10k
     state: present
   register: zshinstall
   until: zshinstall is success
@@ -24,7 +24,7 @@
   notify: change shell
 
 - name: Ensure the cache folder with oh-my-zsh subfolder is present
-  file:
+  ansible.builtin.file:
     path: /home/{{ user.name }}/.cache/oh-my-zsh
     owner: "{{ user.name }}"
     group: "{{ user.group }}"
@@ -33,7 +33,7 @@
   when: omzinstall is changed
 
 - name: Ensure the last working dir file for oh-my-zsh is present
-  file:
+  ansible.builtin.file:
     path: /home/{{ user.name }}/.cache/oh-my-zsh/last-working-dir
     owner: "{{ user.name }}"
     group: "{{ user.group }}"
@@ -41,9 +41,9 @@
   when: omzinstall is changed
 
 - name: Install zsh-autosuggestions
-  git: 
+  ansible.builtin.git:
     repo: https://github.com/zsh-users/zsh-autosuggestions
     dest: "/usr/share/oh-my-zsh/custom/plugins/zsh-autosuggestions"
-    accept_hostkey: yes 
-    update: yes
-    force: yes
+    accept_hostkey: true
+    update: true
+    force: true

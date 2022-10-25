@@ -3,7 +3,7 @@
 - name: Install secure arch linux environment
   hosts: hosts
   connection: local
-  become: True
+  become: true
 
   roles:
     - { role: network, tags: ['network'] }
@@ -25,10 +25,10 @@
     - { role: spotify, tags: ['spotify'] }
     - { role: nextcloud, tags: ['nextcloud'] }
     - { role: macspoof, tags: ['macspoof'], when: "system.macspoof == 'enabled'"}
-    - { role: sound, tags : ['sound'] }
-    - { role: mail, tags : ['mail'] }
-    - { role: photography, tags : ['photography'] }
-    - { role: messengers, tags : ['messengers'] }
-    - { role: teamspeak3, tags : ['teamspeak3'] }
-    - { role: development, tags : ['development'] }
-    - { role: games, tags : ['games'] }
+    - { role: sound, tags: ['sound'] }
+    - { role: mail, tags: ['mail'] }
+    - { role: photography, tags: ['photography'] }
+    - { role: messengers, tags: ['messengers'] }
+    - { role: teamspeak3, tags: ['teamspeak3'] }
+    - { role: development, tags: ['development'] }
+    - { role: games, tags: ['games'] }

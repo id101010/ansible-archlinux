@@ -1,4 +1,4 @@
 ---
 
 - name: restart geoclue
-  service: name=geoclue state=restarted
+  ansible.builtin.service: name=geoclue state=restarted

@@ -1,7 +1,7 @@
 ---
 
 - name: Install bluetooth tools
-  package:
+  ansible.builtin.package:
     name:
       - blueman
     state: present
@@ -11,7 +11,7 @@
   delay: 2
 
 - name: Enable Bluetooth service
-  service: 
+  ansible.builtin.service:
     name: bluetooth
     state: started
-    enabled: yes
+    enabled: true

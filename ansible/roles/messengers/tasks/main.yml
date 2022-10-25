@@ -1,7 +1,7 @@
 ---
 - name: Install signal-desktop and discord
   pacman:
-    name: 
+    name:
       - signal-desktop
       - discord
     state: present
@@ -9,4 +9,3 @@
   until: task_result is success
   retries: 10
   delay: 2
-

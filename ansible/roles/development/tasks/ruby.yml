@@ -1,5 +1,5 @@
 - name: download rvm script
-  uri:
+  ansible.builtin.uri:
     url: https://get.rvm.io
     dest: /tmp/rvm-install
     owner: "{{ user.name }}"
@@ -8,8 +8,12 @@
 
 - name: install rvm
   become_user: "{{ user.name }}"
-  command: "/tmp/rvm-install"
+  ansible.builtin.command: "/tmp/rvm-install"
+  register: rvm_install
+  changed_when: rvm_install.rc != 0
 
 - name: install ruby 2.7
   become_user: "{{ user.name }}"
-  command: "/home/{{ user.name }}/.rvm/bin/rvm install 2.7"
+  ansible.builtin.command: "/home/{{ user.name }}/.rvm/bin/rvm install 2.7"
+  register: ruby_install
+  changed_when: ruby_install.rc != 0
