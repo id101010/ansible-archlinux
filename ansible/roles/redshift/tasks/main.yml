@@ -1,7 +1,9 @@
 ---
 
 - name: Install RedShift and dependencies
-  pacman: name={{ item }} state=present
+  pacman:
+    name: "{{ item }}"
+    state: present
   with_items:
     - librsvg
     - python-gobject
@@ -12,31 +14,8 @@
   retries: 10
   delay: 2
 
-- name: Jail RedShift
-  file: src=/usr/bin/firejail
-        dest=/usr/local/bin/redshift
-        state=link
-  tags:
-    - firejail
-
-- name: Jail RedShift GTK
-  file: src=/usr/bin/firejail
-        dest=/usr/local/bin/redshift-gtk
-        state=link
-  tags:
-    - firejail
-
-- name: Apply redshift firejail profile
-  copy:
-    src: redshift.profile
-    dest: /usr/local/etc/firejail/redshift.profile
-  notify:
-    - activate profile
-  tags:
-    - firejail
-
 - name: Allow RedShift to access geoclue
-  blockinfile:
+  ansible.builtin.blockinfile:
     dest: /etc/geoclue/geoclue.conf
     block: |
       [redshift]
@@ -47,14 +26,13 @@
     - restart geoclue
 
 - name: Enable geoclue service
-  service:
+  ansible.builtin.service:
     name: geoclue
     state: started
-    enabled: yes
+    enabled: true
 
 - name: Enable avahi daemon
-  service:
+  ansible.builtin.service:
     name: avahi-daemon
     state: started
-    enabled: yes
-
+    enabled: true

@@ -6,10 +6,10 @@
     - rkhunter propupdate
 
 - name: Create systemd unit for macchanger
-  copy: src=macspoof@.service dest=/etc/systemd/system/
+  ansible.builtin.copy: src=macspoof@.service dest=/etc/systemd/system/
 
 - name: Enable macspoof for all interfaces
-  service: name=macspoof@{{ item }}.service enabled=yes
+  ansible.builtin.service: name=macspoof@{{ item }}.service enabled=true
   with_items:
     - "{{ ansible_interfaces }}"
   when: item != 'lo'

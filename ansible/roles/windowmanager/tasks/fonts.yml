@@ -2,27 +2,28 @@
 
 - name: install fonts
   pacman:
-    name: "{{ item }}"
+    name:
+      - ttf-dejavu
+      - ttf-liberation
+      - ttf-droid
+      - noto-fonts-emoji
+      - fontconfig
+      - xorg-font-util
+      - ttf-font-awesome
     state: present
-  with_items:
-    - ttf-dejavu
-    - ttf-liberation
-    - ttf-droid
-    - noto-fonts-emoji
-    - fontconfig
-    - xorg-font-utils
   register: task_result
   until: task_result is success
   retries: 10
   delay: 2
 
-- name: install aur fonts using pacaur
+- name: install aur fonts
   aur:
     name: "{{ item }}"
     user: "{{ user.name }}"
   with_items:
     - powerline-fonts-git
     - oh-my-zsh-git
+    - ttf-meslo-nerd-font-powerlevel10k
   register: task_result
   until: task_result is success
   retries: 10

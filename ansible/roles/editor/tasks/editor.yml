@@ -1,0 +1,36 @@
+---
+
+- name: install vim
+  pacman:
+    name: vim
+    state: present
+
+- name: install gruvbox theme
+  aur:
+    name: vim-gruvbox-git
+    user: "{{ user.name }}"
+
+- name: install vscodium
+  aur:
+    name: vscodium-bin
+    user: "{{ user.name }}"
+
+- name: install vscodium extensions
+  ansible.builtin.command: "vscodium --install-extension {{ item }}"
+  become_user: "{{ user.name }}"
+  register: ext_install
+  changed_when: ext_install.rc != 0
+  with_items:
+    - asciidoctor.asciidoctor-vscode
+    - gulajavaministudio.mayukaithemevsc
+    - k--kato.intellij-idea-keybindings
+    - ms-python.python
+    - ms-toolsai.jupyter
+    - ms-toolsai.jupyter-keymap
+    - ms-toolsai.jupyter-renderers
+    - rebornix.ruby
+    - redhat.java
+    - redhat.vscode-yaml
+    - streetsidesoftware.code-spell-checker
+    - waderyan.gitblame
+    - wingrunr21.vscode-ruby

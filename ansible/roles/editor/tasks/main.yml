@@ -1,3 +1,4 @@
 ---
 
-- import_tasks: vim_editor.yml
+- ansible.builtin.import_tasks: editor.yml
+  name: editor

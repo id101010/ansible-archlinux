@@ -2,20 +2,25 @@
 
 - name: Install alsa-utils and pulseaudio tools
   pacman:
-    name: "{{ item }}"
+    name:
+      - alsa-utils
+      - pulseaudio
+      - pulseaudio-alsa
+      - pavucontrol
     state: present
   register: task_result
   until: task_result is success
   retries: 10
   delay: 2
-  with_items:
-    - alsa-utils
-    - pulseaudio
-    - pulseaudio-alsa
-    - pavucontrol
+
+- name: create directory for pulse
+  ansible.builtin.file:
+    path: "/home/{{ user.name }}/.config/pulse"
+    state: directory
+    owner: "{{ user.name }}"
 
 - name: Deploy HiFi pulse audio daemon configuration
-  template:
+  ansible.builtin.template:
     src: daemon.conf.j2
     dest: "/home/{{ user.name }}/.config/pulse/daemon.conf"
   become_user: "{{ user.name }}"

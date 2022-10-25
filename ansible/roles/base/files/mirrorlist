@@ -1,9 +1,14 @@
 ##
 ## Arch Linux repository mirrorlist
-## Filtered by mirror score from mirror status page
-## Generated on 2018-02-01
+## Generated on 2022-05-23
 ##
 
-### Switzerland
+## Switzerland
+Server = http://pkg.adfinis.com/archlinux/$repo/os/$arch
+Server = https://pkg.adfinis.com/archlinux/$repo/os/$arch
+Server = http://mirror.init7.net/archlinux/$repo/os/$arch
+Server = https://mirror.init7.net/archlinux/$repo/os/$arch
+Server = http://mirror.puzzle.ch/archlinux/$repo/os/$arch
 Server = https://mirror.puzzle.ch/archlinux/$repo/os/$arch
-Server = https://pkg.adfinis-sygroup.ch/archlinux/$repo/os/$arch
+Server = https://theswissbay.ch/archlinux/$repo/os/$arch
+Server = https://mirror.ungleich.ch/mirror/packages/archlinux/$repo/os/$arch

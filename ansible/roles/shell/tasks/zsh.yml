@@ -1,5 +1,4 @@
 ---
-
 - name: Install oh-my-zsh-git and optional dependencies from AUR
   aur: name={{ item }} user={{ user.name }}
   with_items:
@@ -11,36 +10,33 @@
   delay: 2
 
 - name: Install ZSH with completion and syntax
-  pacman: name={{ item }} state=present
-  with_items:
-    - zsh
-    - zsh-completions
-    - zsh-syntax-highlighting
+  pacman:
+    name:
+      - zsh
+      - zsh-completions
+      - zsh-syntax-highlighting
+      - zsh-theme-powerlevel10k
+      - zsh-autosuggestions
+    state: present
   register: zshinstall
   until: zshinstall is success
   retries: 10
   delay: 2
   notify: change shell
 
-- name: Push customized agnoster theme
-  copy:
-    src: "custom_agnoster.zsh-theme"
-    dest: "/usr/share/oh-my-zsh/themes/agnoster.zsh-theme"
-  when: omzinstall is changed
-
 - name: Ensure the cache folder with oh-my-zsh subfolder is present
-  file:
+  ansible.builtin.file:
     path: /home/{{ user.name }}/.cache/oh-my-zsh
     owner: "{{ user.name }}"
     group: "{{ user.group }}"
     state: directory
     mode: 0755
-  when: omzinstall is changed
+  when: omzinstall is changed # noqa: no-handler
 
 - name: Ensure the last working dir file for oh-my-zsh is present
-  file:
+  ansible.builtin.file:
     path: /home/{{ user.name }}/.cache/oh-my-zsh/last-working-dir
     owner: "{{ user.name }}"
     group: "{{ user.group }}"
     state: touch
-  when: omzinstall is changed
+  when: omzinstall is changed # noqa: no-handler

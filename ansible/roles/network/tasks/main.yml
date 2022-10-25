@@ -1,21 +1,30 @@
 ---
 
 - name: Install network tools
-  package:
+  ansible.builtin.package:
     name:
       - ethtool
       - wpa_supplicant
-      - wpa_actiond
       - netctl
       - dhcpcd
       - nmap
+      - networkmanager
+      - network-manager-applet
+      - networkmanager-openconnect
+      - networkmanager-openvpn
     state: present
   register: task_result
   until: task_result is success
   retries: 10
   delay: 2
   notify:
-      - rkhunter propupdate
+    - rkhunter propupdate
 
 - name: Enable dhcp service
-  service: name=dhcpcd state=started enabled=yes
+  ansible.builtin.service: name=dhcpcd state=started enabled=true
+
+- name: Enable NetworkManager service
+  ansible.builtin.service:
+    name: NetworkManager
+    state: started
+    enabled: true

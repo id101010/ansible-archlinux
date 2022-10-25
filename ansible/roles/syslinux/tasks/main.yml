@@ -11,11 +11,11 @@
   when: bootloader == "syslinux"
 
 - name: Copy splash image into place
-  copy:
+  ansible.builtin.copy:
     src: splash.png
     dest: /boot/syslinux/
 
 - name: Generate and push syslinux configuration
-  template:
+  ansible.builtin.template:
     src: syslinux.cfg.j2
     dest: /boot/syslinux/syslinux.cfg

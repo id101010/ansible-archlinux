@@ -5,9 +5,9 @@
     name:
       - xorg
       - xorg-xinit
-      - i3-wm
+      - i3-gaps
       - i3lock
-      - i3status-rs
+      - i3status-rust
       - dmenu
       - feh
       - dunst
@@ -30,16 +30,22 @@
   with_items:
     - i3lock-fancy-dualmonitors-git
     - glitchlock
-
-# Compton does not work with xsetroot
-- name: install hsetroot from aur
-  aur:
-    name: hsetroot
-    user: "{{ user.name }}"
+    - rofi-power-menu
 
 - name: create i3wm configuration directory and util subdirectory
-  file:
+  ansible.builtin.file:
     name: /home/{{ user.name }}/.i3/util
     state: directory
     owner: "{{ user.name }}"
     group: "{{ user.group }}"
+
+- name: copy X11 config
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: /etc/X11/xorg.conf.d/
+    owner: root
+    group: root
+  with_items:
+    - 00-keyboard.conf
+    - 50-mouse-acceleration.conf
+    - 50-mouse-deceleration.conf

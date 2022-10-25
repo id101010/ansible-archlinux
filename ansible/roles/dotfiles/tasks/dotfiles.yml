@@ -11,13 +11,18 @@
     - aur
 
 - name: Clone user dotfiles
-  git: repo={{ dotfiles.url }} dest=/home/{{ user.name }}/{{ dotfiles.destination }} accept_hostkey=yes update=yes force=yes
+  ansible.builtin.git:
+    repo: "{{ dotfiles.url }}"
+    dest: /home/{{ user.name }}/{{ dotfiles.destination }}
+    accept_hostkey: true
+    update: true
+    force: true
   when: dotfiles.installation == "true"
-  become: yes
+  become: true
   become_user: "{{ user.name }}"
 
 - name: Install user dotfiles
-  command: "rcup -d /home/{{ user.name }}/{{ dotfiles.destination }} {{ dotfiles.rcup_flags }}"
+  ansible.builtin.command: "rcup -d /home/{{ user.name }}/{{ dotfiles.destination }} {{ dotfiles.rcup_flags }}"
   when: dotfiles.installation == "true"
-  become: yes
+  become: true
   become_user: "{{ user.name }}"

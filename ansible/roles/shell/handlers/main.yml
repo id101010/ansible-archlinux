@@ -1,4 +1,4 @@
 ---
 
 - name: change shell
-  user: name={{ user.name }} shell={{ user.shell }}
+  ansible.builtin.package: name={{ user.name }} shell={{ user.shell }}

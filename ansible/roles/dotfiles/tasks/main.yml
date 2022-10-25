@@ -1,3 +1,4 @@
 ---
 
-- import_tasks: dotfiles.yml
+- ansible.builtin.import_tasks: dotfiles.yml
+  name: dotfiles
