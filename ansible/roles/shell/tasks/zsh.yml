@@ -16,6 +16,7 @@
       - zsh-completions
       - zsh-syntax-highlighting
       - zsh-theme-powerlevel10k
+      - zsh-autosuggestions
     state: present
   register: zshinstall
   until: zshinstall is success
@@ -39,11 +40,3 @@
     group: "{{ user.group }}"
     state: touch
   when: omzinstall is changed # noqa: no-handler
-
-- name: Install zsh-autosuggestions
-  ansible.builtin.git:
-    repo: https://github.com/zsh-users/zsh-autosuggestions
-    dest: "/usr/share/oh-my-zsh/custom/plugins/zsh-autosuggestions"
-    accept_hostkey: true
-    update: true
-    force: true
