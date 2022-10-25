@@ -1,4 +1,0 @@
----
-- name: install java
-  pacman:
-    name: jdk11-openjdk

@@ -20,19 +20,19 @@
     name: ntpd
     state: stopped
     enabled: true
-  when: install is changed
+  when: install is changed # noqa: no-handler
 
 - name: Sync time with swiss ntp metas atomic clock
   ansible.builtin.command: ntpdate ntp.metas.ch
-  when: install is changed
+  when: install is changed # noqa: no-handler
 
 - name: Start ntpd back up
   ansible.builtin.service:
     name: ntpd
     state: started
     enabled: true
-  when: install is changed
+  when: install is changed # noqa: no-handler
 
 - name: Sync time to hwclock
   ansible.builtin.command: hwclock --systohc
-  when: install is changed
+  when: install is changed # noqa: no-handler

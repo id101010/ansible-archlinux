@@ -30,7 +30,7 @@
     group: "{{ user.group }}"
     state: directory
     mode: 0755
-  when: omzinstall is changed
+  when: omzinstall is changed # noqa: no-handler
 
 - name: Ensure the last working dir file for oh-my-zsh is present
   ansible.builtin.file:
@@ -38,7 +38,7 @@
     owner: "{{ user.name }}"
     group: "{{ user.group }}"
     state: touch
-  when: omzinstall is changed
+  when: omzinstall is changed # noqa: no-handler
 
 - name: Install zsh-autosuggestions
   ansible.builtin.git:
