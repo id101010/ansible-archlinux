@@ -1,6 +1,6 @@
 # Arch installation guide covering the following topics
 * GPT partition UEFI mode installation
-* Full disk encryption 
+* Full disk encryption
 * EFI boot using GRUB
 * LVM on LUKS partition scheme
 * Minimal system configuration including intel-ucode or amd-ucode update
@@ -26,7 +26,7 @@
 ```
 ## 1. Create a bootable install medium
 
-Get the latest iso and checksums from a fast mirror. 
+Get the latest iso and checksums from a fast mirror.
 ```bash
 $ wget https://mirror.puzzle.ch/archlinux/iso/latest/archlinux-$(date +%Y.%m.%d)-x86_64.iso archlinux.iso
 $ wget https://mirror.puzzle.ch/archlinux/iso/latest/md5sums.txt
@@ -60,7 +60,7 @@ $ timedatectl status
 ```
 
 ## 2. Create disk layout
-Create partitions according to the partitioning scheme above. 
+Create partitions according to the partitioning scheme above.
 Use a gpt partition table. And do not forget to set the correct partition types.
 ```bash
 $ fdisk /dev/sda
@@ -124,14 +124,14 @@ If the output looks like this you're good to go.
 ```
 NAME           MAJ:MIN RM   SIZE RO TYPE  MOUNTPOINT
 loop0            7:0    0 347.9M  1 loop  /run/archiso/sfs/airootfs
-sdb              8:32   1   3.8G  0 disk  
-├─sdb2           8:34   1    40M  0 part  
+sdb              8:32   1   3.8G  0 disk
+├─sdb2           8:34   1    40M  0 part
 └─sdb1           8:33   1   797M  0 part  /run/archiso/bootmnt
-sda              8:0    0 931.5G  0 disk  
+sda              8:0    0 931.5G  0 disk
 ├─sda1           8:1    0   512M  0 part  /mnt/boot/efi
 ├─sda2           8:2    0   200M  0 part  /mnt/boot
-└──sda3          8:3    0   800G  0 part  
-  └─cryptlvm   254:1    0   800G  0 crypt 
+└──sda3          8:3    0   800G  0 part
+  └─cryptlvm   254:1    0   800G  0 crypt
     ├─vg0-swap 254:2    0    16G  0 lvm   [SWAP]
     └─vg0-root 254:3    0   784G  0 lvm   /mnt
 ```
@@ -199,15 +199,15 @@ $ mkinitcpio -p linux
 
 ## 4. Install and configure bootloader
 Change or add the following lines to your grub bootloader config.
-To determine the UUID of your root device use `blkid /dev/sda3 -s UUID -o value` as stated below.
-But please enter a valid UUID. And **do not** confuse `blkid` with `blkdiscard`!
+To determine the UUID of your root device use `blkid /dev/sda3 -s UUID -o value`.
+
 ```bash
-GRUB_ENABLE_CRYPTODISK=y" >> /etc/default/grub
+GRUB_ENABLE_CRYPTODISK=y
 GRUB_CMDLINE_LINUX_DEFAULT="quiet"
-GRUB_CMDLINE_LINUX="cryptdevice=UUID=$(blkid /dev/sda3 -s UUID -o value):vg0 root=/dev/mapper/vg0-root resume=/dev/mapper/vg0-swap"
+GRUB_CMDLINE_LINUX="cryptdevice=UUID="YOUR_ROOT_UUID":vg0 root=/dev/mapper/vg0-root resume=/dev/mapper/vg0-swap"
 ```
 
-I strongly recomment to install microcode updates for security reasons.
+I strongly recommend to install microcode updates for security reasons.
 Grub will automatically recognize the image so no further configuration is necessary.
 Choose accordingly.
 ```bash
