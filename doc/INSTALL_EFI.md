@@ -79,13 +79,15 @@ Create a fat32 filesystem on the EFI partition.
 $ mkfs.fat -F32 -n EFI /dev/sda1
 ```
 
-Create a ext2 filesystem on the boot parition
+Create a ext2 filesystem on the boot parition.
 ```bash
 $ mkfs.ext2 -L boot /dev/sda2
 ```
 
 Create an encrypted container containing the logical volumes /root and swap. Set a safe passphrase.
-The default cipher for LUKS is nowadays aes-xts-plain64, i.e. AES as cipher and XTS as mode of operation. This should be changed only under very rare circumstances. The default is a very reasonable choice security wise and by far the best choice performance wise that can deliver between 2-3 GiB/s encryption/decryption speed on CPUs with AES-NI. XTS uses two AES keys, hence possible key sizes are -s 256 and -s 512.
+The default cipher for LUKS is nowadays aes-xts-plain64, i.e. AES as cipher and XTS as mode of operation.
+This should be changed only under very rare circumstances.
+The default is a very reasonable choice security wise and by far the best choice performance wise that can deliver between 2-3 GiB/s encryption/decryption speed on CPUs with AES-NI. XTS uses two AES keys, hence possible key sizes are -s 256 and -s 512.
 ```bash
 $ cryptsetup luksFormat --type luks2 -c aes-xts-plain64 -s 512 /dev/sda3
 $ cryptsetup open /dev/sda3 cryptlvm
@@ -104,10 +106,8 @@ $ mkswap /dev/mapper/vg0-swap
 Mount everything on the live system.
 ```bash
 $ mount /dev/mapper/vg0-root /mnt
-$ mkdir /mnt/boot
-$ mount /dev/sda2 /mnt/boot
-$ mkdir /mnt/boot/efi
-$ mount /dev/sda1 /mnt/boot/efi
+$ mount --mkdir /dev/sda2 /mnt/boot
+$ mount --mkdir /dev/sda1 /mnt/boot/efi
 ```
 
 Activate the swap partition.
