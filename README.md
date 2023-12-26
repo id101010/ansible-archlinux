@@ -20,12 +20,14 @@ will only get installed if the `dotfiles` variable is defined.
 You can eighter install your own minimal system or you follow the instructions
 provided in the two installation guides below.
 
-* [INSTALL\_BIOS](/doc/INSTALL_BIOS.md)
-to setup a LVM on LUKS system using syslinux in MBR BIOS boot mode.
 * [INSTALL\_EFI](/doc/INSTALL_EFI.md)
 to setup a LVM on LUKS system using grub2 in GPT EFI boot mode.
+* [INSTALL\_BIOS](/doc/INSTALL_BIOS.md)
+to setup a LVM on LUKS system using syslinux in MBR BIOS boot mode.
 
 The Ansible playbook does not depend on any specific installation method.
+If you are unsure which BIOS mode to chose, go for UEFI as this is how it's
+done on modern systems.
 
 ## How to run the ansible playbook after the initial installtion
 First install ansible
