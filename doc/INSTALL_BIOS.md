@@ -1,8 +1,7 @@
-# Arch installation guide covering the following topics 
+# Arch installation guide covering the following topics
 * MBR partition BIOS Mode installation
 * Full disk encryption using dm-crypt/LUKS
 * LVM on LUKS
-* Lightweight Sysliux Bootloader
 * Minimal system configuration including intel-ucode updates
 
 ## Table of contents
@@ -30,7 +29,7 @@
 Get the latest iso and checksums from a mirror near you. The recommended mirror
 below is maintained by me and located in a datacenter based in switzerland.
 Since new isos are not built on a daily basis, you may need to choose the
-newest iso yourself. 
+newest iso yourself.
 
 ```bash
 $ wget https://mirror.puzzle.ch/archlinux/iso/latest/archlinux-$(date +%Y.%m.%d)-x86_64.iso archlinux.iso
@@ -71,7 +70,8 @@ parition table.
 $ fdisk /dev/sda
 ```
 
-Create a partition table that looks like the following example
+Create a partition table that looks like the following example. Don't forget to
+set the boot flag.
 ```
 Disk /dev/sda: 477 GiB, 512110190592 bytes, 1000215216 sectors
 Units: sectors of 1 * 512 = 512 bytes
@@ -82,14 +82,12 @@ Disk identifier: 0x971ef2ea
 
 Device     Boot   Start        End   Sectors  Size Id Type
 /dev/sda1  *       2048    2099199   2097152    1G 83 Linux
-/dev/sda2       2099200 1000215215 998116016  476G 83 Linux
+/dev/sda2       2099200 1000215215 998116016  476G 83 Linux LVM
 ```
 
-Now create a filesystem on the /boot partition. Syslinux needs the 64bit option
-of ext4 to be disabled since it can only handle 32bit block sizes. You don't want a 16TiB boot partition anyway. Make sure to set the option right otherwise your
-bootloader won't load.
+Now create a filesystem on the /boot partition.
 ```bash
-mkfs.ext4 -L boot -O '^64bit' /dev/sda1
+mkfs.ext4 -L boot /dev/sda1
 ```
 
 Create an encrypted container containing the logical volumes /root and swap. Make sure to use a safe passphrase.
@@ -100,15 +98,14 @@ $ pvcreate /dev/mapper/cryptlvm
 $ vgcreate vg0 /dev/mapper/cryptlvm
 $ lvcreate -L 16G vg0 -n swap # This should be at least the size of your RAM if you want hybernation to work
 $ lvcreate -l 100%FREE vg0 -n root
-$ mkfs.ext4 /dev/mapper/vg0-root
-$ mkswap /dev/mapper/vg0-swap
+$ mkfs.ext4 -L root /dev/mapper/vg0-root
+$ mkswap -L swap /dev/mapper/vg0-swap
 ```
 
 Mount everything on the live system.
 ```bash
-$ mkdir /mnt/boot
 $ mount /dev/mapper/vg0-root /mnt
-$ mount /dev/sda1 /mnt/boot
+$ mount --mkdir /dev/sda1 /mnt/boot
 ```
 
 Activate the swap partition.
@@ -147,36 +144,7 @@ $ echo 'Server = http://mirror.puzzle.ch/archlinux/$repo/os/$arch' >
 Install the base system, bootloader and some additional components using
 pacstrap.
 ```bash
-$ pacstrap /mnt base base-devel syslinux linux linux-firmware vim git
-```
-
-Install the syslinux bootloader.
-```bash
-$ syslinux-install_update -i -a -m -c /mnt
-```
-
-Edit the `/mnt/boot/syslinux/syslinux.cfg` bootloader configuration to support your cryptlvm. 
-To do this you need to change the `APPEND` lines for the Arch and Archfallback targets. 
-To make sure your system has the right keyboard layout when entering the LUKS key, append a location and language entry to the
-kernel line. The example below uses the Swiss QWERTY layout. If you use an english QWERTZ layout you can omit these entries.
-The Resume statement is used for hibernation. If you don't want this you can omit it as well.
-
-```bash
-...
-
-LABEL arch
-    MENU LABEL Arch Linux
-    LINUX ../vmlinuz-linux
-    APPEND cryptdevice=/dev/sda2:vg0 root=/dev/mapper/vg0-root resume=/dev/mapper/vg0-swap rw lang=en locale=de_CH.UTF-8 quiet splash
-    INITRD ../initramfs-linux.img
-
-LABEL archfallback
-    MENU LABEL Arch Linux Fallback
-    LINUX ../vmlinuz-linux
-    APPEND cryptdevice=/dev/sda2:vg0 root=/dev/mapper/vg0-root resume=/dev/mapper/vg0-swap rw lang=en locale=de_CH.UTF-8 quiet splash
-    INITRD ../initramfs-linux-fallback.img
-
-...
+$ pacstrap -K /mnt base base-devel grub linux linux-firmware lvm2 vim
 ```
 
 Generate fstab using UUIDs as representation.
@@ -194,7 +162,7 @@ $ arch-chroot /mnt
 Set timezone, and hostname and set your hwclock to utc.
 ```bash
 $ ln -sf /usr/share/zoneinfo/Europe/Zurich /etc/localtime
-$ hwclock --systohc --utc
+$ hwclock --systohc
 ```
 
 Configure your locales. Omit the swiss german line if you don't need it.
@@ -202,13 +170,13 @@ Configure your locales. Omit the swiss german line if you don't need it.
 $ echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 $ echo "de_CH.UTF-8 UTF-8" >> /etc/locale.gen
 $ locale-gen
-$ echo "LANG=en_US.UTF-8" >> /etc/locale.conf
-$ echo "LC_ALL=C" >> /etc/locale.conf
+$ locale > /etc/locale.conf
 ```
 
 Set a hostname, keymap and nice console font.
 ```bash
 echo "myhostname" >> /etc/hostname
+echo "127.0.1.1   myhostname.localdomain  myhostname" >> /etc/hosts
 echo "KEYMAP=de_CH-latin1" >> /etc/vconsole.conf # Change to your locale
 echo "FONT=lat9w-16" >> /etc/vconsole.conf
 echo "FONT_MAP=8859-1_to_uni" >> /etc/vconsole.conf
@@ -234,16 +202,26 @@ Install microcode updates. These updates provide bug fixes that can be critical 
 $ pacman -S intel-ucode
 or
 $ pacman -S amd-ucode
-``` 
+```
 
-Edit the `/boot/syslinux/syslinux.cfg` config file. There must be no spaces between the intel-ucode and initramfs-linux initrd files.
-The period signs also do not signify any shorthand or missing code. The INITRD line must be exactly as illustrated below.
+Install the bootloader. (where /dev/sda is a DISK not a PARTITION)
 ```bash
-LABEL arch
-    MENU LABEL Arch Linux
-    LINUX ../vmlinuz-linux
-    INITRD ../{intel||amd}-ucode.img,../initramfs-linux.img # Make sure to choose the right image!
-    APPEND <your kernel parameters>
+$ grub-install --target=i386-pc /dev/sda
+```
+
+Edit the following lines in the `/etc/default/grub` config and generate the config file. The UUID of the root logical volume can be retrieved using `blkid /dev/mapper/vg0-root -s UUID -o value`.
+```bash
+GRUB_DEFAULT=0
+GRUB_TIMEOUT=5
+GRUB_DISTRIBUTOR="Arch Linux"
+GRUB_ENABLE_CRYPTODISK=y
+GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet"
+GRUB_CMDLINE_LINUX="rd.lvm.vg=vg0 rd.luks.uuid=UUID_OF_ROOT_LV"
+```
+
+Generate grub config.
+```bash
+$ grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
 Set a strong root password.
