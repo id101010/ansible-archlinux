@@ -209,14 +209,14 @@ Install the bootloader. (where /dev/sda is a DISK not a PARTITION)
 $ grub-install --target=i386-pc /dev/sda
 ```
 
-Edit the following lines in the `/etc/default/grub` config and generate the config file. The UUID of the root logical volume can be retrieved using `blkid /dev/mapper/vg0-root -s UUID -o value`.
+Edit the following lines in the `/etc/default/grub` config and generate the config file. The UUID of crypt partition can be retrieved using `blkid /dev/sda2 -s UUID -o value`.
 ```bash
 GRUB_DEFAULT=0
 GRUB_TIMEOUT=5
 GRUB_DISTRIBUTOR="Arch Linux"
 GRUB_ENABLE_CRYPTODISK=y
 GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet"
-GRUB_CMDLINE_LINUX="rd.lvm.vg=vg0 rd.luks.uuid=UUID_OF_ROOT_LV"
+GRUB_CMDLINE_LINUX="rd.lvm.vg=vg0 rd.luks.uuid=UUID_OF_CRYPT_PART resume=/dev/mapper/vg0-swap"
 ```
 
 Generate grub config.
