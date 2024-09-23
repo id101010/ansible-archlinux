@@ -49,14 +49,22 @@ Boot and check your internet connection, fix if necessary.
 $ ping google.com
 ```
 
-Enable network time synchronization.
+Enable network time synchronization and check if the time got synchronized.
 ```bash
 $ timedatectl set-ntp true
+$ timedatectl status
 ```
 
-Check if the time got synchronized.
+Change keyboard layout and increase font size if needed.
 ```bash
-$ timedatectl status
+$ setfont sun12x22
+$ loadkeys de_CH-latin1
+```
+
+Check if your system is running in uefi mode.
+```bash
+$ ls /sys/firmware/efi/efivars
+$ efibootmgr
 ```
 
 ## 2. Create disk layout
@@ -70,35 +78,34 @@ The partition table should look like the following example.
 ```
 Number  Start (sector)    End (sector)  Size       Code  Name
    1            2048         1050623   512.0 MiB   EF00  EFI System
-   2         1050624         5244927   2.0 GiB     8300  Linux filesystem
-   3         5244928       976773133   463.3 GiB   8E00  Linux LVM
+   2         1050624       976773133   465.3 GiB   8E00  Linux LVM
 ```
 
-Create a fat32 filesystem on the EFI partition.
-```bash
-$ mkfs.fat -F32 -n EFI /dev/sda1
-```
-
-Create a ext2 filesystem on the boot parition.
-```bash
-$ mkfs.ext2 -L boot /dev/sda2
-```
 
 Create an encrypted container containing the logical volumes /root and swap. Set a safe passphrase.
 The default cipher for LUKS is nowadays aes-xts-plain64, i.e. AES as cipher and XTS as mode of operation.
 This should be changed only under very rare circumstances.
 The default is a very reasonable choice security wise and by far the best choice performance wise that can deliver between 2-3 GiB/s encryption/decryption speed on CPUs with AES-NI. XTS uses two AES keys, hence possible key sizes are -s 256 and -s 512.
 ```bash
-$ cryptsetup luksFormat --type luks2 -c aes-xts-plain64 -s 512 /dev/sda3
-$ cryptsetup open /dev/sda3 cryptlvm
+$ cryptsetup luksFormat --type luks2 -c aes-xts-plain64 -s 512 /dev/sda2
+$ cryptsetup open /dev/sda2 cryptlvm
 ```
 
-Create the logical volumes and filesystems.
+Create a physical volume and a volume group inside the luks container.
 ```bash
 $ pvcreate /dev/mapper/cryptlvm
 $ vgcreate vg0 /dev/mapper/cryptlvm
+```
+
+Create the logical volumes.
+```bash
 $ lvcreate -L 32G vg0 -n swap # This should be at least the size of your RAM if you want hybernation to work
 $ lvcreate -l 100%FREE vg0 -n root
+```
+
+Create the filesystems.
+```bash
+$ mkfs.fat -F32 -n EFI /dev/sda1
 $ mkfs.ext4 /dev/mapper/vg0-root
 $ mkswap /dev/mapper/vg0-swap
 ```
@@ -119,6 +126,8 @@ Check all the filesystems.
 ```bash
 $ lsblk
 ```
+
+TODO --------------------------------------------------------->
 
 If the output looks like this you're good to go.
 ```
