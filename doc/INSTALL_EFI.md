@@ -140,7 +140,7 @@ sda              8:0    0 931.5G  0 disk
 
 Install the base system and some further components using pacstrap.
 ```bash
-$ pacstrap /mnt base base-devel grub efibootmgr lvm2 linux linux-firmware vim
+$ pacstrap -K /mnt base base-devel grub efibootmgr lvm2 linux linux-firmware vim
 ```
 
 Generate fstab with UUID representation.
