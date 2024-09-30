@@ -1,6 +1,6 @@
 # Arch installation guide covering the following topics
 * GPT partition and UEFI mode installation
-* Full disk encryption
+* Full disk encryption (including boot)
 * LVM on LUKS partition scheme
 * Minimal system configuration including intel-ucode or amd-ucode update
 
@@ -191,12 +191,29 @@ Change `/etc/mkinitcpio.conf` to support encryption. You need to change the foll
 HOOKS=(base udev autodetect keyboard keymap consolefont modconf block encrypt lvm2 resume filesystems fsck)
 ```
 
+## 4. Install bootloader
+
+One limitation of this partitioning is that the key to unlock the rootfs needs to be entered twice. Once for grub to fint `/boot` and once for the initramfs.
+There are two solutions to this: The first one is to create a separate, unencrypted `/boot` partition. The second is to embedd a key into your initramfs.
+I choose the second approach as an unencrypted `/boot` poses potential risks to a system. So there are some extra steps we need to take.
+
+Create a keyfile and add it to your LUKS partition.
+```bash
+$ dd bs=512 count=4 if=/dev/random iflag=fullblock | install -m 0600 /dev/stdin /etc/cryptsetup-keys.d/cryptlvm.key
+$ cryptsetup -v luksAddKey /dev/sda2 /etc/cryptsetup-keys.d/cryptlvm.key
+```
+
+Add the key to your initramfs by appending the keyfile to `/etc/mkinicpio.conf`.
+```bash
+FILES=(/etc/cryptsetup-keys.d/cryptlvm.key)
+```
+
 Regenerate the initrd image. And check for errors.
 ```bash
 $ mkinitcpio -p linux
 ```
 
-## 4. Install bootloader
+
 
 Change or add the following lines to your grub config.
 To determine the UUID of your crypto partition use `blkid /dev/sda2 -s UUID -o value`.
@@ -207,7 +224,7 @@ GRUB_TIMEOUT=5
 GRUB_DISTRIBUTOR="Arch Linux"
 GRUB_ENABLE_CRYPTODISK=y
 GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet"
-GRUB_CMDLINE_LINUX="cryptdevice=UUID=YOUR_DEVICE_UUID:cryptlvm root=/dev/mapper/vg0-root resume=/dev/mapper/vg0-swap"
+GRUB_CMDLINE_LINUX="cryptdevice=UUID=YOUR_DEVICE_UUID:cryptlvm root=/dev/mapper/vg0-root cryptkey=rootfs:/etc/cryptsetup-keys.d/cryptlvm.key resume=/dev/mapper/vg0-swap"
 ```
 
 Install GRUB to your EFI Partition
