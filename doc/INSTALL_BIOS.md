@@ -1,26 +1,26 @@
 # Arch installation guide covering the following topics
-* MBR partition BIOS Mode installation
-* Full disk encryption using dm-crypt/LUKS
-* LVM on LUKS
+* MBR partition and BIOS Mode installation
+* Full disk encryption
+* LVM on LUKS partitioning scheme
 * Minimal system configuration including intel-ucode updates
 
 ## Table of contents
 1. Create bootable install medium
 2. Create disk layout
-3. Install base system and bootloader
-4. Chroot into the System and do a minimal configuration
+3. Install base system
+4. Install bootloader
+5. Configure users
 
 ### Disk partition layout:
 ```
-+----------------+-------------------------------------------------+
++----------------+------------------------+------------------------+
 | Boot partition | Logical volume 1       | Logical volume 2       |
 |                |                        |                        |
 | /boot          | [SWAP]                 | /                      |
 |                |                        |                        |
 |                | /dev/mapper/vg0-swap   | /dev/mapper/vg0-root   |
-| (may be on     |_ _ _ _ _ __ _ _ _ _ _ _|__ _ _ _ _ _ _ _ _ _ _ _|
-| other device)  |                                                 |
-|                |             LUKS encrypted partition            |
+|                +------------------------+------------------------+
+| unencrypted    |             LUKS encrypted partition            |
 | /dev/sda1      |                    /dev/sda2                    |
 +----------------+-------------------------------------------------+
 ```
@@ -129,17 +129,7 @@ sda               8:0    0  477G  0 disk
     └─vg0-root  254:2    0  440G  0 lvm   /mnt
 ```
 
-## 3. Install base system and bootloader
-
-I strongly recommend to select a fast mirror for the base installation. This
-will greatly improve the download speed. Eighter uncomment the server in the
-provided mirrorlist or use the following suggestion.
-
-```bash
-$ rm /etc/pacman.d/mirrorlist
-$ echo 'Server = http://mirror.puzzle.ch/archlinux/$repo/os/$arch' >
-/etc/pacman.d/mirrorlist
-```
+## 3. Install base system
 
 Install the base system, bootloader and some additional components using
 pacstrap.
@@ -151,8 +141,6 @@ Generate fstab using UUIDs as representation.
 ```bash
 $ genfstab -pU /mnt >> /mnt/etc/fstab
 ```
-
-## 4. Chroot into the System and do a minimal configuration
 
 Chroot into your new base system.
 ```bash
@@ -182,22 +170,20 @@ echo "FONT=lat9w-16" >> /etc/vconsole.conf
 echo "FONT_MAP=8859-1_to_uni" >> /etc/vconsole.conf
 ```
 
-Change mkinitcpio.conf to support ext4, lvm2 and encryption.
-You need to add the following:
-* MODULES: ext4
-* HOOKS: encrypt lvm2 resume
-
+Change mkinitcpio.conf to support lvm2 and encryption.
 Eighter edit `/etc/mkinitcpio.conf` by hand or use the following sed commands.
 ```bash
-$ sed -i "s/MODULES=.*/MODULES=(ext4)/g" /etc/mkinitcpio.conf
-$ sed -i "s/HOOKS=.*/HOOKS=(base udev autodetect modconf keyboard block keymap encrypt lvm2 resume filesystems keyboard fsck shutdown)/g" /etc/mkinitcpio.conf
+HOOKS=(base udev autodetect keyboard keymap consolefont modconf block encrypt lvm2 resume filesystems fsck)"
 ```
 
 Regenerate the initrd image.
 ```bash
 $ mkinitcpio -p linux
 ```
-Install microcode updates. These updates provide bug fixes that can be critical to the stability of your system. You need to install the package first and then create a second initrd entry in the bootloader config.
+
+## 4. Install bootloader
+
+Install microcode updates. These updates provide bug fixes that can be critical to the stability of your system. 
 ```bash
 $ pacman -S intel-ucode
 or
@@ -216,13 +202,15 @@ GRUB_TIMEOUT=5
 GRUB_DISTRIBUTOR="Arch Linux"
 GRUB_ENABLE_CRYPTODISK=y
 GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet"
-GRUB_CMDLINE_LINUX="rd.lvm.vg=vg0 rd.luks.uuid=UUID_OF_CRYPT_PART resume=/dev/mapper/vg0-swap"
+GRUB_CMDLINE_LINUX="rd.lvm.vg=vg0 rd.luks.uuid=UUID_OF_CRYPT_PARTITION resume=/dev/mapper/vg0-swap"
 ```
 
 Generate grub config.
 ```bash
 $ grub-mkconfig -o /boot/grub/grub.cfg
 ```
+
+## 5. Configure users
 
 Set a strong root password.
 ```bash

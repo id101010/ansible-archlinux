@@ -1,30 +1,29 @@
 # Arch installation guide covering the following topics
-* GPT partition UEFI mode installation
+* GPT partition and UEFI mode installation
 * Full disk encryption
-* EFI boot using GRUB
 * LVM on LUKS partition scheme
 * Minimal system configuration including intel-ucode or amd-ucode update
 
 ## Table of contents
 1. Create bootable install medium
 2. Create disk layout
-3. Install base system & minimal configuration
-4. Install and configure bootloader
+3. Install base system
+4. Install bootloader
 5. Configure users
 
 ### Disk partition layout:
 ```
-+---------------+----------------+----------------+----------------+
-|ESP partition: |Boot partition: |Volume 1:       |Volume 2:       |
-|               |                |                |                |
-|/boot/efi      |/boot           |root            |swap            |
-|               |                |                |                |
-|               |                |/dev/vg0/root   |/dev/vg0/swap   |
-|/dev/sda1      |/dev/sda2       +----------------+----------------+
-|unencrypted    |Unencrypted     |/dev/sda3 encrypted LVM on LUKS  |
-+---------------+----------------+---------------------------------+
++----------------+-----------------+-----------------+
+| EFI partition: | Volume 1:       | Volume 2:       |
+|                |                 |                 |
+| /boot/efi      | swap            | /               |
+|                |                 |                 |
+|                | /dev/vg0/swap   | /dev/vg0/root   |
+| /dev/sda1      +-----------------+-----------------+
+| unencrypted    | /dev/sda2 encrypted LVM on LUKS   |
++----------------+-----------------------------------+
 ```
-## 1. Create a bootable install medium
+## 1. Create bootable install medium
 
 Get the latest iso and checksums from a fast mirror.
 ```bash
@@ -68,6 +67,7 @@ $ efibootmgr
 ```
 
 ## 2. Create disk layout
+
 Create partitions according to the partitioning scheme above.
 Use a gpt partition table. And do not forget to set the correct partition types.
 ```bash
@@ -80,7 +80,6 @@ Number  Start (sector)    End (sector)  Size       Code  Name
    1            2048         1050623   512.0 MiB   EF00  EFI System
    2         1050624       976773133   465.3 GiB   8E00  Linux LVM
 ```
-
 
 Create an encrypted container containing the logical volumes /root and swap. Set a safe passphrase.
 The default cipher for LUKS is nowadays aes-xts-plain64, i.e. AES as cipher and XTS as mode of operation.
@@ -106,14 +105,13 @@ $ lvcreate -l 100%FREE vg0 -n root
 Create the filesystems.
 ```bash
 $ mkfs.fat -F32 -n EFI /dev/sda1
-$ mkfs.ext4 /dev/mapper/vg0-root
-$ mkswap /dev/mapper/vg0-swap
+$ mkfs.ext4 -L root /dev/mapper/vg0-root
+$ mkswap -L swap /dev/mapper/vg0-swap
 ```
 
 Mount everything on the live system.
 ```bash
 $ mount /dev/mapper/vg0-root /mnt
-$ mount --mkdir /dev/sda2 /mnt/boot
 $ mount --mkdir /dev/sda1 /mnt/boot/efi
 ```
 
@@ -127,29 +125,22 @@ Check all the filesystems.
 $ lsblk
 ```
 
-TODO --------------------------------------------------------->
-
 If the output looks like this you're good to go.
-```
+```bash
 NAME           MAJ:MIN RM   SIZE RO TYPE  MOUNTPOINT
-loop0            7:0    0 347.9M  1 loop  /run/archiso/sfs/airootfs
-sdb              8:32   1   3.8G  0 disk
-├─sdb2           8:34   1    40M  0 part
-└─sdb1           8:33   1   797M  0 part  /run/archiso/bootmnt
 sda              8:0    0 931.5G  0 disk
 ├─sda1           8:1    0   512M  0 part  /mnt/boot/efi
-├─sda2           8:2    0   200M  0 part  /mnt/boot
-└──sda3          8:3    0   800G  0 part
+└─sda2           8:3    0   800G  0 part
   └─cryptlvm   254:1    0   800G  0 crypt
-    ├─vg0-swap 254:2    0    16G  0 lvm   [SWAP]
+    ├─vg0-swap 254:2    0    32G  0 lvm   [SWAP]
     └─vg0-root 254:3    0   784G  0 lvm   /mnt
 ```
 
-## 3. Install base system & minimal configuration
+## 3. Install base system
 
 Install the base system and some further components using pacstrap.
 ```bash
-$ pacstrap /mnt base base-devel grub-efi-x86_64 efibootmgr lvm2 linux linux-firmware vim
+$ pacstrap /mnt base base-devel grub efibootmgr lvm2 linux linux-firmware vim
 ```
 
 Generate fstab with UUID representation.
@@ -185,6 +176,7 @@ $ echo "LC_ALL=C" >> /etc/locale.conf
 Set a hostname, keymap and nice console font.
 ```bash
 $ echo "myhostname" > /etc/hostname
+$ echo "127.0.1.1 myhostname.localdomain myhostname" >> /etc/hosts
 $ echo "KEYMAP=de_CH-latin1" >> /etc/vconsole.conf
 $ echo "FONT=lat9w-16" >> /etc/vconsole.conf
 $ echo "FONT_MAP=8859-1_to_uni" >> /etc/vconsole.conf
@@ -197,8 +189,7 @@ $ passwd
 
 Change mkinitcpio.conf to support encryption. You need to change the following lines.
 ```bash
-MODULES=(ext4)
-HOOKS=(base udev autodetect keyboard keymap consolefont modconf block encrypt lvm2 filesystems fsck)
+HOOKS=(base udev autodetect keyboard keymap consolefont modconf block encrypt lvm2 resume filesystems fsck)
 ```
 
 Regenerate the initrd image. And check for errors.
@@ -206,30 +197,41 @@ Regenerate the initrd image. And check for errors.
 $ mkinitcpio -p linux
 ```
 
-## 4. Install and configure bootloader
-Change or add the following lines to your grub bootloader config.
-To determine the UUID of your root device use `blkid /dev/sda3 -s UUID -o value`.
+## 4. Install bootloader
+
+Install GRUB to your EFI Partition
+```bash
+$ grub-install --target=x86_64-efi --efi-directory=/boot/efi
+```
+
+Change or add the following lines to your grub config.
+To determine the UUID of your crypto partition use `blkid /dev/sda2 -s UUID -o value`.
 
 ```bash
+GRUB_DEFAULT=0
+GRUB_TIMEOUT=5
+GRUB_DISTRIBUTOR="Arch Linux"
 GRUB_ENABLE_CRYPTODISK=y
-GRUB_CMDLINE_LINUX_DEFAULT="quiet"
-GRUB_CMDLINE_LINUX="cryptdevice=UUID="YOUR_ROOT_UUID":vg0 root=/dev/mapper/vg0-root resume=/dev/mapper/vg0-swap"
+GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet"
+GRUB_CMDLINE_LINUX="rd.lvm.vg=vg0 rd.luks.uuid=UUID_OF_CRYPT_PARTITION resume=/dev/mapper/vg0-swap"
 ```
 
 I strongly recommend to install microcode updates for security reasons.
 Grub will automatically recognize the image so no further configuration is necessary.
-Choose accordingly.
 ```bash
 $ pacman -S intel-ucode # for intel processors
+or
 $ pacman -S amd-ucode # for amd processors
 ```
 
-Install grub to your disk, install its efi magic and write its config.
-If you want grub to detect other os'es on your system, install the `os-prober` package.
-But be aware that grub in efi mode will **not** detect non-uefi systems. There is no workaround as of yet.
+Generate grub config.
 ```bash
-$ grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=ArchLinux
 $ grub-mkconfig -o /boot/grub/grub.cfg
+```
+
+Set a strong root password.
+```bash
+$ passwd
 ```
 
 ## 5. Configure users
