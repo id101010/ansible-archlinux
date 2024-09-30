@@ -169,8 +169,7 @@ Configure your locales.
 $ echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 $ echo "de_CH.UTF-8 UTF-8" >> /etc/locale.gen
 $ locale-gen
-$ echo "LANG=en_US.UTF-8" >> /etc/locale.conf
-$ echo "LC_ALL=C" >> /etc/locale.conf
+$ locale > /etc/locale.conf
 ```
 
 Set a hostname, keymap and nice console font.
@@ -187,7 +186,7 @@ Set a strong root password.
 $ passwd
 ```
 
-Change mkinitcpio.conf to support encryption. You need to change the following lines.
+Change mkinitcpio.conf to support encryption. You need to change the following line.
 ```bash
 HOOKS=(base udev autodetect keyboard keymap consolefont modconf block encrypt lvm2 resume filesystems fsck)
 ```
