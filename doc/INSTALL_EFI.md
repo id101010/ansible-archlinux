@@ -193,9 +193,11 @@ HOOKS=(base udev autodetect keyboard keymap consolefont modconf block encrypt lv
 
 ## 4. Install bootloader
 
-One limitation of this partitioning is that the key to unlock the rootfs needs to be entered twice. Once for grub to fint `/boot` and once for the initramfs.
-There are two solutions to this: The first one is to create a separate, unencrypted `/boot` partition. The second is to embedd a key into your initramfs.
-I choose the second approach as an unencrypted `/boot` poses potential risks to a system. So there are some extra steps we need to take.
+One limitation of this partitioning is that the key to unlock the rootfs needs to be entered twice. Once for grub to find `/boot` and once for the initramfs to access your root.
+There are two solutions to this: 
+- The first one is to create a separate, unencrypted `/boot` partition.
+- The second is to embedd a key into your initramfs.
+I choose the second approach, as an unencrypted `/boot` poses potential risks to a system. So there are some extra steps we need to take.
 
 Create a keyfile and add it to your LUKS partition.
 ```bash
@@ -212,8 +214,6 @@ Regenerate the initrd image. And check for errors.
 ```bash
 $ mkinitcpio -p linux
 ```
-
-
 
 Change or add the following lines to your grub config.
 To determine the UUID of your crypto partition use `blkid /dev/sda2 -s UUID -o value`.
