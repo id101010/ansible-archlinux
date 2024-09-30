@@ -186,7 +186,7 @@ Set a strong root password.
 $ passwd
 ```
 
-Change mkinitcpio.conf to support encryption. You need to change the following line.
+Change `/etc/mkinitcpio.conf` to support encryption. You need to change the following line.
 ```bash
 HOOKS=(base udev autodetect keyboard keymap consolefont modconf block encrypt lvm2 resume filesystems fsck)
 ```
