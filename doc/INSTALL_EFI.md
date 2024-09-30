@@ -207,7 +207,7 @@ GRUB_TIMEOUT=5
 GRUB_DISTRIBUTOR="Arch Linux"
 GRUB_ENABLE_CRYPTODISK=y
 GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet"
-GRUB_CMDLINE_LINUX="rd.lvm.vg=vg0 rd.luks.uuid=UUID_OF_CRYPT_PARTITION resume=/dev/mapper/vg0-swap"
+GRUB_CMDLINE_LINUX="cryptdevice=UUID=YOUR_DEVICE_UUID:cryptlvm root=/dev/mapper/vg0-root resume=/dev/mapper/vg0-swap"
 ```
 
 Install GRUB to your EFI Partition
