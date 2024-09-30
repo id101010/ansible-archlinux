@@ -198,11 +198,6 @@ $ mkinitcpio -p linux
 
 ## 4. Install bootloader
 
-Install GRUB to your EFI Partition
-```bash
-$ grub-install --target=x86_64-efi --efi-directory=/boot/efi
-```
-
 Change or add the following lines to your grub config.
 To determine the UUID of your crypto partition use `blkid /dev/sda2 -s UUID -o value`.
 
@@ -213,6 +208,11 @@ GRUB_DISTRIBUTOR="Arch Linux"
 GRUB_ENABLE_CRYPTODISK=y
 GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet"
 GRUB_CMDLINE_LINUX="rd.lvm.vg=vg0 rd.luks.uuid=UUID_OF_CRYPT_PARTITION resume=/dev/mapper/vg0-swap"
+```
+
+Install GRUB to your EFI Partition
+```bash
+$ grub-install --target=x86_64-efi --efi-directory=/boot/efi
 ```
 
 I strongly recommend to install microcode updates for security reasons.
