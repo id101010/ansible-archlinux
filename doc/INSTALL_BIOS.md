@@ -88,8 +88,9 @@ mkfs.ext4 -L boot /dev/sda1
 ```
 
 Create an encrypted container containing the logical volumes /root and swap. Make sure to use a safe passphrase.
+It is crucial to set the pbkdf to `pbkdf2` as grub does not support argon2d or argon2i so far.
 ```bash
-$ cryptsetup luksFormat --type luks2 -c aes-xts-plain64 -s 512 /dev/sda2
+$ cryptsetup luksFormat --type luks2 --pbkdf pbkdf2 -c aes-xts-plain64 -s 512 /dev/sda2
 $ cryptsetup open /dev/sda2 cryptlvm
 $ pvcreate /dev/mapper/cryptlvm
 $ vgcreate vg0 /dev/mapper/cryptlvm
