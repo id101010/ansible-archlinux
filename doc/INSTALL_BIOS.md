@@ -30,7 +30,6 @@ Get the latest iso and checksums from a mirror near you. The recommended mirror
 below is maintained by me and located in a datacenter based in switzerland.
 Since new isos are not built on a daily basis, you may need to choose the
 newest iso yourself.
-
 ```bash
 $ wget https://mirror.puzzle.ch/archlinux/iso/latest/archlinux-$(date +%Y.%m.%d)-x86_64.iso archlinux.iso
 $ wget https://mirror.puzzle.ch/archlinux/iso/latest/md5sums.txt
@@ -64,14 +63,12 @@ $ timedatectl status
 ```
 
 ## 2. Create disk layout
-Create partitions according to the partitioning scheme above. Use a mbr
-parition table.
+Create partitions according to the partitioning scheme above. Use a mbr parition table.
 ```bash
 $ fdisk /dev/sda
 ```
 
-Create a partition table that looks like the following example. Don't forget to
-set the boot flag.
+Create a partition table that looks like the following example. Don't forget to set the boot flag.
 ```
 Disk /dev/sda: 477 GiB, 512110190592 bytes, 1000215216 sectors
 Units: sectors of 1 * 512 = 512 bytes
@@ -171,9 +168,9 @@ echo "FONT_MAP=8859-1_to_uni" >> /etc/vconsole.conf
 ```
 
 Change mkinitcpio.conf to support lvm2 and encryption.
-Eighter edit `/etc/mkinitcpio.conf` by hand or use the following sed commands.
+Edit `/etc/mkinitcpio.conf` and make sure the hook line looks like this:
 ```bash
-HOOKS=(base udev autodetect keyboard keymap consolefont modconf block encrypt lvm2 resume filesystems fsck)"
+HOOKS=(base udev autodetect keyboard keymap consolefont modconf block encrypt lvm2 resume filesystems fsck)
 ```
 
 Regenerate the initrd image.
