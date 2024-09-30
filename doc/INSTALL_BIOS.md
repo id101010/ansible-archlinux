@@ -187,11 +187,6 @@ or
 $ pacman -S amd-ucode
 ```
 
-Install the bootloader. (where /dev/sda is a DISK not a PARTITION)
-```bash
-$ grub-install --target=i386-pc /dev/sda
-```
-
 Edit the following lines in the `/etc/default/grub` config and generate the config file. The UUID of crypt partition can be retrieved using `blkid /dev/sda2 -s UUID -o value`.
 ```bash
 GRUB_DEFAULT=0
@@ -200,6 +195,11 @@ GRUB_DISTRIBUTOR="Arch Linux"
 GRUB_ENABLE_CRYPTODISK=y
 GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet"
 GRUB_CMDLINE_LINUX="rd.lvm.vg=vg0 rd.luks.uuid=UUID_OF_CRYPT_PARTITION resume=/dev/mapper/vg0-swap"
+```
+
+Install the bootloader. (where /dev/sda is a DISK not a PARTITION)
+```bash
+$ grub-install --target=i386-pc /dev/sda
 ```
 
 Generate grub config.
