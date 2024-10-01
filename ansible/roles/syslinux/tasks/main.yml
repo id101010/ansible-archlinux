@@ -8,7 +8,6 @@
   until: task_result is success
   retries: 10
   delay: 2
-  when: bootloader == "syslinux"
 
 - name: Copy splash image into place
   ansible.builtin.copy:

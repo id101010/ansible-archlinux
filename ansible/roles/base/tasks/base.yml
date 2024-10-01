@@ -40,9 +40,9 @@
   notify:
     - rkhunter propupdate
 
-- name: Install yay as aur helper
+- name: Install paru as aur helper
   aur:
-    name: yay
+    name: paru
     user: "{{ user.name }}"
     skip_pgp: true
   register: task_result

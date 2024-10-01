@@ -1,0 +1,15 @@
+menu:
+  distribution: Arch
+
+kline:
+  root: root=/dev/mapper/vg0-root
+  resume: resume=/dev/mapper/vg0-swap
+  default: loglevel=3 quiet splash
+
+kernel_line_default: "{{ kline.default }}"
+kernel_line: "cryptdevice=UUID={{crypt_uuid}}:cryptlvm {{ kline.root }} {{ kline.resume }}"
+
+splash:
+  path: /boot
+  file: splash.png
+  resulution: 1920x1080x32

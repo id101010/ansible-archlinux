@@ -1,7 +1,0 @@
----
-
-- name: Install spotify from aur
-  aur:
-    name: spotify
-    user: "{{ user.name }}"
-    skip_pgp: true

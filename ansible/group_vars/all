@@ -13,7 +13,7 @@ user:
 # processor type:
 #   Option: "intel" will install microcode updates and configure the bootloader accordingly
 #   Option: "amd" will do the same for amd
-# graphics_card type: 
+# graphics_card type:
 #   Option: "intel" will install intel graphics drivers
 #   Option: "amd" will install amd drivers
 #   Option: "nvidia" will install nouveau because i will NEVER EVER touch those filthy nvidia drivers
@@ -31,7 +31,14 @@ system:
 # ========================
 # syslinux and grub are supported
 ##
-bootloader: syslinux
+bootloader: grub
+
+##
+# Cryptdevice config
+# ========================
+# The device name of your luks device
+##
+cryptdevice: /dev/nvmen1p2
 
 ##
 # Connectivity configuration
@@ -58,21 +65,16 @@ dotfiles:
 # ==========================
 ##
 base_packages:
+    - base
     - base-devel
     - cronie
     - openssh
     - rkhunter
     - zsh
     - htop
-    - nmap
     - curl
     - tmux
     - git
     - rsync
     - coreutils
     - dateutils
-    - bc
-    - strace
-    - lsof
-    - sysstat
-    - tig

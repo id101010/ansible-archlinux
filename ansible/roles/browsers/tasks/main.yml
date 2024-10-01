@@ -2,17 +2,10 @@
 
 - name: Install w3m
   pacman: name=w3m state=present
+  tags:
+    - w3m
 
 - name: Install firefox
   pacman: name=firefox state=present
   tags:
     - firefox
-
-- name: Install tor-browser
-  aur:
-    name: tor-browser
-    user: "{{ user.name }}"
-    skip_pgp: true
-  tags:
-    - tor-browser
-    - aur

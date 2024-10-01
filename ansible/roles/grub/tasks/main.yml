@@ -2,4 +2,23 @@
 
 - name: Install grub bootloader and tools
   pacman: name=grub state=present
-  when: bootloader == "grub"
+
+- name: Determine cryptdevice uuid
+  ansible.builtin.command: "blkid -s UUID -o value {{ cryptdevice }}"
+  register: bklid_output
+
+- name: Set uuid fact
+  ansible.builtin.set_fact:
+    crypt_uuid: "{{ blkid_output.stdout }}"
+
+- name: Push grub confi template
+  ansible.builtin.template:
+    src: grub.j2
+    dest: /etc/default/grub
+  notify:
+    - grub update
+
+- name: Install splash image
+  ansible.builtin.copy:
+    src: splash.png
+    dest: "{{ splash.path }}"

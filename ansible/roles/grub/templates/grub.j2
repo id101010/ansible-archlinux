@@ -1,0 +1,11 @@
+#
+# Configuration file for GRUB.
+#
+GRUB_DEFAULT=0
+GRUB_TIMEOUT=5
+GRUB_DISTRIBUTOR="{{ menu.distribution }}"
+GRUB_ENABLE_CRYPTODISK=y
+GRUB_CMDLINE_LINUX="{{ kernel_line}}"
+GRUB_CMDLINE_LINUX_DEFAULT="{{ kernel_line_default }}"
+GRUB_BACKGROUND="{{ splash.path}}/{{ splash.file }}"
+GRUB_GFXMODE="{{ splash.resolution }}"
