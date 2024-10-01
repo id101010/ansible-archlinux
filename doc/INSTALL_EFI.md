@@ -197,6 +197,7 @@ One limitation of this partitioning is that the key to unlock the rootfs needs t
 There are two solutions to this: 
 - The first one is to create a separate, unencrypted `/boot` partition.
 - The second is to embedd a key into your initramfs.
+
 I choose the second approach, as an unencrypted `/boot` poses potential risks to a system. So there are some extra steps we need to take.
 
 Create a keyfile and add it to your LUKS partition.
