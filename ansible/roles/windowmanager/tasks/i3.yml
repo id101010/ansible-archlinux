@@ -19,19 +19,6 @@
   retries: 10
   delay: 2
 
-- name: install i3lock fancy and glitchlock from aur
-  aur:
-    name: "{{ item }}"
-    user: "{{ user.name }}"
-  register: task_result
-  until: task_result is success
-  retries: 10
-  delay: 2
-  with_items:
-    - i3lock-fancy-dualmonitors-git
-    - glitchlock
-    - rofi-power-menu
-
 - name: create i3wm configuration directory and util subdirectory
   ansible.builtin.file:
     name: /home/{{ user.name }}/.i3/util
@@ -39,7 +26,7 @@
     owner: "{{ user.name }}"
     group: "{{ user.group }}"
 
-- name: copy X11 config
+- name: copy X11 configs
   ansible.builtin.copy:
     src: "{{ item }}"
     dest: /etc/X11/xorg.conf.d/
