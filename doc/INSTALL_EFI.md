@@ -196,7 +196,7 @@ HOOKS=(base udev autodetect keyboard keymap consolefont modconf block encrypt lv
 One limitation of this partitioning is that the key to unlock the rootfs needs to be entered twice. Once for grub to find `/boot` and once for the initramfs to access your root.
 There are two solutions to this: 
 - The first one is to create a separate, unencrypted `/boot` partition.
-- The second is to embedd a key into your initramfs.
+- The second is to embed a key into your initramfs.
 
 I choose the second approach, as an unencrypted `/boot` poses potential risks to a system. So there are some extra steps we need to take.
 
