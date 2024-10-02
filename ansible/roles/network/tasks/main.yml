@@ -5,8 +5,6 @@
     name:
       - ethtool
       - wpa_supplicant
-      - netctl
-      - dhcpcd
       - nmap
       - networkmanager
       - network-manager-applet
@@ -19,12 +17,4 @@
   delay: 2
   notify:
     - rkhunter propupdate
-
-- name: Enable dhcp service
-  ansible.builtin.service: name=dhcpcd state=started enabled=true
-
-- name: Enable NetworkManager service
-  ansible.builtin.service:
-    name: NetworkManager
-    state: started
-    enabled: true
+    - enable networkmanager

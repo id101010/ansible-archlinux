@@ -1,4 +1,7 @@
 ---
 
+- name: enable networkmanager
+  ansible.builtin.service: name=NetworkManager.service state=started enabled=true
+
 - name: restart neworkmanager
-  ansible.builtin.service: name=networkmanager.service state=restarted
+  ansible.builtin.service: name=NetworkManager.service state=restarted
