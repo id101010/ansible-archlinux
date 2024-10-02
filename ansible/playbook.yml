@@ -18,7 +18,6 @@
     - { role: terminal, tags: ['terminal'] }
     - { role: windowmanager, tags: ['windowmanager'] }
     - { role: browsers, tags: ['browsers'] }
-    - { role: bluetooth, tags: ['bluetooth'] }
     - { role: redshift, tags: ['redshift'] }
     - { role: keepass, tags: ['keepass'] }
     - { role: macspoof, tags: ['macspoof'], when: "system.macspoof == 'enabled'"}
