@@ -2,6 +2,6 @@
 # Ansible generated
 #
 
-{% for server in mirrors %}
-Server = {{ server }}
+{% for mirror in base_mirrors %}
+Server = {{ mirror }}
 {% endfor %}
