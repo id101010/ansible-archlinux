@@ -9,12 +9,12 @@ will only get installed if the `dotfiles` variable is defined.
 * Full disk encryption
 * LVM on LUKS partitioning scheme
 * A desktop environment consisting of i3gaps, i3status-rust, rofi and picom
+* Simple configuration using `group_vars/all`
 
 ## Additional security features
-* Restrictive and comprahensive iptables rules
-* Use of linux-hardened
+* Minimalism, no bullshit installed
+* Restrictive and comprehensive iptables rules
 * Automatic mac address spoofer for wireless network devices
-* No bullshit installed
 
 ## Install base system
 You can eighter install your own minimal system or you follow the instructions
