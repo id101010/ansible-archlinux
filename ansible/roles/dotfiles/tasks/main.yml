@@ -1,4 +1,5 @@
 ---
 
-- ansible.builtin.import_tasks: dotfiles.yml
-  name: dotfiles
+- name: include dotfiles
+  ansible.builtin.import_tasks: dotfiles.yml
+  when: dotfiles.installation

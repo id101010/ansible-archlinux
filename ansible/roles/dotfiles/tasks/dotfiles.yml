@@ -6,7 +6,6 @@
   until: task_result is success
   retries: 10
   delay: 2
-  when: dotfiles.installation == "true"
   tags:
     - aur
 
@@ -17,12 +16,10 @@
     accept_hostkey: true
     update: true
     force: true
-  when: dotfiles.installation == "true"
   become: true
   become_user: "{{ user.name }}"
 
 - name: Install user dotfiles
   ansible.builtin.command: "rcup -d /home/{{ user.name }}/{{ dotfiles.destination }} {{ dotfiles.rcup_flags }}"
-  when: dotfiles.installation == "true"
   become: true
   become_user: "{{ user.name }}"

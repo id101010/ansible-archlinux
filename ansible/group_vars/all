@@ -57,7 +57,7 @@ ssh:
 # Just set the installation flag to false to avoid an installation
 ##
 dotfiles:
-    installation: "true"
+    installation: true
     url: https://github.com/id101010/dotfiles.git
     destination: .dotfiles
     rcup_flags: -fx README.md
