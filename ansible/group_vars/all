@@ -30,12 +30,14 @@ system:
 # Bootloader configuration
 # ========================
 # syslinux and grub are supported
+# * use syslinux for BIOS/MBR setups
+# * use grub for UEFI/GPT setups
 ##
 bootloader: grub
 
 ##
 # Cryptdevice config
-# ========================
+# ==================
 # The device name of your luks device
 ##
 cryptdevice: /dev/nvmen1p2
