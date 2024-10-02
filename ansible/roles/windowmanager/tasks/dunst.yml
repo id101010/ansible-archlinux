@@ -1,7 +1,7 @@
 ---
 
 - name: install dunst notification server
-  pacman:
+  community.general.pacman:
     name: dunst
     state: present
   register: task_result

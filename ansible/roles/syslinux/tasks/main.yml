@@ -1,7 +1,7 @@
 ---
 
 - name: Install syslinux and tools
-  pacman:
+  community.general.pacman:
     name: syslinux
     state: present
   register: task_result

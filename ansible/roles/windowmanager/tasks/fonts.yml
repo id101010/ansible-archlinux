@@ -1,7 +1,7 @@
 ---
 
 - name: install fonts
-  pacman:
+  community.general.pacman:
     name:
       - ttf-dejavu
       - ttf-liberation

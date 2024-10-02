@@ -1,7 +1,7 @@
 ---
 
 - name: Install linux-hardened and hardened headers
-  pacman:
+  community.general.pacman:
     name:
       - linux-hardened
       - linux-hardened-headers

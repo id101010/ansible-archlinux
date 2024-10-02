@@ -1,7 +1,7 @@
 ---
 
 - name: Install chrony
-  pacman:
+  community.general.pacman:
     name: chrony
     state: present
   register: install

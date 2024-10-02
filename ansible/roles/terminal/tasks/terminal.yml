@@ -1,7 +1,7 @@
 ---
 
 - name: install urxvt terminal emulator
-  pacman:
+  community.general.pacman:
     name: rxvt-unicode
     state: present
   register: task_result
@@ -10,7 +10,7 @@
   delay: 2
 
 - name: install alacritty terminal emulator
-  pacman:
+  community.general.pacman:
     name: "alacritty"
     state: present
   register: task_result
@@ -19,7 +19,7 @@
   delay: 2
 
 - name: install kitty terminal emulator
-  pacman:
+  community.general.pacman:
     name: kitty
     state: present
   register: task_result
@@ -28,7 +28,7 @@
   delay: 2
 
 - name: install tmux terminal multiplexer
-  pacman:
+  community.general.pacman:
     name: tmux
     state: present
   register: task_result

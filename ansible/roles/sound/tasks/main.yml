@@ -1,7 +1,7 @@
 ---
 
 - name: Install alsa-utils and pulseaudio tools
-  pacman:
+  community.general.pacman:
     name:
       - alsa-utils
       - pulseaudio

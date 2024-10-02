@@ -1,7 +1,7 @@
 ---
 
 - name: install i3 windowmanager and components
-  pacman:
+  community.general.pacman:
     name:
       - xorg
       - xorg-xinit

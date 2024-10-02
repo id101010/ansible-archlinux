@@ -1,7 +1,7 @@
 ---
 
 - name: Install grub bootloader and tools
-  pacman: name=grub state=present
+  community.general.pacman: name=grub state=present
 
 - name: Determine cryptdevice uuid
   ansible.builtin.command: "blkid -s UUID -o value {{ cryptdevice }}"

@@ -1,7 +1,7 @@
 ---
 
 - name: Install RedShift and dependencies
-  pacman:
+  community.general.pacman:
     name: "{{ item }}"
     state: present
   with_items:

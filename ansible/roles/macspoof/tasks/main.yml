@@ -1,7 +1,7 @@
 ---
 
 - name: Install macchanger
-  pacman: name=macchanger state=present
+  community.general.pacman: name=macchanger state=present
   notify:
     - rkhunter propupdate
 
