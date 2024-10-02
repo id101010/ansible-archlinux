@@ -1,12 +1,12 @@
 ---
 
-- name: ensure group user.group exists
+- name: Ensure group user.group exists
   ansible.builtin.group:
     name: "{{ user.group }}"
     state: present
   when: user.name is defined
 
-- name: ensure the user user.name exists
+- name: Ensure the user user.name exists
   ansible.builtin.user:
     name: "{{ user.name }}"
     shell: "{{ user.shell }}"

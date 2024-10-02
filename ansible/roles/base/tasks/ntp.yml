@@ -1,38 +1,20 @@
 ---
 
-- name: Install ntp daemon
+- name: Install chrony
   pacman:
-    name: ntp
+    name: chrony
     state: present
   register: install
   until: install is success
   retries: 10
   delay: 2
-  notify: rkhunter propupdate
+  notify: 
+    - rkhunter propupdate
+    - enable chrony
 
-- name: Configure swiss metas atomic clocks
-  ansible.builtin.copy: src=ntp.conf dest=/etc/
+- name: Configure chrony
+  ansible.builtin.copy: 
+  src: chrony.conf
+  dest: /etc/chrony.conf
   notify:
-    - restart ntpd
-
-- name: Make sure ntpd is stopped
-  ansible.builtin.service:
-    name: ntpd
-    state: stopped
-    enabled: true
-  when: install is changed # noqa: no-handler
-
-- name: Sync time with swiss ntp metas atomic clock
-  ansible.builtin.command: ntpdate ntp.metas.ch
-  when: install is changed # noqa: no-handler
-
-- name: Start ntpd back up
-  ansible.builtin.service:
-    name: ntpd
-    state: started
-    enabled: true
-  when: install is changed # noqa: no-handler
-
-- name: Sync time to hwclock
-  ansible.builtin.command: hwclock --systohc
-  when: install is changed # noqa: no-handler
+    - restart chrony

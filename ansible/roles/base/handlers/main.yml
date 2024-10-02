@@ -3,5 +3,8 @@
 - name: rkhunter propupdate
   ansible.builtin.command: rkhunter --propupd
 
-- name: restart ntpd
-  ansible.builtin.service: name=ntpd state=restarted
+- name: restart chrony
+  ansible.builtin.service: name=chrony state=restarted
+
+- name: enable chrony
+  ansible.builtin.serice: name=chrony state=started enabled=true

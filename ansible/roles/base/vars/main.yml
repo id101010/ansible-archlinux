@@ -1,4 +1,4 @@
-mirrors:
+base_mirrors:
   - http://pkg.adfinis.com/archlinux/$repo/os/$arch
   - https://pkg.adfinis.com/archlinux/$repo/os/$arch
   - http://mirror.init7.net/archlinux/$repo/os/$arch
@@ -7,3 +7,5 @@ mirrors:
   - https://mirror.puzzle.ch/archlinux/$repo/os/$arch
   - https://theswissbay.ch/archlinux/$repo/os/$arch
   - https://mirror.ungleich.ch/mirror/packages/archlinux/$repo/os/$arch
+
+base_ntp_server: ntp.metas.ch
