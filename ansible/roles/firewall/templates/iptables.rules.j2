@@ -2,56 +2,19 @@
 
 *filter
 
-:INPUT       DROP
-:FORWARD     DROP
-:OUTPUT      DROP
+:INPUT       DROP [0:0]
+:FORWARD     DROP [0:0]
+:OUTPUT      ACCEPT [0:0]
 
-# Input chain
--A INPUT    -i lo                                     -j ACCEPT
--A INPUT    -p icmp                                   -j ACCEPT
+# input chain
+-A INPUT -i lo -j ACCEPT
+-A INPUT -p icmp -j ACCEPT
 {% if ssh.enable_sshd %}
--A INPUT    -p TCP --dport {{ ssh.port }}             -j ACCEPT
+-A INPUT -p TCP --dport {{ ssh.port }} -j ACCEPT
 {% endif %}
--A INPUT    -m state --state RELATED,ESTABLISHED      -j ACCEPT
--A INPUT    -m state --state NEW,INVALID              -j DROP
-
-# Output chain
--A OUTPUT   -o lo                                     -j ACCEPT
--A OUTPUT   -p icmp                                   -j ACCEPT
--A OUTPUT   -m state --state RELATED,ESTABLISHED      -j ACCEPT
--A OUTPUT   -p TCP --dport ssh                        -j ACCEPT
--A OUTPUT   -p TCP --dport http                       -j ACCEPT
--A OUTPUT   -p TCP --dport https                      -j ACCEPT
--A OUTPUT   -p UDP --dport ntp                        -j ACCEPT
--A OUTPUT   -p UDP --dport domain                     -j ACCEPT
--A OUTPUT   -p TCP --dport domain                     -j ACCEPT
--A OUTPUT   -p TCP --dport 631                        -j ACCEPT
-# Personal Mailserver config
--A OUTPUT   -p TCP --dport 587                        -j ACCEPT
--A OUTPUT   -p TCP --dport 993                        -j ACCEPT
-# Plex Mediaserver
--A OUTPUT   -p TCP --dport 32400                      -j ACCEPT
--A OUTPUT   -p TCP --dport 25271                      -j ACCEPT
--A OUTPUT   -p TCP --dport 8443                       -j ACCEPT
--A OUTPUT   -p TCP --dport 32400                      -j ACCEPT
--A OUTPUT   -p TCP --dport 25271                      -j ACCEPT
--A OUTPUT   -p TCP --dport 8443                       -j ACCEPT
--A OUTPUT   -p TCP --dport 9091                       -j ACCEPT
-# Teamspeak
--A OUTPUT   -p UDP --dport 9987                       -j ACCEPT
-# Factorio
--A OUTPUT   -p UDP --dport 34197                      -j ACCEPT
--A OUTPUT   -p UDP --dport 34397                      -j ACCEPT
--A OUTPUT   -p TCP --dport 41144                      -j ACCEPT
-# GPG Keys
--A OUTPUT   -p TCP --dport 11371                      -j ACCEPT
-
-
-# Logging of droppped packets
--N LOGGING
--A INPUT                                              -j LOGGING
--A OUTPUT                                             -j LOGGING
--A LOGGING -m limit --limit 2/min                     -j LOG --log-prefix "[DROPPED]:" --log-level 4
--A LOGGING                                            -j DROP
+-A INPUT -n conntrack --cstate RELATED,ESTABLISHED -j ACCEPT 
+-A INPUT -p tcp -j REJECT --reject-with tcp-reset
+-A INPUT -p udp -j REJECT --reject-with icmp-port-unreachable
+-A INPUT -j REJECT --reject-with icmp-proto-unreachable
 
 COMMIT

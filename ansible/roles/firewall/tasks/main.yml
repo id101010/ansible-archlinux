@@ -1,17 +1,26 @@
 ---
 
-- name: Apply ipv4 iptables config
-  ansible.builtin.template: src=iptables.rules.j2 dest=/etc/iptables/iptables.rules
+- name: Install iptables
+  community.general.pacman:
+    name: iptables
+    state: present
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
+    - reload iptables
+    - reload ip6tables
+
+- name: Configure ipv4 iptables
+  ansible.builtin.template: 
+    src: iptables.rules.j2 
+    dest: /etc/iptables/iptables.rules
   notify:
-    - restart iptables
+    - start iptables
 
-- name: Enable and start iptables
-  ansible.builtin.service: name=iptables.service enabled=true state=started
-
-- name: Apply ipv6 iptables config
-  ansible.builtin.template: src=ip6tables.rules.j2 dest=/etc/iptables/ip6tables.rules
+- name: Configure ipv6 iptables
+  ansible.builtin.template: 
+    src: ip6tables.rules.j2 
+    dest: /etc/iptables/ip6tables.rules
   notify:
-    - restart ip6tables
-
-- name: Enable and start ip6tables
-  ansible.builtin.service: name=ip6tables.service enabled=true state=started
+    - start ip6tables
