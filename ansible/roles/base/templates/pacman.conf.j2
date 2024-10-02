@@ -1,0 +1,28 @@
+#
+# Ansible generated
+#
+
+# General options
+[options]
+HoldPkg		= pacman glibc
+Architecture 	= auto
+
+# Misc options
+Color
+CheckSpace
+ILoveCandy
+SigLevel	  = Required DatabaseOptional
+LocalFileSigLevel = Optional
+
+# enabled repositories
+[core]
+Include = /etc/pacman.d/mirrorlist
+
+[extra]
+Include = /etc/pacman.d/mirrorlist
+
+[community]
+Include = /etc/pacman.d/mirrorlist
+
+[multilib]
+Include = /etc/pacman.d/mirrorlist

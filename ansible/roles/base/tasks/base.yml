@@ -1,14 +1,17 @@
 ---
 
 - name: Pacman mirrorlist setup
-  ansible.builtin.copy:
-    src: mirrorlist
+  ansible.builtin.template:
+    src: mirrorlist.j2
     dest: /etc/pacman.d/
+    mode: 0644
+    user: root
+    group: root
 
 - name: Pacman config setup
-  ansible.builtin.copy:
-    src: pacman.conf
-    dest: /etc/
+  ansible.builtin.template:
+    src: pacman.conf.j2
+    dest: /etc/pacman.conf
 
 - name: Update pacman package cache
   pacman:
@@ -78,3 +81,6 @@
 
 - name: Enable cronie server
   ansible.builtin.service: name=cronie state=started enabled=true
+
+- name: Enable paccache timer
+  ansible.builtin.service: name=paccache.timer state=started enabled=true
