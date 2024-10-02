@@ -1,6 +1,6 @@
 ---
 
-- name: install dunst notification server
+- name: Install dunst notification server
   community.general.pacman:
     name: dunst
     state: present

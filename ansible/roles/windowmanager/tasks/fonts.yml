@@ -6,24 +6,13 @@
       - ttf-dejavu
       - ttf-liberation
       - ttf-droid
+      - ttf-font-awesome
+      - noto-fonts-cjk
       - noto-fonts-emoji
       - fontconfig
       - xorg-font-util
-      - ttf-font-awesome
+      - powerline-fonts
     state: present
-  register: task_result
-  until: task_result is success
-  retries: 10
-  delay: 2
-
-- name: install aur fonts
-  aur:
-    name: "{{ item }}"
-    user: "{{ user.name }}"
-  with_items:
-    - powerline-fonts-git
-    - oh-my-zsh-git
-    - ttf-meslo-nerd-font-powerlevel10k
   register: task_result
   until: task_result is success
   retries: 10

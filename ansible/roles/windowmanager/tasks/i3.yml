@@ -1,6 +1,6 @@
 ---
 
-- name: install i3 windowmanager and components
+- name: Install i3 windowmanager and components
   community.general.pacman:
     name:
       - xorg
@@ -19,14 +19,7 @@
   retries: 10
   delay: 2
 
-- name: create i3wm configuration directory and util subdirectory
-  ansible.builtin.file:
-    name: /home/{{ user.name }}/.i3/util
-    state: directory
-    owner: "{{ user.name }}"
-    group: "{{ user.group }}"
-
-- name: copy X11 configs
+- name: Copy Xorg mouse configs
   ansible.builtin.copy:
     src: "{{ item }}"
     dest: /etc/X11/xorg.conf.d/

@@ -1,8 +1,10 @@
 ---
 
-- ansible.builtin.import_tasks: dunst.yml
-  name: dunst
-- ansible.builtin.import_tasks: fonts.yml
-  name: fonts
-- ansible.builtin.import_tasks: i3.yml
-  name: i3
+- name: install dunst server
+  ansible.builtin.import_tasks: dunst.yml
+
+- name: install system fonts
+  ansible.builtin.import_tasks: fonts.yml
+
+- name: install i3 window manager
+  ansible.builtin.import_tasks: i3.yml
