@@ -1,9 +1,7 @@
 # Automated ArchLinux
 This ansible playbook automates my personal Arch Linux installation.
 The goal is a fully encrypted and secure desktop system.  All
-dotfiles are kept in an independent repository. They are managed using
-[rcm](https://robots.thoughtbot.com/rcm-for-rc-files-in-dotfiles-repos) and
-will only get installed if the `dotfiles` variable is defined.
+dotfiles are kept in an independent repository. They are managed using by a simple shell script that symlinks them into place and will only get installed if the `dotfiles` variable is defined.
 
 ## Main features of this installation
 * Full disk encryption

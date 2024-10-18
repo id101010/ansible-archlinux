@@ -60,8 +60,7 @@ ssh:
 dotfiles:
     installation: true
     url: https://github.com/id101010/dotfiles.git
-    destination: .dotfiles
-    rcup_flags: -fx README.md
+    destination: "/home/{{ user.name }}/.config/dotfiles"
 
 ##
 # Base package configuration
