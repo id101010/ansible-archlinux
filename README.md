@@ -49,7 +49,7 @@ Lean back and watch the installation.
 Warning, this is kind of buggy. Vagrant looks quite abandoned. Hashicorp does not react to issues.
 I might remove this section soon.
 
-Assuming you've already installed vagrant you can set up a vritual machine with
+Assuming you've already installed vagrant you can set up a virtual machine with
 just these steps
 
 ``` bash
