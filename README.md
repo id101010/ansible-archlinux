@@ -15,7 +15,7 @@ dotfiles are kept in an independent repository. They are managed using by a simp
 * Automatic mac address spoofer for wireless network devices
 
 ## Install base system
-You can eighter install your own minimal system or you follow the instructions
+You can either install your own minimal system or you follow the instructions
 provided in the two installation guides below.
 
 * [INSTALL\_EFI](/doc/INSTALL_EFI.md)
@@ -62,7 +62,7 @@ Now reboot the machine and start a graphical session using virtualbox. The
 default credentials are `user:vagrant pw:vagrant`.  Alternativly you can log
 into your machine using the command `vagrant ssh`.
 
-Hint: To reload the configuration into the vagrant box you can eighter reload
+Hint: To reload the configuration into the vagrant box you can either reload
 (issues a graceful shutdown) the machine using `vagrant reload` or you can
 update and apply the configuration changes using `vagrant rsync && vagrant
 provision`.  This way you don't need to wait for the machine to boot when
